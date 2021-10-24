@@ -16,7 +16,7 @@ import EditProfileButton from "./EditProfileButton";
 import Modal from "react-modal";
 import { fetchLoginUser } from "../../store/auth";
 import FeedCard from "../feedCard";
-import {fetchReviews} from "../../store/reviewActions"
+import { fetchReviews } from "../../store/reviewActions";
 
 Modal.setAppElement("#root");
 
@@ -33,7 +33,7 @@ const SingleUserPage = () => {
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
   const [alreadyFollowed, setAlreadyFollowed] = useState(false);
-  const reviews = useSelector(state=>state.review.reviews)
+  const reviews = useSelector((state) => state.review.reviews);
 
   onAuthStateChanged(auth, (u) => {
     setUser(u);
@@ -74,8 +74,6 @@ const SingleUserPage = () => {
         fol.push(each);
       });
     }
-    
-
 
     // set them in local state
     if (mounted) {
@@ -291,13 +289,12 @@ const SingleUserPage = () => {
             </div>
             <div className="rightBody">
               {Object.keys(reviews).map((id) => (
-                <FeedCard
-                  key={id}
-                  reviewId={id}
-                  review={reviews[id]}
-                  user={user}
-                  loggedInUser={loginUser}
-                />
+                  <FeedCard
+                    reviewId={id}
+                    review={reviews[id]}
+                    user={user}
+                    loggedInUser={loginUser}
+                  />
               ))}
             </div>
             <div className="blank2"></div>
