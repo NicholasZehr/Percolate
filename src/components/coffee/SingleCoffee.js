@@ -25,21 +25,14 @@ class SingleCoffee extends Component {
     } = this.props.singleCoffee;
     return (
       <>
-        <div className="single-coffee">
-          <div className="single-coffee-container">
+        <div className="whole-page">
+          <div className="single-coffee">
             <div className="coffee-title">
               <h2>{name}</h2>
               <h3>{brandName}</h3>
               <hr className="solid" />
             </div>
-            <div className="image-details-row">
-              <div className="single-coffee-image">
-                <img
-                  id="single-coffee-img"
-                  src={coffeePhoto}
-                  alt={`${name} by ${brandName}`}
-                />
-              </div>
+            <div className="single-coffee-container">
               <div className="image-details-row">
                 <div className="single-coffee-image">
                   <img
@@ -48,28 +41,14 @@ class SingleCoffee extends Component {
                     alt={`${name} by ${brandName}`}
                   />
                 </div>
-                <div className="single-coffee-info">
-                  <p>Roast: {roast}</p>
-                  <p>Roasted in {roasterCity}</p>
-                  <p>User Rating: {avgRating}</p>
+                <div className="image-details-row">
+                  <div className="single-coffee-info">
+                    <p>Roast: {roast}</p>
+                    <p>Roasted in {roasterCity}</p>
+                    <p>User Rating: {avgRating}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <AddReview
-              id={id}
-              type={type}
-              name={name}
-              brandName={brandName}
-              feedURL={coffeePhoto}
-              roast={roast}
-              roasterCity={roasterCity}
-            />
-            <ReviewPane type={type} id={id} arrReviews={reviews} />
-          </div>
-          ) : (
-          <div className="home loading">
-            <div className="self loading">
-              <p>Loading ...</p>
             </div>
           </div>
           <AddReview
@@ -77,10 +56,26 @@ class SingleCoffee extends Component {
             type={type}
             name={name}
             brandName={brandName}
+            feedURL={coffeePhoto}
             roast={roast}
             roasterCity={roasterCity}
           />
           <ReviewPane type={type} id={id} arrReviews={reviews} />
+          {/* ) : ( */}
+          {/* <div className="home loading">
+            <div className="self loading">
+            <p>Loading ...</p>
+            </div>
+            </div>
+            <AddReview
+            id={id}
+            type={type}
+            name={name}
+            brandName={brandName}
+            roast={roast}
+            roasterCity={roasterCity}
+            />
+          <ReviewPane type={type} id={id} arrReviews={reviews} /> */}
         </div>
       </>
     );

@@ -1,8 +1,26 @@
-.single-coffee {
+.whole-page{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* .single-coffee {
   display: flex;
   flex-direction: column;
   align-items: center;
   font-family: Arial, Helvetica, sans-serif;
+} */
+
+.single-coffee {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px;
+  margin-top: 10px;
+  background-color: white;
+  border-radius: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .coffee-title {
@@ -14,7 +32,7 @@ hr.solid {
   border-top: 3px solid #bbb;
 }
 
-.single-coffee-container {
+/* .single-coffee-container {
   display: flex;
   flex-direction: column;
   width: 60vw;
@@ -23,6 +41,20 @@ hr.solid {
   border-radius: 9px;
   background-color: #ffffff;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+} */
+
+.single-coffee-container {
+  display: flex;
+  padding: 5px;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 20px;
+
+  width:700px;
+  height: 300px;
+  margin-top: 10px;
+  background-color: white;
 }
 
 .image-details-row {
@@ -32,7 +64,7 @@ hr.solid {
 }
 
 #single-coffee-img {
-  max-width: 20vw;
+  max-width: 200px;
   max-height: 90vw;
   left: 5.57%;
   right: 54.43%;
@@ -43,4 +75,8 @@ hr.solid {
   box-sizing: border-box;
 
   border-radius: 9px;
+}
+
+.single-coffee-info {
+  text-align: left;
 }
