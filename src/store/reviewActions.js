@@ -2,7 +2,6 @@ import {
   ADD_LIKE,
   ADD_REVIEW,
   FETCH_REVIEWS,
-  FETCH_SINGLE_USER_REVIEWS,
   GET_SINGLE_REVIEW,
   REMOVE_LIKE,
 } from "./reviewReducer";
@@ -34,13 +33,6 @@ export const _addReview = (review, id) => ({
 export const _fetchReviews = (reviews) => {
   return {
     type: FETCH_REVIEWS,
-    reviews,
-  };
-};
-
-export const _fetchUserReviews = (reviews) => {
-  return {
-    type: FETCH_SINGLE_USER_REVIEWS,
     reviews,
   };
 };
@@ -136,26 +128,6 @@ export const fetchReviews = (type, id) => {
     }
   };
 };
-
-export const fetchUserReviews = (userId) => {
-  return async (dispatch) => {
-    const reviewRef = collection(db, "reviews");
-    const q = query(reviewRef, where("userId", "==", userId));
-    const docSnap = await getDocs(q);
-    const reviewsArr = {};
-    docSnap.forEach((doc) => {
-      reviewsArr[doc.id] = doc.data();
-    });
-
-    dispatch(_fetchUserReviews(reviewsArr));
-
-    try {
-    } catch (error) {
-      return `Error in fetchUser reviews ${error.message}`;
-    }
-  };
-};
-
 export const fetchSingleCoffeeReviews = (id) => {
   return async (dispatch) => {
     try {

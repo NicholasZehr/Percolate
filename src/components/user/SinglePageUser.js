@@ -14,9 +14,7 @@ import {
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import EditProfileButton from "./EditProfileButton";
 import Modal from "react-modal";
-import FeedCard from "../feedCard";
 import { fetchLoginUser } from "../../store/auth";
-import { fetchUserReviews } from "../../store/reviewActions";
 Modal.setAppElement("#root");
 
 const SingleUserPage = () => {
@@ -29,11 +27,9 @@ const SingleUserPage = () => {
   const [edit, setEdit] = useState(false);
   const loginUser = useSelector((state) => state.auth);
   const currentPageUser = useSelector((state) => state.users.user);
-  const reviews = useSelector((state) => state.reviews);
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
   const [alreadyFollowed, setAlreadyFollowed] = useState(false);
-  const [write, setWrite] = useState(false);
   onAuthStateChanged(auth, (u) => {
     setUser(u);
   });
@@ -43,7 +39,6 @@ const SingleUserPage = () => {
       //* Fetch the user using it's id
       await dispatch(fetchUser(id));
       await dispatch(fetchLoginUser());
-      await dispatch(fetchUserReviews(id));
     }
     if (mounted) {
       fetchData();
@@ -146,10 +141,6 @@ const SingleUserPage = () => {
     setAlreadyFollowed(!alreadyFollowed);
   }
 
-  function writePage() {
-    setWrite(!write);
-  }
-  console.log("reviews in render", reviews);
   return (
     <>
       {currentPageUser && user && loginUser ? (
@@ -288,22 +279,7 @@ const SingleUserPage = () => {
                 </div>
               </div>
             </div>
-            <div className="rightBody">
-              {typeof reviews === "object"
-                ? Object.keys(reviews).length > 0
-                  ? Object.keys(reviews).map((id, index) => (
-                      <FeedCard
-                        key={index}
-                        writePage={writePage}
-                        reviewId={id}
-                        review={reviews[id]}
-                        user={user}
-                        loggedInUser={loginUser}
-                      />
-                    ))
-                  : ""
-                : ""}
-            </div>
+            <div className="rightBody"></div>
             <div className="blank2"></div>
           </div>
         </div>
