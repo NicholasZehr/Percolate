@@ -1,7 +1,7 @@
 import React, { useEffect, /* useReducer, */ useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { fetchUser } from "../../store/Actions/usersActions";
 import db from "../../firebase";
 import {
@@ -16,7 +16,7 @@ import EditProfileButton from "./EditProfileButton";
 import Modal from "react-modal";
 import { fetchLoginUser } from "../../store/auth";
 import FeedCard from "../feedCard";
-import {fetchReviews} from "../../store/reviewActions"
+import { fetchReviews } from "../../store/reviewActions";
 
 Modal.setAppElement("#root");
 
@@ -33,7 +33,7 @@ const SingleUserPage = () => {
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
   const [alreadyFollowed, setAlreadyFollowed] = useState(false);
-  const reviews = useSelector(state=>state.review.reviews)
+  const reviews = useSelector((state) => state.review.reviews);
 
   onAuthStateChanged(auth, (u) => {
     setUser(u);
@@ -74,8 +74,6 @@ const SingleUserPage = () => {
         fol.push(each);
       });
     }
-    
-
 
     // set them in local state
     if (mounted) {
@@ -285,6 +283,28 @@ const SingleUserPage = () => {
                           );
                         })
                       : "You are not following anyone."}
+                  </div>
+                </div>
+                <div className="add-business">
+                  <div className="followerListBox">
+                    {user ? (
+                      id === user.uid ? (
+                        <Link
+                          to={{
+                            pathname: "/addBusiness",
+                            userId: id,
+                          }}
+                        >
+                          <div className="editProfileButton">
+                            Add a Business
+                          </div>
+                        </Link>
+                      ) : (
+                        alreadyFollowed
+                      )
+                    ) : (
+                      ""
+                    )}
                   </div>
                 </div>
               </div>
