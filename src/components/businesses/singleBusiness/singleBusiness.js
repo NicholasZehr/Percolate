@@ -16,7 +16,9 @@ class Business extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchBusiness(this.props.match.params.businessId);
+    console.log("singlebusiness did mount");
+    this.props.fetchBusiness(this.props.match.params.id);
+    console.log("fectch business called");
   }
 
   editPage() {
@@ -36,6 +38,7 @@ class Business extends Component {
         zip: evt.target.zip.value,
         street: evt.target.zip.value,
       },
+      phone: evt.target.phone.value,
     };
     await setDoc(
       doc(db, "businesses", this.props.match.params.id),
@@ -43,17 +46,27 @@ class Business extends Component {
       { merge: true }
     );
     this.props.fetchBusiness(this.props.match.params.id);
+    console.log("fectch business called");
     this.editPage();
   }
 
   render() {
+    console.log("singlebusiness did render");
     const business = this.props.business;
     if (!business.name) {
       return <h2>loading...</h2>;
     }
     const edit = this.state.edit;
-    const { email, displayName, coverURL, photoURL, name, password, phone } =
-      this.props.business;
+    const {
+      email,
+      displayName,
+      coverURL,
+      photoURL,
+      name,
+      password,
+      phone,
+      location,
+    } = this.props.business;
 
     //const business = businessProps.data();
     return (
@@ -74,7 +87,7 @@ class Business extends Component {
                 name="email"
                 type="text"
                 placeholder="Email"
-                value={email ? email : null}
+                defaultValue={email ? email : ""}
               />
               <div className="blank3"></div>
             </div>
@@ -85,7 +98,7 @@ class Business extends Component {
                 name="name"
                 type="text"
                 placeholder="Business Name"
-                value={name ? name : null}
+                defaultValue={name ? name : ""}
               />
               <div className="blank3"></div>
             </div>
@@ -96,7 +109,7 @@ class Business extends Component {
                 name="coverImageURL"
                 placeholder="Cover Image URL"
                 type="text"
-                value={coverURL ? coverURL : null}
+                defaultValue={coverURL ? coverURL : ""}
               />
               <div className="blank3"></div>
             </div>
@@ -117,6 +130,7 @@ class Business extends Component {
                 name="phone"
                 type="text"
                 placeholder="Phone Number"
+                defaultValue={phone ? phone : ""}
               />
               <div className="blank3"></div>
             </div>
@@ -127,6 +141,7 @@ class Business extends Component {
                 name="state"
                 placeholder="State"
                 type="text"
+                defaultValue={location.state ? location.state : ""}
               />
               <div className="blank3"></div>
             </div>
@@ -137,6 +152,7 @@ class Business extends Component {
                 name="city"
                 type="text"
                 placeholder="City"
+                defaultValue={location.city ? location.city : ""}
               />
               <div className="blank3"></div>
             </div>
@@ -147,6 +163,7 @@ class Business extends Component {
                 name="zip"
                 placeholder="Zipcode"
                 type="text"
+                defaultValue={location.zip ? location.zip : ""}
               />
               <div className="blank3"></div>
               <div className="emailBox mod">
@@ -156,6 +173,7 @@ class Business extends Component {
                   name="street"
                   placeholder="Street"
                   type="text"
+                  defaultValue={location.street ? location.street : ""}
                 />
                 <div className="blank3"></div>
               </div>

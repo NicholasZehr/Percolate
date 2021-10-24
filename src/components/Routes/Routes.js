@@ -5,7 +5,7 @@ import AllBusinesses from "../businesses/allBusinesses/AllBusinesses";
 import AddBusiness from "../businesses/addBusiness/AddBusiness";
 import LoginPage from "../loginSignup/Login";
 import Signup from "../loginSignup/Signup";
-import Business from "../businesses/singleBusiness/singleBusiness";
+import Business from "../businesses/singleBusiness/SingleBusiness";
 import SingleUserPage from "../user/SinglePageUser";
 import SingleCoffee from "../coffee/SingleCoffee";
 import ReviewPane from "../reviews/ReviewPane";
