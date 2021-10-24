@@ -131,6 +131,13 @@ const FeedCard = (props) => {
         </div>
       </div>
       <div className="self feeding cardUpAdjustment">
+
+
+
+
+
+
+
         <div className="headNPost card">
           <img
             className="favCoffee"
@@ -148,6 +155,12 @@ const FeedCard = (props) => {
             <p>" {props.review.content} "</p>
           </div>
         </div>
+
+
+
+
+
+
       </div>
       <div className="self feeding cardUp">
         <div className="blank"></div>

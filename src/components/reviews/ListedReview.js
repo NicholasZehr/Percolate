@@ -10,7 +10,8 @@ class ListedReview extends Component {
     const content = this.props.content;
     return (
       <div className="review-list-item">
-        <div className="review-details">
+        {/* <div className="review-details"> */}
+        <div className="headNPost card">
           <Link to={`/users/${userId}`}>
             <img
               alt="review-Author"

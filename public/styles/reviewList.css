@@ -35,8 +35,8 @@ a:active {
   padding-right: 1vw;
 }
 .review-author-photo {
-  height: auto;
-  width: 70px;
+  height: 50px;
+  width: 50px;
 }
 .review-single-detail {
   display: flex;
