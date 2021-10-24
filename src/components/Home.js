@@ -138,7 +138,6 @@ const Home = (props) => {
               ? Object.keys(reviews).map((id, index) => (
                   <FeedCard
                     key={index}
-                    writePage={writePage}
                     reviewId={id}
                     review = {reviews[id]}
                     user={user}

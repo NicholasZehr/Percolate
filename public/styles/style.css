@@ -416,6 +416,9 @@ p strong {
 .comments p {
   padding-left: 10px;
 }
+.feedcard {
+  width: 100%;
+}
 .cardDown {
   margin-bottom: 1px;
   border-radius: 20px 20px 0px 0px;

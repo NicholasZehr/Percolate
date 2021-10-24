@@ -2,35 +2,38 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchSingleReview } from "../../store/reviewActions";
 import ReviewComment from "./ReviewComment";
-
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { fetchLoginUser } from "../../store/auth";
+import FeedCard from "../feedCard";
 class SingleReview extends Component {
+  constructor() {
+    super();
+    this.state = {
+      user: getAuth().currentUser,
+    };
+  }
   async componentDidMount() {
     const reviewId = this.props.match.params.reviewId;
+    await this.props.fetchLoginUser();
     await this.props.fetchReview(reviewId);
+    this.setState({user: getAuth().currentUser})
   }
 
   render() {
-    const { rating, comments } = this.props.review;
+    const reviewId = this.props.match.params.reviewId;
 
     return (
-      <div className='single-review-container'>
-        <div className='review-list-item'>
-          <div className='review-user-rating'>
-            <h4 id='review-username'>username</h4>
-            <h4 id='review-rating'>{rating}</h4>
-          </div>
-          <hr className='solid' />
-          <p id='content'>content</p>
+      <div className="singleReview">
+        <div className="blank"></div>
+        <div className="reviewcard">
+          <FeedCard
+            reviewId={reviewId}
+            review={this.props.review}
+            user={this.state.user}
+            loggedInUser={this.props.loggedInUser}
+          />
         </div>
-        <div className='comments-container'>
-          {comments ? (
-            comments.map((comment) => {
-              return <ReviewComment comment={comment} />;
-            })
-          ) : (
-            <h2>Be first to add a comment!</h2>
-          )}
-        </div>
+        <div className="blank"></div>
       </div>
     );
   }
@@ -38,12 +41,14 @@ class SingleReview extends Component {
 const mapState = (state) => {
   return {
     review: state.review.review,
+    loggedInUser: state.auth,
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
     fetchReview: (reviewId) => dispatch(fetchSingleReview(reviewId)),
+    fetchLoginUser: (_) => dispatch(fetchLoginUser()),
   };
 };
 

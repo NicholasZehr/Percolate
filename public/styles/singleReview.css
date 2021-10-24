@@ -1,17 +1,9 @@
-.single-review-container {
+.singleReview {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 10px;
 }
-
-.comment-list-item {
-  display: flex;
-  flex-direction: column;
-  width: 40vw;
-  margin-top: 10px;
-
-  border-radius: 9px;
-  background-color: #ffffff;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+.blank {
+  flex-grow: 1;
+}
+.reviewcard {
+  flex-grow:2;
 }

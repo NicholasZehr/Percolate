@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { doc, collection, addDoc, getDocs } from "firebase/firestore";
 import db from "../firebase";
-import { fetchSingleReview } from "../store/reviewActions";
 
 const FeedCard = (props) => {
   const history = useHistory();
@@ -61,6 +60,7 @@ const FeedCard = (props) => {
         "comments"
       );
       evt.target.content.value = "";
+      console.log(props.loggedInUser,props.reviewId)
       await addDoc(subCollection, data);
     }
   };
@@ -100,7 +100,7 @@ const FeedCard = (props) => {
     }
   }
   return (
-    <>
+    <div className="feedcard">
       <div className="self feeding cardDown">
         <div className="headNPost">
           <div className="imageBox post">
@@ -217,7 +217,7 @@ const FeedCard = (props) => {
             ))
           : "no comments"}
       </div>
-    </>
+    </div>
   );
 };
 
