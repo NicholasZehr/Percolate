@@ -153,7 +153,6 @@ export const fetchSingleBusinessReviews = (id) => {
       docSnap.forEach((doc) => {
         reviewsObj[doc.id] = doc.data();
       });
-
       dispatch(_fetchReviews(reviewsObj));
     } catch (error) {
       console.error(error);

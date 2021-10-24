@@ -30,6 +30,13 @@ export const _fetchBusiness = (business) => ({
   business,
 });
 
+const dispatchSingleBusiness = (coffee, coffeeId) => {
+  return (dispatch) => {
+    //dispatch(fetchSingleCoffeeReviews(coffeeId));
+    //dispatch(getSingleCoffee(coffee));
+  };
+};
+
 export const _addBusiness = (business) => ({
   type: ADD_BUSINESS,
   business,
