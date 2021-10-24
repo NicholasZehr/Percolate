@@ -10,12 +10,10 @@ class AddBusiness extends Component {
       name: '',
       email: '',
       phone: '',
-      location:{
-        state: '',
-        city: '',
-        zip: '',
-        street: ''
-      },
+      state: '',
+      city: '',
+      zipcode: '',
+      street: '',
       followers: [],
       _geoloc:{}
     }
@@ -27,7 +25,7 @@ class AddBusiness extends Component {
     this.setState({
       [event.target.name]: event.target.value
     })
-    if (event.target.name === 'location'){
+
     var xhr = new XMLHttpRequest()
 
     // get a callback when the server responds
@@ -38,19 +36,31 @@ class AddBusiness extends Component {
       console.log(this.state)
     })
     // open the request with the verb and the url
-    xhr.open('GET', 'https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyD9zxNq0hPgKWsXAIdCsBCGyCoszWaRCEk')
+    xhr.open('GET', `https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.street}+${this.state.city},+${this.state.state}+${this.state.zipcode}&key=AIzaSyD9zxNq0hPgKWsXAIdCsBCGyCoszWaRCEk`)
     // send the request
     xhr.send()
     console.log('sending business: ',this.state)
-  }}
+  }
 
   async handleSubmit(event) {
     event.preventDefault();
-    this.props.addBusiness({ ...this.state});
+    this.props.addBusiness({
+      _geoloc: this.state._geoloc,
+      location:{
+        street: this.state.street,
+        city: this.state.city,
+        zipcode: this.state.zipcode,
+        state: this.state.state
+      },
+      email: this.state.email,
+      followers: this.state.followers,
+      phont: this.state.phone,
+      name: this.state.name
+    });
   }
 
   render() {
-    const {name, email, phone, location} = this.state;
+    const {name, email, phone, state, city, zipcode, street} = this.state;
 
     return (
       <form onSubmit={this.handleSubmit}>
@@ -78,30 +88,30 @@ class AddBusiness extends Component {
           />
           <input
             type="text"
-            name="location"
+            name="state"
             placeholder="State..."
-            value={location.state}
+            value={state}
             onChange={this.handleChange}
           />
           <input
             type="text"
-            name="location"
+            name="city"
             placeholder="City..."
-            value={location.city}
+            value={city}
             onChange={this.handleChange}
           />
           <input
             type="text"
-            name="location"
+            name="zipcode"
             placeholder="Zipcode..."
-            value={location.zip}
+            value={zipcode}
             onChange={this.handleChange}
           />
           <input
             type="text"
-            name="location"
+            name="street"
             placeholder="Street..."
-            value={location.street}
+            value={street}
             onChange={this.handleChange}
           />
           <span>
