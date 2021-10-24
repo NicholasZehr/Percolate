@@ -20,7 +20,7 @@ class Routes extends Component {
     return (
       <Switch>
         <Route exact path="/reviewPane" component={ReviewPane} />
-        <Route path="/review/:reviewId" component={SingleReview} />
+        <Route path="/review/:id" component={SingleReview} />
         <Route path="/login" component={LoginPage} />
         <Route path="/about" component={About} />
         <Route path="/signup" component={Signup} />

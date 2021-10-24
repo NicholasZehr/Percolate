@@ -147,6 +147,7 @@ export const fetchSingleCoffeeReviews = (id) => {
 export const fetchSingleReview = (reviewId) => {
   return async (dispatch) => {
     try {
+      console.log(reviewId)
       const docRef = doc(db, "reviews", reviewId);
       const docSnap = await getDoc(docRef);
       const singleReview = docSnap.data();

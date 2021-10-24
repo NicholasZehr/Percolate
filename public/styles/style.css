@@ -206,6 +206,7 @@ body {
   border-radius: 20px;
   border: 0;
   margin-right: 10px;
+  margin-left:2px;
   font-size: 1rem;
   color: gray;
   text-align: left;
@@ -415,6 +416,9 @@ p strong {
 .comments p {
   padding-left: 10px;
 }
+.feedcard {
+  width: 100%;
+}
 .cardDown {
   margin-bottom: 1px;
   border-radius: 20px 20px 0px 0px;
@@ -435,7 +439,7 @@ p strong {
 .insideComment {
   margin: 0;
   padding: 0;
-  width: 600px;
+  width: 93%;
   word-wrap: break-word;
 }
 .commentPadding {

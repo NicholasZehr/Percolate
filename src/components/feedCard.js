@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { doc, collection, addDoc, getDocs } from "firebase/firestore";
 import db from "../firebase";
-import { fetchSingleReview } from "../store/reviewActions";
 
 const FeedCard = (props) => {
   const history = useHistory();
@@ -10,6 +9,7 @@ const FeedCard = (props) => {
   const [show, setShow] = useState(false);
   const textarea = document.getElementById("txt");
   const [cssShow, setCssShow] = useState("noShow");
+  const [round, setRound] = useState("cardUptwo")
   const [allComments, setAllComents] = useState([]);
 
   useEffect(() => {
@@ -42,6 +42,7 @@ const FeedCard = (props) => {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
+    
     if (props.loggedInUser) {
       const content = evt.target.content.value;
       const data = {
@@ -60,6 +61,8 @@ const FeedCard = (props) => {
         props.reviewId,
         "comments"
       );
+      
+      
       evt.target.content.value = "";
       await addDoc(subCollection, data);
     }
@@ -95,12 +98,14 @@ const FeedCard = (props) => {
     setShow(!show);
     if (cssShow == "noShow") {
       setCssShow("show");
+      setRound("cardUp")
     } else {
       setCssShow("noShow");
+      setRound("cardUptwo")
     }
   }
   return (
-    <>
+    <div className="feedcard">
       <div className="self feeding cardDown">
         <div className="headNPost">
           <div className="imageBox post">
@@ -162,11 +167,11 @@ const FeedCard = (props) => {
 
 
       </div>
-      <div className="self feeding cardUp">
+      <div className="self feeding cardUp ">
         <div className="blank"></div>
 
         <div className="likes">
-          <img className="heart" src="/heart.png" alt="Like Heart Icon" />
+          <img className="heart" src="/Grey-heart.png" alt="Like Heart Icon" />
           <p>Like</p>
         </div>
         <i onClick={showComments} className="material-icons flip">
@@ -176,7 +181,7 @@ const FeedCard = (props) => {
           <p>Comments</p>
         </div>
       </div>
-      <div className="self feeding cardUptwo">
+      <div className={`self feeding ${round}`}>
         <form className="form" onSubmit={handleSubmit}>
           <div className="headNPost">
             <div className="imageBox commentImage">
@@ -207,7 +212,7 @@ const FeedCard = (props) => {
           </div>
         </form>
       </div>
-      <div className={`self feeding cardUp ${cssShow}`}>
+      <div className={`self feeding cardUptwo ${cssShow}`}>
         {allComments.length > 0
           ? allComments.map((each, index) => (
               <div key={index} className="self feeding insideComment">
@@ -230,7 +235,7 @@ const FeedCard = (props) => {
             ))
           : "no comments"}
       </div>
-    </>
+    </div>
   );
 };
 
