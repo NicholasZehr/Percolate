@@ -36,7 +36,7 @@ const SingleReview = (props) => {
     let mounted = true;
     async function fetchData() {
       //* Fetch the user using it's id
-      console.log(id)
+      console.log(id);
       await dispatch(fetchSingleReview(id));
     }
     if (mounted) {
@@ -100,117 +100,123 @@ const SingleReview = (props) => {
     }
   }
 
-console.log(review)
+  console.log(review);
 
   return (
-    <div className="feedcard">
-      <div className="self feeding cardDown">
-        <div className="headNPost">
-          <div className="imageBox post">
-            <img
-              className="profPic postHead"
-              alt="User Profile AVI"
-              src={review ? review.photoURL || "/guest.jpeg" : "/guest.jpeg"}
-              onClick={(_) => history.push(`/users/${user.uid}`)}
-            />
-          </div>
-          <div className="nameAndTime">
-            <span className="writepost">{review.displayName}: </span>
-            {review.time ? (
-              <span className="ago">{`${timeDifference(
-                review.time.seconds
-              )}`}</span>
-            ) : (
-              <span className="ago">no time</span>
-            )}
-          </div>
-          <div className="username writepost">
-            <p>{review.content}</p>
-          </div>
-        </div>
-      </div>
-      <div className="self feeding cardUpAdjustment">
-        <div className="headNPost card">
-          <img
-            className="favCoffee"
-            alt="favorite coffee"
-            onClick={(_) => history.push(`/coffees/${id}`)}
-            src={review ? review.feedURL : "/whiteBack.png"}
-          />
-          <div className="coffeeInfo">
-            <p>Roast: {review.roast} </p>
-            <p>Brand: {review.brandName} </p>
-            <p>
-              <b>{review.displayName}'s </b>Rating: {review.rating}
-              /5
-            </p>
-            <p>" {review.content} "</p>
-          </div>
-        </div>
-      </div>
-      <div className="self feeding cardUp">
-        <div className="blank"></div>
-        <div className="likes">
-          <img className="heart" src="/heart.png" alt="Like Heart Icon" />
-          <p>Like</p>
-        </div>
-        <i className="material-icons flip">
-          chat
-        </i>
-        <div  className="comments">
-          <p>Comments</p>
-        </div>
-      </div>
-      <div className="self feeding cardUptwo">
-        <form className="form" onSubmit={handleSubmit}>
+    <div className="singleReview">
+      <div className="blankReview"></div>
+      <div className="reviewcard">
+        <div className="self feeding cardDown">
           <div className="headNPost">
-            <div className="imageBox commentImage">
+            <div className="imageBox post">
               <img
-                className="profPic"
+                className="profPic postHead"
                 alt="User Profile AVI"
-                src={user ? user.photoURL || "/guest.jpeg" : "/guest.jpeg"}
+                src={review ? review.photoURL || "/guest.jpeg" : "/guest.jpeg"}
                 onClick={(_) => history.push(`/users/${user.uid}`)}
               />
             </div>
-
-            <div className="post-input ">
-              <textarea
-                className="textarea"
-                id="txt"
-                name="content"
-                maxLength="200"
-                placeholder="Write a comment..."
-              ></textarea>
+            <div className="nameAndTime">
+              <span className="writepost">{review.displayName}: </span>
+              {review.time ? (
+                <span className="ago">{`${timeDifference(
+                  review.time.seconds
+                )}`}</span>
+              ) : (
+                <span className="ago">no time</span>
+              )}
             </div>
-            <button className="postNow">
-              <i className="fa fa-paper-plane-o"></i>
-            </button>
+            <div className="username writepost">
+              <p>{review.content}</p>
+            </div>
           </div>
-        </form>
-      </div>
-      <div className={`self feeding cardUp `}>
-        {allComments.length > 0
-          ? allComments.map((each, index) => (
-              <div key={index} className="self feeding insideComment">
-                <div className="headNPost">
-                  <div className="imageBox commentImage">
-                    <img
-                      className="profPic"
-                      alt="User Profile AVI"
-                      src={each.photoURL}
-                      onClick={(_) => history.push(`/users/${each.userId}`)}
-                    />
-                  </div>
-                  <div className="post-input ">
-                    <span className="textarea commentPadding">
-                      {each.content}
-                    </span>
+        </div>
+        <div className="self feeding cardUpAdjustment">
+          <div className="headNPost card">
+            <img
+              className="favCoffee"
+              alt="favorite coffee"
+              onClick={(_) => history.push(`/coffees/${id}`)}
+              src={review ? review.feedURL : "/whiteBack.png"}
+            />
+            <div className="coffeeInfo">
+              <p>Roast: {review.roast} </p>
+              <p>Brand: {review.brandName} </p>
+              <p>
+                <b>{review.displayName}'s </b>Rating: {review.rating}
+                /5
+              </p>
+              <p>" {review.content} "</p>
+            </div>
+          </div>
+        </div>
+        <div className="self feeding cardUp">
+          <div className="blank"></div>
+          <div className="likes">
+            <img
+              className="heart"
+              src="/Grey-heart.png"
+              alt="Like Heart Icon"
+            />
+            <p>Like</p>
+          </div>
+          <i className="material-icons flip">chat</i>
+          <div className="comments">
+            <p>Comments</p>
+          </div>
+        </div>
+        <div className="self feeding cardUp">
+          <form className="form" onSubmit={handleSubmit}>
+            <div className="headNPost">
+              <div className="imageBox commentImage">
+                <img
+                  className="profPic"
+                  alt="User Profile AVI"
+                  src={user ? user.photoURL || "/guest.jpeg" : "/guest.jpeg"}
+                  onClick={(_) => history.push(`/users/${user.uid}`)}
+                />
+              </div>
+
+              <div className="post-input ">
+                <textarea
+                  className="textarea"
+                  id="txt"
+                  name="content"
+                  maxLength="200"
+                  placeholder="Write a comment..."
+                ></textarea>
+              </div>
+              <button className="postNow">
+                <i className="fa fa-paper-plane-o"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+        <div className={`self feeding commentsInRow  `}>
+          {allComments.length > 0
+            ? allComments.map((each, index) => (
+                <div key={index} className="self feeding insideComment">
+                  <div className="headNPost">
+                    <div className="imageBox commentImage">
+                      <img
+                        className="profPic"
+                        alt="User Profile AVI"
+                        src={each.photoURL}
+                        onClick={(_) => history.push(`/users/${each.userId}`)}
+                      />
+                    </div>
+                    <div className="commentsLength ">
+                      <span className="textarea commentPadding">
+                        {each.content}
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))
-          : "no comments"}
+              ))
+            : "no comments"}
+        </div>
       </div>
+      <div className="blankReview"></div>
     </div>
   );
 };

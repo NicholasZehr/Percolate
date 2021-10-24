@@ -9,6 +9,7 @@ const FeedCard = (props) => {
   const [show, setShow] = useState(false);
   const textarea = document.getElementById("txt");
   const [cssShow, setCssShow] = useState("noShow");
+  const [round, setRound] = useState("cardUptwo")
   const [allComments, setAllComents] = useState([]);
 
   useEffect(() => {
@@ -95,8 +96,10 @@ const FeedCard = (props) => {
     setShow(!show);
     if (cssShow == "noShow") {
       setCssShow("show");
+      setRound("cardUp")
     } else {
       setCssShow("noShow");
+      setRound("cardUptwo")
     }
   }
   return (
@@ -149,11 +152,11 @@ const FeedCard = (props) => {
           </div>
         </div>
       </div>
-      <div className="self feeding cardUp">
+      <div className="self feeding cardUp ">
         <div className="blank"></div>
 
         <div className="likes">
-          <img className="heart" src="/heart.png" alt="Like Heart Icon" />
+          <img className="heart" src="/Grey-heart.png" alt="Like Heart Icon" />
           <p>Like</p>
         </div>
         <i onClick={showComments} className="material-icons flip">
@@ -163,7 +166,7 @@ const FeedCard = (props) => {
           <p>Comments</p>
         </div>
       </div>
-      <div className="self feeding cardUptwo">
+      <div className={`self feeding ${round}`}>
         <form className="form" onSubmit={handleSubmit}>
           <div className="headNPost">
             <div className="imageBox commentImage">
@@ -194,7 +197,7 @@ const FeedCard = (props) => {
           </div>
         </form>
       </div>
-      <div className={`self feeding cardUp ${cssShow}`}>
+      <div className={`self feeding cardUptwo ${cssShow}`}>
         {allComments.length > 0
           ? allComments.map((each, index) => (
               <div key={index} className="self feeding insideComment">

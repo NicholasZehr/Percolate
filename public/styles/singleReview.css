@@ -1,9 +1,20 @@
 .singleReview {
   display: flex;
+  height: 100vh;
 }
-.blank {
-  flex-grow: 1;
+.blankReview {
+  flex-grow: 0.5;
 }
 .reviewcard {
-  flex-grow:2;
+  flex-grow:1;
+}
+.commentsLength {
+  display: flex;
+  flex-grow: 100;
+  
+}
+.commentsInRow {
+  flex-flow: column;
+  margin-top: 0px;
+  border-radius: 0px 0px 20px 20px;
 }
