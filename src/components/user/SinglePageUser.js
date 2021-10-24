@@ -15,6 +15,9 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import EditProfileButton from "./EditProfileButton";
 import Modal from "react-modal";
 import { fetchLoginUser } from "../../store/auth";
+import FeedCard from "../feedCard";
+import {fetchReviews} from "../../store/reviewActions"
+
 Modal.setAppElement("#root");
 
 const SingleUserPage = () => {
@@ -30,6 +33,8 @@ const SingleUserPage = () => {
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
   const [alreadyFollowed, setAlreadyFollowed] = useState(false);
+  const reviews = useSelector(state=>state.review.reviews)
+
   onAuthStateChanged(auth, (u) => {
     setUser(u);
   });
@@ -39,6 +44,7 @@ const SingleUserPage = () => {
       //* Fetch the user using it's id
       await dispatch(fetchUser(id));
       await dispatch(fetchLoginUser());
+      await dispatch(fetchReviews("user", id));
     }
     if (mounted) {
       fetchData();
@@ -68,6 +74,9 @@ const SingleUserPage = () => {
         fol.push(each);
       });
     }
+    
+
+
     // set them in local state
     if (mounted) {
       setFollowers(list);
@@ -140,7 +149,6 @@ const SingleUserPage = () => {
     }
     setAlreadyFollowed(!alreadyFollowed);
   }
-
   return (
     <>
       {currentPageUser && user && loginUser ? (
@@ -279,7 +287,17 @@ const SingleUserPage = () => {
                 </div>
               </div>
             </div>
-            <div className="rightBody"></div>
+            <div className="rightBody">
+              {Object.keys(reviews).map((id) => (
+                <FeedCard
+                  key={id}
+                  reviewId={id}
+                  review={reviews[id]}
+                  user={user}
+                  loggedInUser={loginUser}
+                />
+              ))}
+            </div>
             <div className="blank2"></div>
           </div>
         </div>
