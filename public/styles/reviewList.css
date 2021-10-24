@@ -1,5 +1,5 @@
 .review-list-item {
-  max-width: 50vw;
+  width: 700px;
   background-color: #ffffff;
   border-radius: 7px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -33,6 +33,7 @@ a:active {
   justify-content: flex-start;
   flex-wrap: wrap;
   padding-right: 1vw;
+  text-align: right;
 }
 .review-author-photo {
   height: 50px;
