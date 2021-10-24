@@ -19,18 +19,7 @@ class ListedReview extends Component {
               className="profPic review-author-photo"
             />
           </Link>
-          <Link to={`/review/${reviewId}`}>
-            <div className="review-info">
-              <div className="review-single-detail">
-                <label htmlFor="review-username">Author: </label>
-                <h4 id="review-username"> {displayName}</h4>
-              </div>
-              <div className="review-single-detail">
-                <label htmlFor="review-username">Rating: </label>
-                <h4 id="review-rating">{rating}</h4>
-              </div>
-            </div>
-          </Link>
+
           <div className="review-like-area">
             <LikeButton
               id={this.props.id}
@@ -44,6 +33,18 @@ class ListedReview extends Component {
           </div>
         </div>
         <hr className="solid" />
+        <Link to={`/review/${reviewId}`}>
+            <div className="review-info">
+              <div className="review-single-detail">
+                <label htmlFor="review-username">Author: </label>
+                <h4 id="review-username"> {displayName}</h4>
+              </div>
+              <div className="review-single-detail">
+                <label htmlFor="review-username">Rating: </label>
+                <h4 id="review-rating">{rating}</h4>
+              </div>
+            </div>
+          </Link>
         <p className="review-content">{content}</p>
       </div>
     );

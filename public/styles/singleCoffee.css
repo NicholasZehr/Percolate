@@ -51,7 +51,8 @@ hr.solid {
   align-items: center;
   border-radius: 20px;
 
-  width: 60vw;
+  width:700px;
+  height: 300px;
   margin-top: 10px;
   background-color: white;
 }
@@ -63,7 +64,7 @@ hr.solid {
 }
 
 #single-coffee-img {
-  max-width: 20vw;
+  max-width: 200px;
   max-height: 90vw;
   left: 5.57%;
   right: 54.43%;
