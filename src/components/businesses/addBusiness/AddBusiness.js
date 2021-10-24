@@ -27,21 +27,25 @@ class AddBusiness extends Component {
     this.setState({
       [event.target.name]: event.target.value
     })
-  }
-
-  async handleSubmit(event) {
-    event.preventDefault();
+    if (event.target.name === 'location'){
     var xhr = new XMLHttpRequest()
 
     // get a callback when the server responds
     xhr.addEventListener('load', () => {
       // update the state of the component with the result here
+      console.log('setting state')
       this.setState({_geoloc: (JSON.parse(xhr.responseText).results[0].geometry.location)})
+      console.log(this.state)
     })
     // open the request with the verb and the url
     xhr.open('GET', 'https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyD9zxNq0hPgKWsXAIdCsBCGyCoszWaRCEk')
     // send the request
     xhr.send()
+    console.log('sending business: ',this.state)
+  }}
+
+  async handleSubmit(event) {
+    event.preventDefault();
     this.props.addBusiness({ ...this.state});
   }
 
