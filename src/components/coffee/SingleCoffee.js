@@ -48,19 +48,19 @@ class SingleCoffee extends Component {
                 </div>
               </div>
             </div>
-            <AddReview
-              id={id}
-              type={type}
-              name={name}
-              brandName={brandName}
-              feedURL={coffeePhoto}
-              roast={roast}
-              roasterCity={roasterCity}
-            />
-            <ReviewPane type={type} id={id} arrReviews={reviews} />
           </div>
-          ) : (
-          <div className="home loading">
+          <AddReview
+            id={id}
+            type={type}
+            name={name}
+            brandName={brandName}
+            feedURL={coffeePhoto}
+            roast={roast}
+            roasterCity={roasterCity}
+          />
+          <ReviewPane type={type} id={id} arrReviews={reviews} />
+          {/* ) : ( */}
+          {/* <div className="home loading">
             <div className="self loading">
               <p>Loading ...</p>
             </div>
@@ -73,7 +73,7 @@ class SingleCoffee extends Component {
             roast={roast}
             roasterCity={roasterCity}
           />
-          <ReviewPane type={type} id={id} arrReviews={reviews} />
+          <ReviewPane type={type} id={id} arrReviews={reviews} /> */}
         </div>
       </>
     );
