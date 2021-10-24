@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { addBusiness } from "../../../store/businessActions";
+import { axios } from "axios"
 
 class AddBusiness extends Component {
   constructor(props) {
@@ -15,7 +16,8 @@ class AddBusiness extends Component {
         zip: '',
         street: ''
       },
-      followers: []
+      followers: [],
+      _geoloc:{}
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,8 +29,19 @@ class AddBusiness extends Component {
     })
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault();
+    var xhr = new XMLHttpRequest()
+
+    // get a callback when the server responds
+    xhr.addEventListener('load', () => {
+      // update the state of the component with the result here
+      this.setState({_geoloc: (JSON.parse(xhr.responseText).results[0].geometry.location)})
+    })
+    // open the request with the verb and the url
+    xhr.open('GET', 'https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyD9zxNq0hPgKWsXAIdCsBCGyCoszWaRCEk')
+    // send the request
+    xhr.send()
     this.props.addBusiness({ ...this.state});
   }
 
