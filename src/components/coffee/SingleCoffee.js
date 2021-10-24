@@ -41,13 +41,6 @@ class SingleCoffee extends Component {
                 />
               </div>
               <div className="image-details-row">
-                <div className="single-coffee-image">
-                  <img
-                    id="single-coffee-img"
-                    src={coffeePhoto}
-                    alt={`${name} by ${brandName}`}
-                  />
-                </div>
                 <div className="single-coffee-info">
                   <p>Roast: {roast}</p>
                   <p>Roasted in {roasterCity}</p>
