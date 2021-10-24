@@ -73,7 +73,7 @@ const Home = (props) => {
     setWrite(!write);
   }
 
-  
+
 
   console.log("n2o", props);
   return (
