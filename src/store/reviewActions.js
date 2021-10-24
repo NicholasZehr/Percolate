@@ -144,6 +144,21 @@ export const fetchSingleCoffeeReviews = (id) => {
     }
   };
 };
+export const fetchSingleBusinessReviews = (id) => {
+  return async (dispatch) => {
+    try {
+      const docRef = collection(db, "businesses", id, "businessReviews");
+      const docSnap = await getDocs(docRef);
+      const reviewsObj = {};
+      docSnap.forEach((doc) => {
+        reviewsObj[doc.id] = doc.data();
+      });
+      dispatch(_fetchReviews(reviewsObj));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
 export const fetchSingleReview = (reviewId) => {
   return async (dispatch) => {
     try {
