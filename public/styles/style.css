@@ -144,7 +144,7 @@ body {
 }
 .leftSide {
   flex-grow: 1;
-  margin: 10px;
+  margin: 5px;
   display: flex;
   justify-content: start;
   flex-flow: column;
@@ -154,15 +154,21 @@ body {
   display: flex;
   flex-flow: column;
   background-color: white;
-  padding: 10px 0px 10px 10px;
+  padding: 10px 10px 10px 10px;
   border-radius: 10px;
   width: 100%;
   margin: 5px;
 }
-
+.middlePieceOfcard {
+  display: flex;
+  background-color: white;
+  flex-flow: column;
+  border-radius: 10px;
+  
+}
 .rightSide {
   flex-grow: 1;
-  margin: 10px;
+  margin: 5px;
   display: flex;
   justify-content: start;
   flex-flow: column;
@@ -170,7 +176,7 @@ body {
 }
 .centerBody {
   flex-grow: 3;
-  margin: 10px;
+  margin: 5px;
   display: flex;
   justify-content: start;
   flex-flow: column;
@@ -185,10 +191,9 @@ body {
   justify-content: flex-start;
   align-items: center;
   background-color: white;
-  border-radius: 20px;
 }
 .commentImage {
-  flex-grow: 1;
+  flex-grow: 0.1;
 }
 .productAndBusiness {
   display: flex;
@@ -199,20 +204,7 @@ body {
   width: 100%;
   margin: 5px;
 }
-.post-input {
-  width: 100%;
-  height: auto;
-  background-color: rgb(228, 227, 227);
-  border-radius: 20px;
-  border: 0;
-  margin-right: 10px;
-  margin-left:2px;
-  font-size: 1rem;
-  color: gray;
-  text-align: left;
-  padding-left: 10px;
-  flex-grow: 10;
-}
+
 .writepost {
   color: black;
   font-size: 1rem;
@@ -237,7 +229,7 @@ body {
   flex-grow: 0.5;
   width: 60px;
   height: 35px;
-  margin-right: 10px;
+
   background-color: #3b6064;
   border-radius: 20px;
   border: 0;
@@ -249,7 +241,7 @@ body {
 }
 .textarea {
   background-color: rgb(228, 227, 227);
-  width: 100%;
+  max-width: 100%;
   overflow: hidden;
   font-size: 18px;
   height: auto;
@@ -259,6 +251,7 @@ body {
   line-height: 20px;
   resize: none;
   border: 0;
+  flex-grow: 3;
   padding-top: 5px;
   border-radius: 20px;
   font-family: inherit;
@@ -418,6 +411,11 @@ p strong {
 }
 .feedcard {
   width: 100%;
+  margin: 0 auto;
+  padding:0 auto;
+}
+.cardRound{
+  border-radius: 20px;
 }
 .cardDown {
   margin-bottom: 1px;

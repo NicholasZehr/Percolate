@@ -2,15 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Modal from "react-modal";
+import { useHistory } from "react-router";
 import { fetchLoginUser } from "../store/auth";
 import FeedCard from "./feedCard";
 import { fetchReviews } from "../store/reviewActions";
 import { fetchFeedReviews } from "../store/feed";
-
+import { doc, collection, addDoc, getDocs } from "firebase/firestore";
+import db from "../firebase";
 
 Modal.setAppElement("#root");
 
 const Home = (props) => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const loggedInUser = useSelector((state) => state.auth);
   const auth = getAuth();
@@ -72,15 +75,34 @@ const Home = (props) => {
   function writePage() {
     setWrite(!write);
   }
+const handleSubmit = async (evt) => {
+  evt.preventDefault();
 
+  // if (loggedInUser) {
+  //   const content = evt.target.content.value;
+  //   const data = {
+  //     likeCount: 0,
+  //     reviewId: reviewId,
+  //     userId: loggedInUser.uid,
+  //     displayName: loggedInUser.displayName
+  //       ? loggedInUser.displayName
+  //       : null,
+  //     content: content,
+  //     photoURL: loggedInUser.photoURL,
+  //   };
+  //   const subCollection = collection(db, "reviews", reviewId, "comments");
+
+  //   evt.target.content.value = "";
+  //   await addDoc(subCollection, data);
+  // }
+};
   
 
-  console.log("n2o", props);
   return (
     <>
       {loggedInUser && user ? (
         <div className="home">
-          {/* <Modal className="modal" isOpen={write} onRequestClose={writePage}>
+          <Modal className="modal" isOpen={write} onRequestClose={writePage}>
             <div className="imageBox post">
               <img
                 className="profPic"
@@ -111,7 +133,7 @@ const Home = (props) => {
                 </div>
               </form>
             </div>
-          </Modal> */}
+          </Modal>
           <div className="leftSide">
             <div className="self">
               <h3>{`Welcome, ${
@@ -134,12 +156,21 @@ const Home = (props) => {
           </div>
 
           <div className="centerBody">
+            <div className="feedcard">
+              <div className={`feeding cardRound`}>
+                <div className="headNPost">
+                  <button className="postNow">
+                    <i className="fa fa-paper-plane-o"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
             {Object.keys(reviews).length > 0
               ? Object.keys(reviews).map((id, index) => (
                   <FeedCard
                     key={index}
                     reviewId={id}
-                    review = {reviews[id]}
+                    review={reviews[id]}
                     user={user}
                     loggedInUser={loggedInUser}
                   />
@@ -147,7 +178,7 @@ const Home = (props) => {
               : ""}
           </div>
           <div className="rightSide">
-            <div className="productAndBusiness">fdsafdsafsda</div>
+            <div className="self">fdsafdsafsda</div>
           </div>
         </div>
       ) : (
