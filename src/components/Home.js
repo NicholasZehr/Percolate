@@ -156,15 +156,13 @@ const handleSubmit = async (evt) => {
           </div>
 
           <div className="centerBody">
-            <div className="feedcard">
-              <div className={`feeding cardRound`}>
-                <div className="headNPost">
-                  <button className="postNow">
-                    <i className="fa fa-paper-plane-o"></i>
+
+            <div className="cardRound">
+              <p>Try Something Good Recently? </p>
+                  <button className="postNow newReview">
+                    New Review
                   </button>
-                </div>
               </div>
-            </div>
             {Object.keys(reviews).length > 0
               ? Object.keys(reviews).map((id, index) => (
                   <FeedCard

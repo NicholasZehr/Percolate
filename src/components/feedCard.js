@@ -106,7 +106,7 @@ const FeedCard = (props) => {
   return (
     <div className="feedcard">
       <div className="feeding cardDown">
-        <div className="headNPost">
+        <div className="headNPost top">
           <div className="imageBox post">
             <img
               className="profPic postHead"
@@ -167,9 +167,9 @@ const FeedCard = (props) => {
           <p>Comments</p>
         </div>
       </div>
-      <div className={`feeding ${round}`}>
+      <div>
         <form className="form" onSubmit={handleSubmit}>
-          <div className="headNPost">
+          <div className={`headNPost ${round}`}>
             <div className="imageBox commentImage">
               <img
                 className="profPic"
@@ -183,24 +183,24 @@ const FeedCard = (props) => {
               />
             </div>
 
-              <textarea
-                className="textarea"
-                id="txt"
-                name="content"
-                maxLength="200"
-                placeholder="Write a comment..."
-              ></textarea>
+            <textarea
+              className="textarea"
+              id="txt"
+              name="content"
+              maxLength="200"
+              placeholder="Write a comment..."
+            ></textarea>
             <button className="postNow">
               <i className="fa fa-paper-plane-o"></i>
             </button>
           </div>
         </form>
       </div>
-      <div className={`self feeding cardUptwo ${cssShow}`}>
+      <div className={`cardUptwo ${cssShow}`}>
         {allComments.length > 0
           ? allComments.map((each, index) => (
               <div key={index} className="self feeding insideComment">
-                <div className="headNPost">
+                <div className="headNPost ">
                   <div className="imageBox commentImage">
                     <img
                       className="profPic"
@@ -209,7 +209,7 @@ const FeedCard = (props) => {
                       onClick={(_) => history.push(`/users/${each.userId}`)}
                     />
                   </div>
-                  <div className="post-input ">
+                  <div className="post-input commentContent">
                     <span className="textarea commentPadding">
                       {each.content}
                     </span>

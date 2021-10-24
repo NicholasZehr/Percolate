@@ -145,6 +145,7 @@ body {
 .leftSide {
   flex-grow: 1;
   margin: 5px;
+  margin-right: 10px;
   display: flex;
   justify-content: start;
   flex-flow: column;
@@ -169,6 +170,7 @@ body {
 .rightSide {
   flex-grow: 1;
   margin: 5px;
+  margin-left:10px;
   display: flex;
   justify-content: start;
   flex-flow: column;
@@ -177,6 +179,8 @@ body {
 .centerBody {
   flex-grow: 3;
   margin: 5px;
+  margin-right: 10px;
+  margin-left:10px;
   display: flex;
   justify-content: start;
   flex-flow: column;
@@ -184,6 +188,13 @@ body {
 }
 .feeding {
   height: auto;
+}
+.top {
+  margin-top:5px;
+  border-radius: 10px 10px 0 0;
+}
+.bottom {
+
 }
 .headNPost {
   display: flex;
@@ -385,6 +396,7 @@ p strong {
 .cardUptwo {
   margin-top: 0px;
   border-radius: 0px 0px 20px 20px;
+  background-color: white;
 }
 .heart {
   height: 20px;
@@ -415,7 +427,17 @@ p strong {
   padding:0 auto;
 }
 .cardRound{
-  border-radius: 20px;
+  width: 100%;
+  background-color: white;
+  color:gray;
+  border-radius:20px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  padding-bottom: 10px;
+}
+.newReview {
+  width: fit-content;
+  
 }
 .cardDown {
   margin-bottom: 1px;
@@ -423,6 +445,8 @@ p strong {
 }
 .card {
   flex-flow: row;
+  margin-top: 1px;
+  border-radius: 0;
   justify-content: space-around;
 }
 .coffeeInfo {
@@ -437,11 +461,15 @@ p strong {
 .insideComment {
   margin: 0;
   padding: 0;
-  width: 93%;
+  width: inherit;
   word-wrap: break-word;
+}
+.commentContent {
+  flex-grow: 5;
 }
 .commentPadding {
   padding: 5px;
+  text-align: start;
 }
 #map {
   height: 80%;
