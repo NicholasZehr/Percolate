@@ -238,9 +238,9 @@ body {
   width: 60px;
   height: 35px;
   margin-right: 10px;
-  background-color:  #3B6064;
+  background-color: #3b6064;
   border-radius: 20px;
-  border:0;
+  border: 0;
   font-size: 20px;
   color: #c8d6cf;
 }
@@ -248,7 +248,7 @@ body {
   background: #2c484b;
 }
 .textarea {
-   background-color: rgb(228, 227, 227);
+  background-color: rgb(228, 227, 227);
   width: 100%;
   overflow: hidden;
   font-size: 18px;
@@ -269,7 +269,6 @@ body {
   overflow: hidden;
   outline: none;
 }
-
 
 p strong {
   display: block;
@@ -377,7 +376,7 @@ p strong {
   align-self: center;
 }
 .cardUpAdjustment {
-  margin-top:0px;
+  margin-top: 0px;
   margin-bottom: 1px;
   border-radius: 0;
 }
@@ -438,13 +437,13 @@ p strong {
   display: none;
 }
 .insideComment {
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
   width: 93%;
-  word-wrap: break-word
+  word-wrap: break-word;
 }
 .commentPadding {
-  padding:5px;
+  padding: 5px;
 }
 #map {
   height: 80%;
