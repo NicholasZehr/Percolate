@@ -36,7 +36,6 @@ const SingleReview = (props) => {
     let mounted = true;
     async function fetchData() {
       //* Fetch the user using it's id
-      console.log(id);
       await dispatch(fetchSingleReview(id));
     }
     if (mounted) {
@@ -57,6 +56,7 @@ const SingleReview = (props) => {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
+    const temp = [...allComments];
     if (user) {
       const content = evt.target.content.value;
       const data = {
@@ -67,8 +67,10 @@ const SingleReview = (props) => {
         content: content,
         photoURL: user.photoURL,
       };
+      temp.push(data);
       const subCollection = collection(db, "reviews", id, "comments");
       evt.target.content.value = "";
+      setAllComents(temp);
       await addDoc(subCollection, data);
     }
   };
@@ -100,7 +102,6 @@ const SingleReview = (props) => {
     }
   }
 
-  console.log(review);
 
   return (
     <div className="singleReview">

@@ -42,6 +42,7 @@ const FeedCard = (props) => {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
+    
     if (props.loggedInUser) {
       const content = evt.target.content.value;
       const data = {
@@ -60,8 +61,9 @@ const FeedCard = (props) => {
         props.reviewId,
         "comments"
       );
+      
+      
       evt.target.content.value = "";
-      console.log(props.loggedInUser,props.reviewId)
       await addDoc(subCollection, data);
     }
   };
