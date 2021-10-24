@@ -119,17 +119,37 @@ const handleSubmit = async (evt) => {
             </div>
             <div>
               <form className="form" onSubmit={handleSubmit}>
+                <div className="form-input-submit-group">
+                  {/* {this.state.error ? (
+              <ul className="error-label">
+                {this.error.map((error) => (
+                  <li>{error}</li>
+                ))}
+              </ul>
+            ) : null} */}
+                  <label htmlFor="rating">Rating</label>
+                  <input
+                    className="form-text-box"
+                    type="number"
+                    name="rating"
+                    placeholder={0.0}
+                    min="0"
+                    max="5"
+                    value={0}
+                  />
+                  <label htmlFor="content">Review Comments</label>
+                </div>
                 <textarea
                   rows="5"
                   className="textarea"
                   maxLength="500"
                   name="content"
-                  placeholder={`What's on your mind? ${
+                  placeholder={`What's on your mind about this product? ${
                     user ? user.displayName : ""
                   }`}
                 ></textarea>
                 <div className="signupBox">
-                  <button className="signupPage">Post</button>
+                  <button className="signupPage">Submit Review</button>
                 </div>
               </form>
             </div>
@@ -156,13 +176,12 @@ const handleSubmit = async (evt) => {
           </div>
 
           <div className="centerBody">
-
             <div className="cardRound">
-              <p>Try Something Good Recently? </p>
-                  <button className="postNow newReview">
-                    New Review
-                  </button>
-              </div>
+              <p>Try Something New and Good Recently? </p>
+              <button className="postNow newCoffee" onClick={writePage}>
+                Add New Product
+              </button>
+            </div>
             {Object.keys(reviews).length > 0
               ? Object.keys(reviews).map((id, index) => (
                   <FeedCard
