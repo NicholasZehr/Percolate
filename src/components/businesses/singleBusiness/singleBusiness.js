@@ -38,11 +38,11 @@ class Business extends Component {
       },
     };
     await setDoc(
-      doc(db, "businesses", this.props.match.params.businessId),
+      doc(db, "businesses", this.props.match.params.id),
       businessInfo,
       { merge: true }
     );
-    this.props.fetchBusiness(this.props.match.params.businessId);
+    this.props.fetchBusiness(this.props.match.params.id);
     this.editPage();
   }
 
@@ -52,6 +52,8 @@ class Business extends Component {
       return <h2>loading...</h2>;
     }
     const edit = this.state.edit;
+    const { email, displayName, coverURL, photoURL, name, password, phone } =
+      this.props.business;
 
     //const business = businessProps.data();
     return (
@@ -72,6 +74,7 @@ class Business extends Component {
                 name="email"
                 type="text"
                 placeholder="Email"
+                value={email ? email : null}
               />
               <div className="blank3"></div>
             </div>
@@ -82,6 +85,7 @@ class Business extends Component {
                 name="name"
                 type="text"
                 placeholder="Business Name"
+                value={name ? name : null}
               />
               <div className="blank3"></div>
             </div>
@@ -92,6 +96,7 @@ class Business extends Component {
                 name="coverImageURL"
                 placeholder="Cover Image URL"
                 type="text"
+                value={coverURL ? coverURL : null}
               />
               <div className="blank3"></div>
             </div>
