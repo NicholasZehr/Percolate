@@ -18,7 +18,7 @@ class Business extends Component {
   componentDidMount() {
     console.log("singlebusiness did mount");
     this.props.fetchBusiness(this.props.match.params.id);
-    console.log("fectch business called");
+    console.log("fetch business called");
   }
 
   editPage() {
@@ -46,7 +46,7 @@ class Business extends Component {
       { merge: true }
     );
     this.props.fetchBusiness(this.props.match.params.id);
-    console.log("fectch business called");
+    console.log("fetch business called");
     this.editPage();
   }
 
