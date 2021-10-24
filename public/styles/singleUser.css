@@ -163,9 +163,10 @@
 /* body part */
 .body {
   background-color: #f7f7f7;
-  height: 100%;
+  height: fit-content;
   display: flex;
   justify-content: space-around;
+  
 }
 .leftBody {
   width: 25%;
@@ -174,6 +175,14 @@
   flex-flow: column;
   align-items: center;
   margin-top: 20px;
+  
+}
+.stick {
+  width: 100%;
+  position: sticky;
+  position: -webkit-sticky;
+  top:0;
+  z-index: 99;
 }
 .intro {
   display: flex;
@@ -201,18 +210,24 @@
   width: 100%;
   padding: 10px;
   margin: 5px;
-  height: 100%;
+  height: fit-content;
+ 
   border-radius: 10px;
   background-color: rgb(255, 255, 255);
 }
 .followerListBox {
   
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr))
+  grid-template-rows: repeat(auto-fill, minmax(60px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
 }
 
 .followerIcon {
   text-align: center;
+  width: 60px;
+  height: auto;
+}
+.pictureSize {
   width: 60px;
   height: 60px;
 }

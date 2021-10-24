@@ -226,64 +226,66 @@ const SingleUserPage = () => {
           </div>
           <div className="body">
             <div className="blank2"></div>
-            <div className="leftBody">
-              <div className="intro">
-                <h2>Intro: </h2>
-                <span className="favoriteTitle">My favorite coffee:</span>
-                <img
-                  className="favCoffee"
-                  alt="favorite coffee"
-                  src={
-                    currentPageUser
-                      ? currentPageUser.coffeeURL
-                      : "whiteBack2.png"
-                  }
-                />
-              </div>
-              <div className="followers">
-                <h3>{followers.length} followers: </h3>
-                <div className="followerListBox">
-                  {followers.length > 0
-                    ? followers.map((each, index) => {
-                        return (
-                          <div
-                            key={index}
-                            className="followerIcon"
-                            onClick={() => history.push(`/users/${each.uid}`)}
-                          >
-                            <img
-                              className="profPic followerIcon"
-                              alt="follower icon"
-                              src={each.photoURL}
-                            />
-                            <span>{each.firstName}</span>
-                          </div>
-                        );
-                      })
-                    : "No one is following you."}
+            <div className="leftBody ">
+              <div className="stick">
+                <div className="intro">
+                  <h2>Intro: </h2>
+                  <span className="favoriteTitle">My favorite coffee:</span>
+                  <img
+                    className="favCoffee"
+                    alt="favorite coffee"
+                    src={
+                      currentPageUser
+                        ? currentPageUser.coffeeURL
+                        : "whiteBack2.png"
+                    }
+                  />
                 </div>
-              </div>
-              <div className="followers">
-                <h3>{following.length} following: </h3>
-                <div className="followerListBox">
-                  {following.length > 0
-                    ? following.map((each, index) => {
-                        return (
-                          <div
-                            key={index}
-                            className="followerIcon"
-                            onClick={() => history.push(`/users/${each.uid}`)}
-                          >
-                            <img
-                              alt="follower-icon"
-                              className="profPic followerIcon"
-                              src={each.photoURL}
-                            />
-                            <span>{each.firstName}</span>
-                          </div>
-                        );
-                      })
-                    : "You are not following anyone."}
+                <div className="followers ">
+                  <b>{followers.length} followers: </b>
+                  <div className="followerListBox">
+                    {followers.length > 0
+                      ? followers.map((each, index) => {
+                          return (
+                            <div
+                              key={index}
+                              className="followerIcon"
+                              onClick={() => history.push(`/users/${each.uid}`)}
+                            >
+                              <img
+                                className="profPic pictureSize"
+                                alt="follower icon"
+                                src={each.photoURL}
+                              />
+                              <span>{each.firstName}</span>
+                            </div>
+                          );
+                        })
+                      : "No one is following you."}
+                  </div>
+                </div>
+                <div className="followers">
+                  <b>{following.length} following: </b>
+                  <div className="followerListBox">
+                    {following.length > 0
+                      ? following.map((each, index) => {
+                          return (
+                            <div
+                              key={index}
+                              className="followerIcon"
+                              onClick={() => history.push(`/users/${each.uid}`)}
+                            >
+                              <img
+                                alt="follower-icon"
+                                className="profPic pictureSize"
+                                src={each.photoURL}
+                              />
+                              <span>{each.firstName}</span>
+                            </div>
+                          );
+                        })
+                      : "You are not following anyone."}
+                  </div>
                 </div>
               </div>
             </div>
