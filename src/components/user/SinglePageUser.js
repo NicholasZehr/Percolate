@@ -1,7 +1,7 @@
 import React, { useEffect, /* useReducer, */ useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { fetchUser } from "../../store/Actions/usersActions";
 import db from "../../firebase";
 import {
@@ -18,6 +18,9 @@ import { fetchLoginUser } from "../../store/auth";
 import FeedCard from "../feedCard";
 import { fetchReviews } from "../../store/reviewActions";
 
+import { fetchUserBusinesses } from "../../store/businessActions";
+
+
 Modal.setAppElement("#root");
 
 const SingleUserPage = () => {
@@ -30,6 +33,7 @@ const SingleUserPage = () => {
   const [edit, setEdit] = useState(false);
   const loginUser = useSelector((state) => state.auth);
   const currentPageUser = useSelector((state) => state.users.user);
+  const businesses = useSelector((state) => state.businesses.businesses);
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
   const [alreadyFollowed, setAlreadyFollowed] = useState(false);
@@ -45,6 +49,7 @@ const SingleUserPage = () => {
       await dispatch(fetchUser(id));
       await dispatch(fetchLoginUser());
       await dispatch(fetchReviews("user", id));
+      await dispatch(fetchUserBusinesses(id));
     }
     if (mounted) {
       fetchData();
@@ -283,6 +288,46 @@ const SingleUserPage = () => {
                           );
                         })
                       : "You are not following anyone."}
+                  </div>
+                </div>
+
+                <div className="followers">
+                  <b>Businesses:</b>
+                  {user ? (
+                    id === user.uid ? (
+                      <Link
+                        to={{
+                          pathname: "/addBusiness",
+                          userId: id,
+                        }}
+                      >
+                        <div className="editProfileButton">Add</div>
+                      </Link>
+                    ) : (
+                      ""
+                    )
+                  ) : (
+                    ""
+                  )}
+                  <div className="followerListBox">
+                    {businesses.length > 0
+                      ? businesses.map((each, index) => {
+                          return (
+                            <div
+                              key={index}
+                              className="followerIcon"
+                              onClick={() => history.push(`/users/${each.uid}`)}
+                            >
+                              <img
+                                alt="Business"
+                                className="profPic pictureSize"
+                                src={each.photoURL}
+                              />
+                              <span>{each.firstName}</span>
+                            </div>
+                          );
+                        })
+                      : "You have no businesses. What are you a communist?"}
                   </div>
                 </div>
               </div>
