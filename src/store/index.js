@@ -10,6 +10,7 @@ import usersReducers from "./Reducers/usersReducer";
 import singleCoffeeReducer from "./Actions/singleCoffee";
 import reviewReducer from "./Reducers/reviewReducer";
 import feedReducer from "./feed";
+import coffeeReducer from "./Reducers/coffeeReducer"
 
 const reducer = combineReducers({
   auth,
@@ -18,6 +19,7 @@ const reducer = combineReducers({
   singleCoffee: singleCoffeeReducer,
   review: reviewReducer,
   feed: feedReducer,
+  coffee: coffeeReducer,
 });
 const middleware = composeWithDevTools(
   applyMiddleware(

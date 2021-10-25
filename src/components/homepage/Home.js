@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Modal from "react-modal";
+import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 import { fetchLoginUser } from "../../store/auth";
 import FeedCard from "../utils/FeedCard";
@@ -13,6 +14,8 @@ import { serverTimestamp } from "firebase/firestore";
 import { addReview } from "../../store/Actions/reviewActions";
 import MapSearch from "../search/MapSearch";
 import { fetchBusinesses } from "../../store/Actions/businessActions";
+import { fetchAllCoffee } from "../../store/Actions/coffeeActions";
+import AllBusinesses from "../businesses/allBusinesses/AllBusinesses";
 
 Modal.setAppElement("#root");
 
@@ -29,6 +32,9 @@ const Home = (props) => {
   const [write, setWrite] = useState(false);
   const [rating, setRating] = useState(0);
   const allBusiness = useSelector((state) => state.businesses.businesses);
+  const allCoffee = useSelector((state) => state.coffee.allCoffee);
+  const [localCoffee, setLocalCoffee] = useState([])
+  const [localBusiness, setLocalBusiness] = useState([])
 
   onAuthStateChanged(auth, (u) => {
     setUser(u);
@@ -39,6 +45,7 @@ const Home = (props) => {
       //* Fetch the user using it's id
       await dispatch(fetchLoginUser());
       await dispatch(fetchBusinesses());
+      await dispatch(fetchAllCoffee());
     }
     if (mounted) {
       fetchData();
@@ -82,7 +89,6 @@ const Home = (props) => {
   function writePage() {
     setWrite(!write);
   }
-
   const handleSubmit = async (evt) => {
     evt.preventDefault();
 
@@ -114,12 +120,19 @@ const Home = (props) => {
   const handleChange = (evt) => {
     setRating(evt.target.value);
   };
-  if (allBusiness.length > 0) {
-    allBusiness.sort(
-      (a, b) => b.data().followers.length - a.data().followers.length
-    );
-  }
 
+  if (Object.keys(allBusiness).length > 0 && localBusiness.length === 0) {
+    const temp = []
+    Object.keys(allBusiness).forEach(id => temp.push({ ...allBusiness[id], id }))
+    temp.sort((a, b) => b.followers.length - a.followers.length)
+    setLocalBusiness(temp)
+  }
+  if (Object.keys(allCoffee).length > 0 && localCoffee.length === 0) {
+    const temp = []
+    Object.keys(allCoffee).forEach(id => temp.push({ ...allCoffee[id], id }))
+    temp.sort((a,b)=>b.avgRating - a.avgRating)
+    setLocalCoffee(temp)
+  }
   return (
     <>
       {loggedInUser && user ? (
@@ -327,21 +340,32 @@ const Home = (props) => {
           <div className="rightSide">
             <div className="self">
               <span className="favoriteTitle">Trending coffees:</span>
-              <img
-                className="favCoffee"
-                src={loggedInUser ? loggedInUser.coffeeURL : "whiteBack2.png"}
-                alt="favCoffee"
-              />
+              {localCoffee.length > 0
+                ? localCoffee.slice(0, 3).map((each) => (
+                    <Link key={each.id} to={`/coffees/${each.id}`}>
+                      <div className="businessSideBar" key={each.id}>
+                        <span>{each.name} </span>
+                        <span>Average Rating: {each.avgRating}</span>
+                        <img
+                          className="favCoffee"
+                          src={each.photoURL ? each.photoURL : "/whiteBack.png"}
+                        />
+                      </div>
+                    </Link>
+                  ))
+                : ""}
             </div>
             <div className="self">
               <p className="favoriteTitle">Most Follwed Businesses:</p>
-              {allBusiness.length > 0
-                ? allBusiness.slice(0,5).map((each) => (
-                    <div className="businessSideBar" key={each.data().id}>
-                      <hr className="divider" />
-                      <span>{each.data().name} </span>
-                      <span>{each.data().followers.length} followers</span>
-                    </div>
+              {localBusiness.length > 0
+                ? localBusiness.slice(0, 5).map((each) => (
+                    <Link key={each.id} to={`/businesses/${each.id}`}>
+                      <div className="businessSideBar">
+                        <hr className="divider" />
+                        <span>{each.name} </span>
+                        <span>{each.followers.length} followers</span>
+                      </div>
+                    </Link>
                   ))
                 : ""}
             </div>
