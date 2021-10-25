@@ -50,7 +50,6 @@ class AddBusiness extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-
     this.props.addBusiness({
       _geoloc: this.state._geoloc,
       location: {

@@ -12,6 +12,7 @@ import db from "../../firebase";
 import { serverTimestamp } from "firebase/firestore";
 import { addReview } from "../../store/Actions/reviewActions";
 import MapSearch from "../search/MapSearch";
+import { fetchBusinesses } from "../../store/Actions/businessActions";
 
 Modal.setAppElement("#root");
 
@@ -27,6 +28,7 @@ const Home = (props) => {
   const reviews = useSelector((state) => state.feed);
   const [write, setWrite] = useState(false);
   const [rating, setRating] = useState(0);
+  const allBusiness = useSelector((state) => state.businesses.businesses);
 
   onAuthStateChanged(auth, (u) => {
     setUser(u);
@@ -36,6 +38,7 @@ const Home = (props) => {
     async function fetchData() {
       //* Fetch the user using it's id
       await dispatch(fetchLoginUser());
+      await dispatch(fetchBusinesses());
     }
     if (mounted) {
       fetchData();
@@ -49,7 +52,6 @@ const Home = (props) => {
     const list = [];
     const fol = [];
     let mounted = true;
-
     //======push followers in list,and following in fol
     if (Object.keys(loggedInUser).length > 0) {
       if (loggedInUser.following && loggedInUser.followers) {
@@ -112,6 +114,11 @@ const Home = (props) => {
   const handleChange = (evt) => {
     setRating(evt.target.value);
   };
+  if (allBusiness.length > 0) {
+    allBusiness.sort(
+      (a, b) => b.data().followers.length - a.data().followers.length
+    );
+  }
 
   return (
     <>
@@ -327,9 +334,16 @@ const Home = (props) => {
               />
             </div>
             <div className="self">
-              <p className="favoriteTitle">Hot Businesses:</p>
-              <span>{followers.length} followers </span>
-              <span>{following.length} followings </span>
+              <p className="favoriteTitle">Most Follwed Businesses:</p>
+              {allBusiness.length > 0
+                ? allBusiness.slice(0,5).map((each) => (
+                    <div className="businessSideBar" key={each.data().id}>
+                      <hr className="divider" />
+                      <span>{each.data().name} </span>
+                      <span>{each.data().followers.length} followers</span>
+                    </div>
+                  ))
+                : ""}
             </div>
           </div>
         </div>
