@@ -186,7 +186,13 @@ body {
   align-items: center;
   height: 100vh;
   overflow-y: scroll;
+  scrollbar-width: none;
 }
+.centerBody::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
+}
+
+
 .feeding {
   height: auto;
 }
