@@ -225,7 +225,7 @@ class Business extends Component {
           <div className="leftBody">
             <div className="intro">
               <h2>Intro: </h2>
-              <span className="favoriteTitle">Newest coffee:</span>
+              <span className="favoriteTitle">Newest Coffee:</span>
               <img
                 className="favCoffee"
                 src={

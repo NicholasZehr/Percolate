@@ -7,6 +7,7 @@ class AddBusiness extends Component {
   constructor(props) {
     super(props);
     this.state = {
+
       name: '',
       email: '',
       phone: '',
@@ -16,6 +17,7 @@ class AddBusiness extends Component {
       street: '',
       followers: [],
       _geoloc:{}
+      ownerId: this.props.location.userId,
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,6 +25,7 @@ class AddBusiness extends Component {
 
   handleChange(event) {
     this.setState({
+
       [event.target.name]: event.target.value
     })
 
@@ -40,10 +43,12 @@ class AddBusiness extends Component {
     // send the request
     xhr.send()
     console.log('sending business: ',this.state)
+
   }
 
   async handleSubmit(event) {
     event.preventDefault();
+
     this.props.addBusiness({
       _geoloc: this.state._geoloc,
       location:{
@@ -57,12 +62,28 @@ class AddBusiness extends Component {
       phont: this.state.phone,
       name: this.state.name
     });
+
+    this.setState({
+      name: '',
+      email: '',
+      phone: '',
+      state: '',
+      city: '',
+      zipcode: '',
+      street: '',
+      followers: [],
+      _geoloc:{}
+      ownerId: this.props.location.userId,
+    })
   }
 
   render() {
+
     const {name, email, phone, state, city, zipcode, street} = this.state;
 
+    console.log("add bus prop", this.props);
     return (
+
       <form onSubmit={this.handleSubmit}>
         <div id="new-product">
           <input
@@ -127,7 +148,7 @@ class AddBusiness extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addBusiness: (business) => dispatch(addBusiness(business))
+    addBusiness: (business) => dispatch(addBusiness(business)),
   };
 };
 
