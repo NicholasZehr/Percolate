@@ -1,20 +1,36 @@
-.single-business{
+.single-business {
   height: 100vh;
   display: flex;
   flex-direction: column;
   width: 100vw;
 }
 
-.business-info{
+.business-info {
   width: 80%;
-  display:flex;
+  display: flex;
   flex-direction: row;
 }
-
-.cover-img{
-  top: 20px;
-
+.mod {
+  align-items: center;
+  justify-content: flex-end;
 }
-.pro-pic{
+.cover-img {
+  top: 20px;
+}
+.pro-pic {
   margin: 10px 10px 10px 10px;
+}
+.modal.single-business {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  border: 1px solid #ccc;
+  background: #fff;
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 20px;
+  margin: 4vh;
 }

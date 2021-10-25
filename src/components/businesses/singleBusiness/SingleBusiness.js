@@ -69,7 +69,6 @@ class Business extends Component {
       coverURL,
       photoURL,
       name,
-
       phone,
       about,
     } = this.props.business;
@@ -77,7 +76,11 @@ class Business extends Component {
     //const business = businessProps.data();
     return (
       <div className="singleUserPageBox">
-        <Modal className="modal" isOpen={edit} onRequestClose={this.editPage}>
+        <Modal
+          className="modal single-business"
+          isOpen={edit}
+          onRequestClose={this.editPage}
+        >
           <div className="close" onClick={this.editPage}></div>
           <h2>Edit Business</h2>
           <form
@@ -172,28 +175,28 @@ class Business extends Component {
                 defaultValue={zip ? zip : ""}
               />
               <div className="blank3"></div>
-              <div className="emailBox mod">
-                <span className="formName">Street:</span>
-                <input
-                  className="email"
-                  name="streetNum"
-                  placeholder="StreetNum"
-                  type="text"
-                  defaultValue={streetNum ? streetNum : ""}
-                />
-                <div className="blank3"></div>
-              </div>
-              <div className="emailBox mod">
-                <span className="formName">Street:</span>
-                <input
-                  className="email"
-                  name="street"
-                  placeholder="Street"
-                  type="text"
-                  defaultValue={street ? street : ""}
-                />
-                <div className="blank3"></div>
-              </div>
+            </div>
+            <div className="emailBox mod">
+              <span className="formName">Street Number:</span>
+              <input
+                className="email"
+                name="streetNum"
+                placeholder="StreetNum"
+                type="text"
+                defaultValue={streetNum ? streetNum : ""}
+              />
+              <div className="blank3"></div>
+            </div>
+            <div className="emailBox mod">
+              <span className="formName">Street:</span>
+              <input
+                className="email"
+                name="street"
+                placeholder="Street"
+                type="text"
+                defaultValue={street ? street : ""}
+              />
+              <div className="blank3"></div>
             </div>
             <button className="signupPage" name="button1">
               Save
@@ -205,7 +208,7 @@ class Business extends Component {
             <div className="shadow">
               <img
                 className="cover"
-                src={business.name ? business.coverImageUrl : "/whiteBack2.png"}
+                src={coverURL ? coverURL : "/whiteBack2.png"}
                 alt="cover"
               />
             </div>
@@ -215,7 +218,7 @@ class Business extends Component {
             <div className="pictureBox">
               <img
                 className="profPic ownpage"
-                src={business.name ? business.imageUrl : "/guest.jpeg"}
+                src={photoURL ? photoURL : "/guest.jpeg"}
                 alt="pic"
               />
             </div>
@@ -244,7 +247,7 @@ class Business extends Component {
           <div className="leftBody">
             <div className="intro">
               <h2>About: </h2>
-              <p></p>
+              <p>{about}</p>
               <span className="favoriteTitle">Newest Coffee:</span>
               <img
                 className="favCoffee"
