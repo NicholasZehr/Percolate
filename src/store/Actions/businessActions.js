@@ -67,8 +67,8 @@ export const fetchBusinesses = () => {
   return async (dispatch) => {
     try {
       const response = await getDocs(collection(db, "businesses"));
-      let businesses = [];
-      response.forEach((business) => businesses.push(business));
+      let businesses = {};
+      response.forEach((business) => businesses[business.id]=business.data());
       dispatch(_fetchBusinesses(businesses));
     } catch (error) {
       console.log("Failed to fetch all businesses");
