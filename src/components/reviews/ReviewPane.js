@@ -6,17 +6,29 @@ import { query, where, collection, getDocs } from "firebase/firestore";
 import db from "../../firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 const auth = getAuth();
-class ReviewPane extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      likedObj: {},
-      loading: true,
-      user: auth.currentUser,
+const ReviewPane = (props) => {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const reviews = useSelector((state) => state.review.reviews,);
+  const auth = getAuth();
+  const [user, setUser] = useState(getAuth().currentUser);
+  onAuthStateChanged(auth, (u) => {
+    setUser(u);
+  });
+  useEffect(() => {
+    let mounted = true;
+    async function fetchData() {
+      //* Fetch the user using it's id
+      await dispatch(fetchLoginUser());
+    }
+    if (mounted) {
+      fetchData();
+    }
+    return () => {
+      mounted = false;
     };
-    this.checkReview = this.checkReview.bind(this);
-    this.unsubscribeFromAuth = null;
-  }
+  }, [user]);
+
   async componentDidMount() {
     this.unsubscribeFromAuth = onAuthStateChanged((user) => {
       this.setState({ ...this.state, user: user });
@@ -36,9 +48,7 @@ class ReviewPane extends Component {
     });
     console.log("these are the liked reviews", likedObj);
   }
-  async componentWillUnmount() {
-    this.unsubscribeFromAuth();
-  }
+
   checkReview(content) {
     let revWords = content ? content.split(" ") : "";
     const length = revWords.length;
@@ -92,14 +102,4 @@ class ReviewPane extends Component {
   }
 }
 
-const mapState = (state) => {
-  return {
-    reviews: state.review.reviews,
-    auth: state.auth,
-  };
-};
-const mapDispatch = (dispatch) => ({
-  fetchReviews: (type, id) => dispatch(likeClick(type, id)),
-});
-
-export default connect(mapState, mapDispatch)(ReviewPane);
+export default ReviewPane;
