@@ -1,6 +1,7 @@
 import {
   FETCH_BUSINESS,
   FETCH_BUSINESSES,
+  FETCH_USER_BUSINESS,
   ADD_BUSINESS,
   ADD_LIKE_BUSINESS,
   REMOVE_LIKE_BUSINESS,
@@ -11,10 +12,8 @@ import {
   getDoc,
   doc,
   addDoc,
-  /* updateDoc,
   query,
   where,
-  increment, */
 } from "firebase/firestore";
 import db from "../firebase";
 
@@ -29,6 +28,13 @@ export const _fetchBusiness = (business) => ({
   type: FETCH_BUSINESS,
   business,
 });
+
+export const _fetchUserBusinesses = (businesses) => {
+  return {
+    type: FETCH_USER_BUSINESS,
+    businesses,
+  };
+};
 
 const dispatchSingleBusiness = (coffee, coffeeId) => {
   return (dispatch) => {
@@ -82,6 +88,23 @@ export const fetchBusiness = (businessId) => {
     } catch (error) {
       console.log("Failed to fetch single business");
       return;
+    }
+  };
+};
+
+export const fetchUserBusinesses = (ownerId) => {
+  return async (dispatch) => {
+    try {
+      const businessesRef = collection(db, "businesses");
+      const q = query(businessesRef, where("ownerId", "==", ownerId));
+      const docSnap = await getDocs(q);
+      const businesses = [];
+      docSnap.forEach((business) => {
+        businesses.push(business);
+      });
+      dispatch(_fetchUserBusinesses(businesses));
+    } catch (error) {
+      return `Error in fetching user businesses ${error.message}`;
     }
   };
 };
