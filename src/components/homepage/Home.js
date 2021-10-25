@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Modal from "react-modal";
+import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 import { fetchLoginUser } from "../../store/auth";
 import FeedCard from "../utils/FeedCard";
@@ -31,6 +32,7 @@ const Home = (props) => {
   const [rating, setRating] = useState(0);
   const allBusiness = useSelector((state) => state.businesses.businesses);
   const allCoffee = useSelector((state) => state.coffee.allCoffee);
+  const [localCoffee, setLocalCoffee] = useState([])
 
   onAuthStateChanged(auth, (u) => {
     setUser(u);
@@ -122,10 +124,12 @@ const Home = (props) => {
       (a, b) => b.data().followers.length - a.data().followers.length
     );
   }
-  if (allCoffee.length > 0) {
-    allCoffee.sort((a, b) => b.avgRating - a.avgRating);
+  if (Object.keys(allCoffee).length > 0 && localCoffee.length === 0) {
+    const temp = []
+    Object.keys(allCoffee).forEach(id => temp.push({ ...allCoffee[id], id }))
+    temp.sort((a,b)=>b.avgRating - a.avgRating)
+    setLocalCoffee(temp)
   }
-  console.log(allCoffee)
   return (
     <>
       {loggedInUser && user ? (
@@ -333,16 +337,18 @@ const Home = (props) => {
           <div className="rightSide">
             <div className="self">
               <span className="favoriteTitle">Trending coffees:</span>
-              {allCoffee.length > 0
-                ? allCoffee.slice(0, 3).map((each) => (
-                    <div className="businessSideBar" key={each.id}>
-                      <span>{each.name} </span>
-                      <span>Average Rating: {each.avgRating}</span>
-                      <img
-                        className="favCoffee"
-                        src={each.photoURL ? each.photoURL : "/whiteBack.png"}
-                      />
-                    </div>
+              {localCoffee.length > 0
+                ? localCoffee.slice(0, 3).map((each) => (
+                    <Link to={`/coffees/${each.id}`}>
+                      <div className="businessSideBar" key={each.id}>
+                        <span>{each.name} </span>
+                        <span>Average Rating: {each.avgRating}</span>
+                        <img
+                          className="favCoffee"
+                          src={each.photoURL ? each.photoURL : "/whiteBack.png"}
+                        />
+                      </div>
+                    </Link>
                   ))
                 : ""}
             </div>

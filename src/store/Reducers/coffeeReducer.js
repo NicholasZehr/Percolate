@@ -1,7 +1,7 @@
 export const FETCH_ALL_COFFEE = "FETCH_ALL_COFFEE";
 
 const initialState = {
-  allCoffee: [],
+  allCoffee: {},
   coffee: {},
 };
 

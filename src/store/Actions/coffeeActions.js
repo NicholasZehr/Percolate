@@ -22,8 +22,8 @@ export const fetchAllCoffee = () => {
   return async (dispatch) => {
     try {
       const response = await getDocs(collection(db, "coffees"));
-      let coffees = [];
-      response.forEach((coffee) => coffees.push(coffee.data()));
+      let coffees = {};
+      response.forEach((coffee) => coffees[coffee.id]=coffee.data());
       dispatch(_fetchAllCoffee(coffees));
     } catch (error) {
       console.log("Failed to fetch all businesses");
