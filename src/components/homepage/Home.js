@@ -193,7 +193,7 @@ const Home = (props) => {
 
                 <div className="ratingBox">
                   <div className="blank"></div>
-                  <label htmlFor="rating" >Rating: </label>
+                  <label htmlFor="rating">Rating: </label>
                   <section id="rate" className="rating">
                     <input
                       onChange={handleChange}
@@ -318,7 +318,19 @@ const Home = (props) => {
               : ""}
           </div>
           <div className="rightSide">
-            <div className="self">fdsafdsafsda</div>
+            <div className="self">
+              <span className="favoriteTitle">Trending coffees:</span>
+              <img
+                className="favCoffee"
+                src={loggedInUser ? loggedInUser.coffeeURL : "whiteBack2.png"}
+                alt="favCoffee"
+              />
+            </div>
+            <div className="self">
+              <p className="favoriteTitle">Hot Businesses:</p>
+              <span>{followers.length} followers </span>
+              <span>{following.length} followings </span>
+            </div>
           </div>
         </div>
       ) : (
