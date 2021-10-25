@@ -20,7 +20,6 @@ import { fetchReviews } from "../../store/Actions/reviewActions";
 
 import { fetchUserBusinesses } from "../../store/Actions/businessActions";
 
-
 Modal.setAppElement("#root");
 
 const SingleUserPage = () => {
@@ -34,7 +33,7 @@ const SingleUserPage = () => {
   const loginUser = useSelector((state) => state.auth);
   const currentPageUser = useSelector((state) => state.users.user);
   const businesses = useSelector((state) => state.businesses.businesses);
-  const businessArr = Object.entries(businesses)
+  const businessArr = Object.entries(businesses);
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
   const [alreadyFollowed, setAlreadyFollowed] = useState(false);
@@ -154,7 +153,6 @@ const SingleUserPage = () => {
     setAlreadyFollowed(!alreadyFollowed);
   }
 
-  console.log('user bussss', businessArr)
   return (
     <>
       {currentPageUser && user && loginUser ? (
@@ -297,7 +295,6 @@ const SingleUserPage = () => {
                 <div className="followers">
                   <b>Businesses:</b>
                   {user ? (
-
                     id === user.uid ? (
                       <Link
                         to={{
@@ -305,7 +302,7 @@ const SingleUserPage = () => {
                           userId: id,
                         }}
                       >
-                        <div className="editProfileButton">Add</div>
+                        <div className="add-business-button">Add</div>
                       </Link>
                     ) : (
                       ""
@@ -317,19 +314,20 @@ const SingleUserPage = () => {
                   <div className="followerListBox">
                     {businessArr.length > 0
                       ? businessArr.map((each, index) => {
-                        console.log('each', each)
                           return (
                             <div
                               key={index}
                               className="followerIcon"
-                              onClick={() => history.push(`/businesses/${each[0]}`)}
+                              onClick={() =>
+                                history.push(`/businesses/${each[0]}`)
+                              }
                             >
                               <img
                                 alt="Business"
                                 className="profPic pictureSize"
-                                src={each.photoURL}
+                                src={each[1].photoURL}
                               />
-                              <span>{each.firstName}</span>
+                              <span>{each[1].name}</span>
                             </div>
                           );
                         })
@@ -340,12 +338,13 @@ const SingleUserPage = () => {
             </div>
             <div className="rightBody">
               {Object.keys(reviews).map((id) => (
-                  <FeedCard
-                    reviewId={id}
-                    review={reviews[id]}
-                    user={user}
-                    loggedInUser={loginUser}
-                  />
+                <FeedCard
+                  key={id}
+                  reviewId={id}
+                  review={reviews[id]}
+                  user={user}
+                  loggedInUser={loginUser}
+                />
               ))}
             </div>
             <div className="blank2"></div>

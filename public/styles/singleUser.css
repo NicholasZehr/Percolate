@@ -137,6 +137,21 @@
   background: #2c484b;
 }
 
+.add-business-button {
+  padding-top: 8px;
+  align-self: flex-end;
+  background: #3b6064;
+  color: #fffef9;
+  width: 50px;
+  height: 20px;
+  font-size: 1vw;
+  border-radius: 5px;
+  text-align: center;
+}
+.add-business-button:hover {
+  background: #2c484b;
+}
+
 /* adjust screen part */
 
 @media only screen and (max-width: 800px) {
@@ -166,7 +181,6 @@
   height: fit-content;
   display: flex;
   justify-content: space-around;
-  
 }
 .leftBody {
   width: 25%;
@@ -175,13 +189,12 @@
   flex-flow: column;
   align-items: center;
   margin-top: 20px;
-  
 }
 .stick {
   width: 100%;
   position: sticky;
   position: -webkit-sticky;
-  top:0;
+  top: 0;
   z-index: 99;
 }
 .intro {
@@ -190,19 +203,19 @@
   background-color: white;
   border-radius: 10px;
   width: 100%;
-  padding:10px;
-  margin:5px;
+  padding: 10px;
+  margin: 5px;
 }
 .favoriteTitle {
   align-self: flex-start;
   font-size: 1rem;
   padding-bottom: 10px;
-  margin-top:10px;
+  margin-top: 10px;
 }
 .favCoffee {
   max-width: 200px;
   max-height: 200px;
-  width:auto;
+  width: auto;
   height: auto;
   align-self: center;
 }
@@ -211,12 +224,11 @@
   padding: 10px;
   margin: 5px;
   height: fit-content;
- 
+
   border-radius: 10px;
   background-color: rgb(255, 255, 255);
 }
 .followerListBox {
-  
   display: grid;
   grid-template-rows: repeat(auto-fill, minmax(60px, 1fr));
   grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
@@ -238,5 +250,5 @@
   justify-content: start;
   align-items: center;
   margin-top: 20px;
-  margin-left:30px;
+  margin-left: 30px;
 }
