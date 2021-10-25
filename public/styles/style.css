@@ -223,6 +223,9 @@ body {
   width: 100%;
   margin: 5px;
 }
+.businessSideBar {
+  padding:5px;
+}
 
 .writepost {
   color: black;
