@@ -10,10 +10,9 @@ import SingleUserPage from "../user/SinglePageUser";
 import SingleCoffee from "../coffee/SingleCoffee";
 import ReviewPane from "../reviews/ReviewPane";
 import SingleReview from "../reviews/SingleReview";
-import About from "../About";
-import Home from "../Home";
-import Feed from "../feed/Feed";
-import MapSearch from "../MapSearch";
+import About from "../utils/About";
+import Home from "../homepage/Home";
+import MapSearch from "../search/MapSearch";
 
 class Routes extends Component {
   render() {
@@ -31,7 +30,6 @@ class Routes extends Component {
         <Route exact path="/coffees/:id" component={SingleCoffee} />
         <Route path="/Home" component={Home} />
         <Route exact path="/" component={Home} />
-        <Route path="/feed" component={Feed} />
         <Route exact path="/map" component={MapSearch} />
       </Switch>
     );

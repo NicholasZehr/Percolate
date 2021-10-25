@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { doc, collection, addDoc, getDocs } from "firebase/firestore";
-import db from "../firebase";
+import db from "../../firebase";
 
 const FeedCard = (props) => {
   const history = useHistory();
@@ -13,7 +13,7 @@ const FeedCard = (props) => {
   const [allComments, setAllComents] = useState([]);
 
   useEffect(() => {
-    if (show == true) {
+    if (show === true) {
       const subCollection = collection(
         db,
         "reviews",
@@ -95,7 +95,7 @@ const FeedCard = (props) => {
   }
   function showComments() {
     setShow(!show);
-    if (cssShow == "noShow") {
+    if (cssShow === "noShow") {
       setCssShow("show");
       setRound("cardUp");
     } else {

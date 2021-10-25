@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { likeClick } from "../store/reviewActions";
+import { likeClick } from "../../store/Actions/reviewActions";
 import { getAuth } from "firebase/auth";
 const auth = getAuth();
 class LikeButton extends Component {

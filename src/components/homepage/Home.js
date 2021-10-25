@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Modal from "react-modal";
 import { useHistory } from "react-router";
-import { fetchLoginUser } from "../store/auth";
-import FeedCard from "./feedCard";
-import { fetchReviews } from "../store/reviewActions";
-import { fetchFeedReviews } from "../store/feed";
+import { fetchLoginUser } from "../../store/auth";
+import FeedCard from "../utils/FeedCard";
+import { fetchReviews } from "../../store/Actions/reviewActions";
+import { fetchFeedReviews } from "../../store/feed";
 import { doc, collection, addDoc, getDocs } from "firebase/firestore";
-import db from "../firebase";
+import db from "../../firebase";
 
 Modal.setAppElement("#root");
 
@@ -103,7 +103,7 @@ const handleSubmit = async (evt) => {
   //   await addDoc(subCollection, data);
   // }
 };
-  
+
 
   return (
     <>

@@ -2,11 +2,10 @@
 /*eslint jsx-quotes: ["error", "prefer-single"]*/
 import React from "react";
 import { connect } from "react-redux";
-import { addReview } from "../../store/reviewActions";
+import { addReview } from "../../store/Actions/reviewActions";
 import { getAuth } from "firebase/auth";
 import { serverTimestamp } from "firebase/firestore";
 const auth = getAuth();
-console.log("chekcing", auth.currentUser);
 class AddReview extends React.Component {
   constructor() {
     super();

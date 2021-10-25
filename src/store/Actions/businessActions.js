@@ -5,7 +5,7 @@ import {
   ADD_BUSINESS,
   ADD_LIKE_BUSINESS,
   REMOVE_LIKE_BUSINESS,
-} from "./businessesReducer";
+} from "../Reducers/businessesReducer";
 import {
   collection,
   getDocs,
@@ -15,7 +15,7 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import db from "../firebase";
+import db from "../../firebase";
 
 // ------------------ Actions creators --------------------
 

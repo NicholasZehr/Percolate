@@ -4,7 +4,7 @@ import {
   FETCH_REVIEWS,
   GET_SINGLE_REVIEW,
   REMOVE_LIKE,
-} from "./reviewReducer";
+} from "../Reducers/reviewReducer";
 import {
   collection,
   doc,
@@ -17,7 +17,7 @@ import {
   updateDoc,
   deleteDoc,
 } from "firebase/firestore";
-import db from "../firebase";
+import db from "../../firebase";
 import { increment, serverTimestamp } from "firebase/firestore";
 import { _addLikeCoffee, _removeLikeCoffee } from "./singleCoffee";
 import { _addLikeBusiness, _removeLikeBusiness } from "./businessActions";

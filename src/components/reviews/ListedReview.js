@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import LikeButton from "../LikeButton";
+import LikeButton from "../utils/LikeButton";
 import { Link } from "react-router-dom";
 
 class ListedReview extends Component {

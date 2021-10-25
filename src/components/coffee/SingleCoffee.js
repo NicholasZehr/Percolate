@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchSingleCoffee } from "../../store/singleCoffee";
+import { fetchSingleCoffee } from "../../store/Actions/singleCoffee";
 import AddReview from "../reviews/AddReview";
 import ReviewPane from "../reviews/ReviewPane";
 
 class SingleCoffee extends Component {
   async componentDidMount() {
     const id = this.props.match.params.id;
-    console.log("id from componentDidMount", this.props.match.params);
     await this.props.fetchCoffee(id);
   }
 
