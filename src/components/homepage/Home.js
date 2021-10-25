@@ -10,8 +10,9 @@ import { fetchFeedReviews } from "../../store/feed";
 import { doc, collection, addDoc, getDocs } from "firebase/firestore";
 import db from "../../firebase";
 import { serverTimestamp } from "firebase/firestore";
-import {addReview} from "../../store/Actions/reviewActions"
-import MapSearch from "../search/MapSearch"
+import { addReview } from "../../store/Actions/reviewActions";
+import MapSearch from "../search/MapSearch";
+import { fetchBusinesses } from "../../store/Actions/businessActions";
 
 Modal.setAppElement("#root");
 
@@ -27,6 +28,7 @@ const Home = (props) => {
   const reviews = useSelector((state) => state.feed);
   const [write, setWrite] = useState(false);
   const [rating, setRating] = useState(0);
+  const allBusiness = useSelector((state) => state.businesses.businesses);
 
   onAuthStateChanged(auth, (u) => {
     setUser(u);
@@ -36,6 +38,7 @@ const Home = (props) => {
     async function fetchData() {
       //* Fetch the user using it's id
       await dispatch(fetchLoginUser());
+      await dispatch(fetchBusinesses());
     }
     if (mounted) {
       fetchData();
@@ -49,7 +52,6 @@ const Home = (props) => {
     const list = [];
     const fol = [];
     let mounted = true;
-
     //======push followers in list,and following in fol
     if (Object.keys(loggedInUser).length > 0) {
       if (loggedInUser.following && loggedInUser.followers) {
@@ -89,15 +91,13 @@ const Home = (props) => {
       const data = {
         name: evt.target.name.value,
         brandName: evt.target.brandName.value,
-        roast:evt.target.roast.value,
+        roast: evt.target.roast.value,
         userId: loggedInUser.uid,
-        displayName: loggedInUser.displayName
-          ? loggedInUser.displayName
-          : null,
+        displayName: loggedInUser.displayName ? loggedInUser.displayName : null,
         rating: rating,
         time: serverTimestamp(),
-        likeCount:0,
-        feedURL:loggedInUser.photoURL,
+        likeCount: 0,
+        feedURL: loggedInUser.photoURL,
         content: content,
         photoURL: evt.target.photoURL.value,
       };
@@ -105,8 +105,8 @@ const Home = (props) => {
 
       evt.target.content.value = "";
       const newCoffee = await addDoc(coffeeRef, data);
-      data["id"] = newCoffee.id
-      data["type"] = "coffee"
+      data["id"] = newCoffee.id;
+      data["type"] = "coffee";
       dispatch(addReview(data));
     }
     setWrite(!write);
@@ -114,6 +114,11 @@ const Home = (props) => {
   const handleChange = (evt) => {
     setRating(evt.target.value);
   };
+  if (allBusiness.length > 0) {
+    allBusiness.sort(
+      (a, b) => b.data().followers.length - a.data().followers.length
+    );
+  }
 
   return (
     <>
@@ -300,7 +305,7 @@ const Home = (props) => {
           </div>
 
           <div className="centerBody">
-          <MapSearch/>
+            <MapSearch />
             <div className="cardRound">
               <p>Try Something New and Good Recently? </p>
               <button className="postNow newCoffee" onClick={writePage}>
@@ -329,9 +334,16 @@ const Home = (props) => {
               />
             </div>
             <div className="self">
-              <p className="favoriteTitle">Hot Businesses:</p>
-              <span>{followers.length} followers </span>
-              <span>{following.length} followings </span>
+              <p className="favoriteTitle">Most Follwed Businesses:</p>
+              {allBusiness.length > 0
+                ? allBusiness.slice(0,5).map((each) => (
+                    <div className="businessSideBar" key={each.data().id}>
+                      <hr className="divider" />
+                      <span>{each.data().name} </span>
+                      <span>{each.data().followers.length} followers</span>
+                    </div>
+                  ))
+                : ""}
             </div>
           </div>
         </div>
