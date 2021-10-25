@@ -4,7 +4,11 @@ import Modal from "react-modal";
 import { fetchBusiness } from "../../../store/Actions/businessActions";
 import { doc, setDoc } from "firebase/firestore";
 import db from "../../../firebase";
-
+import { getAuth } from "firebase/auth";
+import { Link } from "react-router-dom";
+import FeedCard from "../../utils/FeedCard";
+import { fetchReviews } from "../../../store/Actions/reviewActions";
+const auth = getAuth();
 class Business extends Component {
   constructor() {
     super();
@@ -18,6 +22,7 @@ class Business extends Component {
   componentDidMount() {
     console.log("singlebusiness did mount");
     this.props.fetchBusiness(this.props.match.params.id);
+    this.props.fetchReviews(this.props.match.params.id);
     console.log("fetch business called");
   }
 
@@ -56,22 +61,35 @@ class Business extends Component {
     if (!business.name) {
       return <h2>loading...</h2>;
     }
+    const reviews = this.props.reviews;
+    console.log("These are the reviews", reviews);
     const edit = this.state.edit;
     const {
       email,
+      city,
+      state,
+      street,
+      streetNum,
+      zip,
       displayName,
       coverURL,
       photoURL,
       name,
-      password,
       phone,
-      location,
+      about,
+      newestCoffee,
+      newestCoffeeURL,
+      followers,
     } = this.props.business;
 
     //const business = businessProps.data();
     return (
       <div className="singleUserPageBox">
-        <Modal className="modal" isOpen={edit} onRequestClose={this.editPage}>
+        <Modal
+          className="modal single-business"
+          isOpen={edit}
+          onRequestClose={this.editPage}
+        >
           <div className="close" onClick={this.editPage}></div>
           <h2>Edit Business</h2>
           <form
@@ -141,7 +159,7 @@ class Business extends Component {
                 name="state"
                 placeholder="State"
                 type="text"
-                defaultValue={location.state ? location.state : ""}
+                defaultValue={state ? state : ""}
               />
               <div className="blank3"></div>
             </div>
@@ -152,7 +170,7 @@ class Business extends Component {
                 name="city"
                 type="text"
                 placeholder="City"
-                defaultValue={location.city ? location.city : ""}
+                defaultValue={city ? city : ""}
               />
               <div className="blank3"></div>
             </div>
@@ -163,20 +181,31 @@ class Business extends Component {
                 name="zip"
                 placeholder="Zipcode"
                 type="text"
-                defaultValue={location.zip ? location.zip : ""}
+                defaultValue={zip ? zip : ""}
               />
               <div className="blank3"></div>
-              <div className="emailBox mod">
-                <span className="formName">Street:</span>
-                <input
-                  className="email"
-                  name="street"
-                  placeholder="Street"
-                  type="text"
-                  defaultValue={location.street ? location.street : ""}
-                />
-                <div className="blank3"></div>
-              </div>
+            </div>
+            <div className="emailBox mod">
+              <span className="formName">Street Number:</span>
+              <input
+                className="email"
+                name="streetNum"
+                placeholder="StreetNum"
+                type="text"
+                defaultValue={streetNum ? streetNum : ""}
+              />
+              <div className="blank3"></div>
+            </div>
+            <div className="emailBox mod">
+              <span className="formName">Street:</span>
+              <input
+                className="email"
+                name="street"
+                placeholder="Street"
+                type="text"
+                defaultValue={street ? street : ""}
+              />
+              <div className="blank3"></div>
             </div>
             <button className="signupPage" name="button1">
               Save
@@ -188,7 +217,7 @@ class Business extends Component {
             <div className="shadow">
               <img
                 className="cover"
-                src={business.name ? business.coverImageUrl : "/whiteBack2.png"}
+                src={coverURL ? coverURL : "/whiteBack2.png"}
                 alt="cover"
               />
             </div>
@@ -198,14 +227,16 @@ class Business extends Component {
             <div className="pictureBox">
               <img
                 className="profPic ownpage"
-                src={business.name ? business.imageUrl : "/guest.jpeg"}
+                src={photoURL ? photoURL : "/guest.jpeg"}
                 alt="pic"
               />
             </div>
             <div className="profileNavBar">
-              <div onClick={this.editPage} className="editProfileButton">
-                Edit Profile
-              </div>
+              {this.props.business.ownerId === auth.currentUser.uid ? (
+                <div onClick={this.editPage} className="editProfileButton">
+                  Edit Profile
+                </div>
+              ) : null}
               <h2>{business.name ? business.name : ""}</h2>
               <hr className="divider" />
               <div className="menu">
@@ -224,13 +255,14 @@ class Business extends Component {
           <div className="blank2"></div>
           <div className="leftBody">
             <div className="intro">
-              <h2>Intro: </h2>
-              <span className="favoriteTitle">Newest Coffee:</span>
+              <h2>About: </h2>
+              <p>{about}</p>
+              <span className="favoriteTitle">
+                Newest Coffee: {newestCoffee}{" "}
+              </span>
               <img
                 className="favCoffee"
-                src={
-                  business.menu ? business.menu[0].photoURL : "whiteBack2.png"
-                }
+                src={newestCoffeeURL ? newestCoffeeURL : "whiteBack2.png"}
                 alt="coffee"
               />
             </div>
@@ -238,6 +270,36 @@ class Business extends Component {
           </div>
           <div className="rightBody"></div>
           <div className="blank2"></div>
+        </div>
+        <div className="followers ">
+          <b>{followers.length} followers: </b>
+          <div className="followerListBox">
+            {followers.length > 0
+              ? followers.map((each, index) => {
+                  return (
+                    <Link to={`/users/${each.uid}`}>
+                      <div key={index} className="followerIcon">
+                        <img
+                          className="profPic pictureSize"
+                          alt="follower icon"
+                          src={each.photoURL}
+                        />
+                        <span>{each.firstName}</span>
+                      </div>
+                    </Link>
+                  );
+                })
+              : "No one is following you."}
+          </div>
+        </div>
+        <div className="rightBody">
+          {Object.keys(this.props.reviews).map((id) => (
+            <FeedCard
+              reviewId={id}
+              review={this.props.reviews[id]}
+              type="business"
+            />
+          ))}
         </div>
       </div>
     );
@@ -247,12 +309,14 @@ class Business extends Component {
 const mapState = (state) => {
   return {
     business: state.businesses.business,
+    reviews: state.review.reviews,
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
     fetchBusiness: (businessId) => dispatch(fetchBusiness(businessId)),
+    fetchReviews: (id) => dispatch(fetchReviews("business", id)),
   };
 };
 

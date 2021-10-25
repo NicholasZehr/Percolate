@@ -116,7 +116,17 @@ export const addReview = (review) => {
 export const fetchReviews = (type, id) => {
   return async (dispatch) => {
     try {
-      const q = query(collection(db, "reviews"), where(`${type}Id`, "==", id));
+      const businessq = query(
+        collection(db, "reviews"),
+        where("id", "==", id),
+        where("type", "==", type)
+      );
+      const otherq = query(
+        collection(db, "reviews"),
+        where(`${type}Id`, "==", id)
+      );
+      const q = type === "business" ? businessq : otherq;
+      console.log(q);
       const docSnap = await getDocs(q);
       const reviewsArr = {};
       docSnap.forEach((doc) => {
@@ -162,7 +172,7 @@ export const fetchSingleBusinessReviews = (id) => {
 export const fetchSingleReview = (reviewId) => {
   return async (dispatch) => {
     try {
-      console.log(reviewId)
+      console.log(reviewId);
       const docRef = doc(db, "reviews", reviewId);
       const docSnap = await getDoc(docRef);
       const singleReview = docSnap.data();
