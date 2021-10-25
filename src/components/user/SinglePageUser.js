@@ -17,6 +17,7 @@ import Modal from "react-modal";
 import { fetchLoginUser } from "../../store/auth";
 import FeedCard from "../feedCard";
 import { fetchReviews } from "../../store/reviewActions";
+import { fetchUserBusinesses } from "../../store/businessActions";
 
 Modal.setAppElement("#root");
 
@@ -30,7 +31,7 @@ const SingleUserPage = () => {
   const [edit, setEdit] = useState(false);
   const loginUser = useSelector((state) => state.auth);
   const currentPageUser = useSelector((state) => state.users.user);
-  const businesses = useSelector((state) => state.businesses);
+  const businesses = useSelector((state) => state.businesses.businesses);
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
   const [alreadyFollowed, setAlreadyFollowed] = useState(false);
@@ -46,6 +47,7 @@ const SingleUserPage = () => {
       await dispatch(fetchUser(id));
       await dispatch(fetchLoginUser());
       await dispatch(fetchReviews("user", id));
+      await dispatch(fetchUserBusinesses(id));
     }
     if (mounted) {
       fetchData();
@@ -297,7 +299,7 @@ const SingleUserPage = () => {
                           userId: id,
                         }}
                       >
-                        <div className="editProfileButton">Add a Business</div>
+                        <div className="editProfileButton">Add</div>
                       </Link>
                     ) : (
                       ""
@@ -306,8 +308,8 @@ const SingleUserPage = () => {
                     ""
                   )}
                   <div className="followerListBox">
-                    {following.length > 0
-                      ? following.map((each, index) => {
+                    {businesses.length > 0
+                      ? businesses.map((each, index) => {
                           return (
                             <div
                               key={index}
@@ -315,7 +317,7 @@ const SingleUserPage = () => {
                               onClick={() => history.push(`/users/${each.uid}`)}
                             >
                               <img
-                                alt="follower-icon"
+                                alt="Business"
                                 className="profPic pictureSize"
                                 src={each.photoURL}
                               />
@@ -323,7 +325,7 @@ const SingleUserPage = () => {
                             </div>
                           );
                         })
-                      : "You are not following anyone."}
+                      : "You have no businesses. What are you a communist?"}
                   </div>
                 </div>
               </div>

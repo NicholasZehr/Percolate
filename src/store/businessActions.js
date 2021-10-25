@@ -100,7 +100,7 @@ export const fetchUserBusinesses = (ownerId) => {
       const docSnap = await getDocs(q);
       const businesses = [];
       docSnap.forEach((business) => {
-        businesses.push(business);
+        businesses.push(business.data());
       });
       dispatch(_fetchUserBusinesses(businesses));
     } catch (error) {
