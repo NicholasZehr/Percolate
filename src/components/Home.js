@@ -23,6 +23,8 @@ const Home = (props) => {
   // const reviews = useSelector((state) => state.review.reviews);
   const reviews = useSelector((state) => state.feed);
   const [write, setWrite] = useState(false);
+  const [rating, setRating] = useState(0)
+
   onAuthStateChanged(auth, (u) => {
     setUser(u);
   });
@@ -75,6 +77,11 @@ const Home = (props) => {
   function writePage() {
     setWrite(!write);
   }
+  function changeRating(newRating, name) {
+    setRating(newRating)
+  }
+
+
 const handleSubmit = async (evt) => {
   evt.preventDefault();
 
@@ -137,6 +144,42 @@ const handleSubmit = async (evt) => {
                     max="5"
                     value={0}
                   />
+                  <section id="like" className="rating">
+                    <input type="radio" id="heart_5" name="like" value="5" />
+                    <label
+                      className="rating_heart"
+                      htmlFor="heart_5"
+                      title="Five"
+                    ></label>
+
+                    <input type="radio" id="heart_4" name="like" value="4" />
+                    <label
+                      className="rating_heart"
+                      htmlFor="heart_4"
+                      title="Four"
+                    ></label>
+
+                    <input type="radio" id="heart_3" name="like" value="3" />
+                    <label
+                      className="rating_heart"
+                      for="heart_3"
+                      title="Three"
+                    ></label>
+
+                    <input type="radio" id="heart_2" name="like" value="2" />
+                    <label
+                      className="rating_heart"
+                      htmlFor="heart_2"
+                      title="Two"
+                    ></label>
+
+                    <input type="radio" id="heart_1" name="like" value="1" />
+                    <label
+                      className="rating_heart"
+                      htmlFor="heart_1"
+                      title="One"
+                    ></label>
+                  </section>
                   <label htmlFor="content">Review Comments</label>
                 </div>
                 <textarea
