@@ -77,9 +77,6 @@ const Home = (props) => {
   function writePage() {
     setWrite(!write);
   }
-  function changeRating(newRating, name) {
-    setRating(newRating)
-  }
 
 
 const handleSubmit = async (evt) => {
@@ -103,6 +100,9 @@ const handleSubmit = async (evt) => {
   //   await addDoc(subCollection, data);
   // }
 };
+  const handleChange = (evt) => {
+    setRating(evt.target.value)
+  }
 
 
   return (
@@ -126,54 +126,109 @@ const handleSubmit = async (evt) => {
             </div>
             <div>
               <form className="form" onSubmit={handleSubmit}>
-                <div className="form-input-submit-group">
-                  {/* {this.state.error ? (
-              <ul className="error-label">
-                {this.error.map((error) => (
-                  <li>{error}</li>
-                ))}
-              </ul>
-            ) : null} */}
-                  <label htmlFor="rating">Rating</label>
+                <div className="emailBox">
+                  <label>Drink name</label>
                   <input
-                    className="form-text-box"
-                    type="number"
-                    name="rating"
-                    placeholder={0.0}
-                    min="0"
-                    max="5"
-                    value={0}
+                    className="email"
+                    name="email"
+                    type="text"
+                    placeholder="Email"
                   />
-                  <section id="like" className="rating">
-                    <input type="radio" id="heart_5" name="like" value="5" />
+                </div>
+                <div className="emailBox">
+                  <input
+                    className="email"
+                    name="firstName"
+                    type="text"
+                    placeholder="First Name"
+                  />
+                </div>
+                <div className="emailBox">
+                  <input
+                    className="email"
+                    name="lastName"
+                    placeholder="Last Name"
+                    type="text"
+                  />
+                </div>
+                <div className="emailBox">
+                  <input
+                    className="email"
+                    name="photoURL"
+                    type="text"
+                    placeholder="Profile Photo URL"
+                  />
+                </div>
+                <div className="emailBox">
+                  <input
+                    className="email"
+                    name="password"
+                    placeholder="Password"
+                    type="password"
+                  />
+                </div>
+                <div className="form-input-submit-group">
+                  <label htmlFor="rating">Rating</label>
+                  <section id="rate" className="rating">
+                    <input
+                      onChange={handleChange}
+                      type="radio"
+                      id="heart_5"
+                      name="like"
+                      value="5"
+                    />
                     <label
                       className="rating_heart"
                       htmlFor="heart_5"
                       title="Five"
                     ></label>
 
-                    <input type="radio" id="heart_4" name="like" value="4" />
+                    <input
+                      onChange={handleChange}
+                      type="radio"
+                      id="heart_4"
+                      name="like"
+                      value="4"
+                    />
                     <label
                       className="rating_heart"
                       htmlFor="heart_4"
                       title="Four"
                     ></label>
 
-                    <input type="radio" id="heart_3" name="like" value="3" />
+                    <input
+                      onChange={handleChange}
+                      type="radio"
+                      id="heart_3"
+                      name="like"
+                      value="3"
+                    />
                     <label
                       className="rating_heart"
-                      for="heart_3"
+                      htmlFor="heart_3"
                       title="Three"
                     ></label>
 
-                    <input type="radio" id="heart_2" name="like" value="2" />
+                    <input
+                      onChange={handleChange}
+                      type="radio"
+                      id="heart_2"
+                      name="like"
+                      value="2"
+                    />
                     <label
                       className="rating_heart"
                       htmlFor="heart_2"
                       title="Two"
                     ></label>
 
-                    <input type="radio" id="heart_1" name="like" value="1" />
+                    <input
+                      onChange={handleChange}
+                      type="radio"
+                      id="heart_1"
+                      name="like"
+                      value="1"
+                    />
                     <label
                       className="rating_heart"
                       htmlFor="heart_1"

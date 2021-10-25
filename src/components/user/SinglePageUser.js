@@ -20,7 +20,6 @@ import { fetchReviews } from "../../store/Actions/reviewActions";
 
 import { fetchUserBusinesses } from "../../store/Actions/businessActions";
 
-
 Modal.setAppElement("#root");
 
 const SingleUserPage = () => {
@@ -38,6 +37,7 @@ const SingleUserPage = () => {
   const [following, setFollowing] = useState([]);
   const [alreadyFollowed, setAlreadyFollowed] = useState(false);
   const reviews = useSelector((state) => state.review.reviews);
+  const [stick, setStick] = useState("stick");
 
   onAuthStateChanged(auth, (u) => {
     setUser(u);
@@ -94,6 +94,11 @@ const SingleUserPage = () => {
 
   function editPage() {
     setEdit(!edit);
+    if (stick === "stick") {
+      setStick("notStick");
+    } else {
+      setStick("stick");
+    }
   }
   async function followingUser() {
     if (Object.keys(loginUser).length > 0 && id !== loginUser.uid) {
@@ -230,7 +235,7 @@ const SingleUserPage = () => {
           <div className="body">
             <div className="blank2"></div>
             <div className="leftBody ">
-              <div className="stick">
+              <div className={`${stick}`}>
                 <div className="intro">
                   <h2>Intro: </h2>
                   <span className="favoriteTitle">My favorite coffee:</span>
@@ -334,12 +339,12 @@ const SingleUserPage = () => {
             </div>
             <div className="rightBody">
               {Object.keys(reviews).map((id) => (
-                  <FeedCard
-                    reviewId={id}
-                    review={reviews[id]}
-                    user={user}
-                    loggedInUser={loginUser}
-                  />
+                <FeedCard
+                  reviewId={id}
+                  review={reviews[id]}
+                  user={user}
+                  loggedInUser={loginUser}
+                />
               ))}
             </div>
             <div className="blank2"></div>
