@@ -165,7 +165,7 @@ body {
   background-color: white;
   flex-flow: column;
   border-radius: 10px;
-  
+
 }
 .rightSide {
   flex-grow: 1;
@@ -486,48 +486,50 @@ p strong {
   width: 150px;
   height: 50px;
   padding: 5px 10px;
-  margin: auto;
-  border-radius: 30px;
   background: #FFF;
   display: block;
   overflow: hidden;
-
-  
   unicode-bidi: bidi-override;
   direction: rtl;
 }
+/* hide circular selection dots */
 .rating:not(:checked) > input {
   display: none;
 }
 
 
 /* - - - - - LIKE */
-#like {
+#rate {
   bottom: -65px;
 }
-#like:not(:checked) > label {
+#rate:not(:checked) > label {
   cursor:pointer;
   float: right;
   width: 30px;
   height: 48px;
   display: block;
-  
+
   color: rgba(233, 54, 40, .4);
   line-height: 33px;
   text-align: center;
 }
-#like:not(:checked) > label:hover,
-#like:not(:checked) > label:hover ~ label {
+#rate:not(:checked) > label:hover,
+#rate:not(:checked) > label:hover ~ label {
   background:url('/color-bean.png');
-  color: rgba(170, 55, 47, 0.6);
 }
-#like > input:checked + label:hover,
-#like > input:checked + label:hover ~ label,
-#like > input:checked ~ label:hover,
-#like > input:checked ~ label:hover ~ label,
-#like > label:hover ~ input:checked ~ label {
-  color: rgba(233, 54, 40, .8);
+#rate > input:checked + label:hover,
+#rate > input:checked + label:hover ~ label,
+#rate > input:checked ~ label:hover,
+#rate > input:checked ~ label:hover ~ label,
+#rate > label:hover ~ input:checked ~ label {
+  background:url('/color-bean.png');
 }
-#like > input:checked ~ label {
-  color: rgb(233, 54, 40);
+#rate > input:checked ~ label {
+  background:url('/color-bean.png');
+}
+
+.ratingBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

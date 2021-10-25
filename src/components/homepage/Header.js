@@ -24,11 +24,19 @@ const Header = () => {
     history.push("/login");
     dispatch(logout());
   }
+  function clickLogo() {
+    if (user) {
+      history.push("/home")
+    } else {
+      history.push("/login")
+    }
+  }
+
   return (
     <div className="header">
       <div className="header-navbar">
         <div className="header-left">
-          <div className="oursite" onClick={() => history.push("/home")}>
+          <div className="oursite" onClick={clickLogo}>
             <span className="brand">Percolate</span>
             <img
               className="logo"
@@ -48,8 +56,8 @@ const Header = () => {
             <div className="space"></div>
           </div>
         </div>
-        <div className="header-middle">
-          <Search className="search" />
+        <div className="header-middle ">
+            <Search />
         </div>
         <div className="header-right">
           <div className="loginBox">
