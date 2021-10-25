@@ -28,6 +28,7 @@ class ListedReview extends Component {
 
           <div className="review-like-area">
             <LikeButton
+              liked={this.props.liked}
               id={this.props.id}
               index={this.props.idx}
               reviewId={reviewId}
@@ -46,7 +47,7 @@ class ListedReview extends Component {
               <h4 id="review-rating">{rating}</h4>
             </div>
           </div>
-        <p className="review-content">{content}</p>
+          <p className="review-content">{content}</p>
         </Link>
       </div>
     );

@@ -10,8 +10,8 @@ import { fetchFeedReviews } from "../../store/feed";
 import { doc, collection, addDoc, getDocs } from "firebase/firestore";
 import db from "../../firebase";
 import { serverTimestamp } from "firebase/firestore";
-import {addReview} from "../../store/Actions/reviewActions"
-import MapSearch from "../search/MapSearch"
+import { addReview } from "../../store/Actions/reviewActions";
+import MapSearch from "../search/MapSearch";
 
 Modal.setAppElement("#root");
 
@@ -89,15 +89,13 @@ const Home = (props) => {
       const data = {
         name: evt.target.name.value,
         brandName: evt.target.brandName.value,
-        roast:evt.target.roast.value,
+        roast: evt.target.roast.value,
         userId: loggedInUser.uid,
-        displayName: loggedInUser.displayName
-          ? loggedInUser.displayName
-          : null,
+        displayName: loggedInUser.displayName ? loggedInUser.displayName : null,
         rating: rating,
         time: serverTimestamp(),
-        likeCount:0,
-        feedURL:loggedInUser.photoURL,
+        likeCount: 0,
+        feedURL: loggedInUser.photoURL,
         content: content,
         photoURL: evt.target.photoURL.value,
       };
@@ -105,8 +103,8 @@ const Home = (props) => {
 
       evt.target.content.value = "";
       const newCoffee = await addDoc(coffeeRef, data);
-      data["id"] = newCoffee.id
-      data["type"] = "coffee"
+      data["id"] = newCoffee.id;
+      data["type"] = "coffee";
       dispatch(addReview(data));
     }
     setWrite(!write);
@@ -300,7 +298,7 @@ const Home = (props) => {
           </div>
 
           <div className="centerBody">
-          <MapSearch/>
+            <MapSearch />
             <div className="cardRound">
               <p>Try Something New and Good Recently? </p>
               <button className="postNow newCoffee" onClick={writePage}>

@@ -2,15 +2,45 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { likeClick } from "../../store/Actions/reviewActions";
 import ListedReview from "./ListedReview";
-
+import { query, where, collection, getDocs } from "firebase/firestore";
+import db from "../../firebase";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+const auth = getAuth();
 class ReviewPane extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      likedObj: {},
+      loading: true,
+      user: auth.currentUser,
+    };
     this.checkReview = this.checkReview.bind(this);
+    this.unsubscribeFromAuth = null;
   }
-
+  async componentDidMount() {
+    this.unsubscribeFromAuth = onAuthStateChanged((user) => {
+      this.setState({ ...this.state, user: user });
+    });
+    const q = query(
+      collection(db, "likeRelation"),
+      where("userId", "==", `${this.state.user.uid}`)
+    );
+    const likedReviews = await getDocs(q);
+    const likedObj = {};
+    likedReviews.forEach((doc) => {
+      likedObj[doc.data().reviewId] = true;
+    });
+    this.setState({
+      ...this.state,
+      likedObj: likedObj,
+    });
+    console.log("these are the liked reviews", likedObj);
+  }
+  async componentWillUnmount() {
+    this.unsubscribeFromAuth();
+  }
   checkReview(content) {
-    let revWords = content ? content.split(" ") : '';
+    let revWords = content ? content.split(" ") : "";
     const length = revWords.length;
     let newReview = "";
     if (length >= 10) {
@@ -27,7 +57,7 @@ class ReviewPane extends Component {
     const arrReviews =
       this.props.reviews !== {} ? Object.entries(this.props.reviews) : false;
     // const reviewArr = this.props.reviews.reviews;
-    console.log(arrReviews);
+    console.log(this.state.likedObj);
     return (
       <>
         {arrReviews.length > 0 ? (
@@ -38,6 +68,7 @@ class ReviewPane extends Component {
                   //checkReview(review.content);
                   return (
                     <ListedReview
+                      liked={this.state.likedObj[review[0]] ? true : false}
                       id={id}
                       type={type}
                       key={review[0]}
@@ -64,6 +95,7 @@ class ReviewPane extends Component {
 const mapState = (state) => {
   return {
     reviews: state.review.reviews,
+    auth: state.auth,
   };
 };
 const mapDispatch = (dispatch) => ({
