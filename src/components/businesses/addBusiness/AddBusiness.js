@@ -16,6 +16,7 @@ class AddBusiness extends Component {
       followers: [],
       _geoloc: {},
       ownerId: this.props.location.userId,
+      photoURL: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -60,8 +61,9 @@ class AddBusiness extends Component {
       },
       email: this.state.email,
       followers: this.state.followers,
-      phont: this.state.phone,
+      phone: this.state.phone,
       name: this.state.name,
+      photoURL: this.state.photoURL || "/default-business.png",
     });
 
     this.setState({
@@ -75,11 +77,13 @@ class AddBusiness extends Component {
       followers: [],
       _geoloc: {},
       ownerId: this.props.location.userId,
+      photoURL: "",
     });
   }
 
   render() {
-    const { name, email, phone, state, city, zipcode, street } = this.state;
+    const { name, email, phone, state, city, zipcode, street, photoURL } =
+      this.state;
 
     console.log("add bus prop", this.props);
     return (
@@ -132,6 +136,14 @@ class AddBusiness extends Component {
             name="street"
             placeholder="Street..."
             value={street}
+            onChange={this.handleChange}
+          />
+
+          <input
+            type="text"
+            name="photoURL"
+            placeholder="Photo URL"
+            value={photoURL}
             onChange={this.handleChange}
           />
           <span>
