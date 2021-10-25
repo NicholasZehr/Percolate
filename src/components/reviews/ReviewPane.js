@@ -5,11 +5,15 @@ import ListedReview from "./ListedReview";
 import { query, where, collection, getDocs } from "firebase/firestore";
 import db from "../../firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router";
+import { useState, useEffect } from "react";
+import { fetchLoginUser } from "../../store/auth";
 const auth = getAuth();
 const ReviewPane = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const reviews = useSelector((state) => state.review.reviews,);
+  const reviews = useSelector((state) => state.review.reviews);
   const auth = getAuth();
   const [user, setUser] = useState(getAuth().currentUser);
   onAuthStateChanged(auth, (u) => {
@@ -29,7 +33,7 @@ const ReviewPane = (props) => {
     };
   }, [user]);
 
-  async componentDidMount() {
+  const componentDidMount = () => {
     this.unsubscribeFromAuth = onAuthStateChanged((user) => {
       this.setState({ ...this.state, user: user });
     });
@@ -37,7 +41,7 @@ const ReviewPane = (props) => {
       collection(db, "likeRelation"),
       where("userId", "==", `${this.state.user.uid}`)
     );
-    const likedReviews = await getDocs(q);
+    const likedReviews = getDocs(q);
     const likedObj = {};
     likedReviews.forEach((doc) => {
       likedObj[doc.data().reviewId] = true;
@@ -47,9 +51,9 @@ const ReviewPane = (props) => {
       likedObj: likedObj,
     });
     console.log("these are the liked reviews", likedObj);
-  }
+  };
 
-  checkReview(content) {
+  const checkReview = (content) => {
     let revWords = content ? content.split(" ") : "";
     const length = revWords.length;
     let newReview = "";
@@ -58,9 +62,9 @@ const ReviewPane = (props) => {
       return newReview;
     }
     return content;
-  }
+  };
 
-  render() {
+  const render = () => {
     const { checkReview } = this;
     const id = this.props.id;
     const type = this.props.type;
@@ -99,7 +103,7 @@ const ReviewPane = (props) => {
         )}
       </>
     );
-  }
-}
+  };
+};
 
 export default ReviewPane;
