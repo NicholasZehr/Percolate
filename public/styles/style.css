@@ -165,7 +165,7 @@ body {
   background-color: white;
   flex-flow: column;
   border-radius: 10px;
-  
+
 }
 .rightSide {
   flex-grow: 1;
@@ -489,7 +489,8 @@ p strong {
   background: #FFF;
   display: block;
   overflow: hidden;
-
+  unicode-bidi: bidi-override;
+  direction: rtl;
 }
 /* hide circular selection dots */
 .rating:not(:checked) > input {
@@ -507,7 +508,7 @@ p strong {
   width: 30px;
   height: 48px;
   display: block;
-  
+
   color: rgba(233, 54, 40, .4);
   line-height: 33px;
   text-align: center;
