@@ -11,9 +11,9 @@ import SingleCoffee from "../coffee/SingleCoffee";
 import ReviewPane from "../reviews/ReviewPane";
 import SingleReview from "../reviews/SingleReview";
 import About from "../About";
-import Home from "../Home";
+import Home from "../homepage/Home";
 import Feed from "../feed/Feed";
-import MapSearch from "../MapSearch";
+import MapSearch from "../search/MapSearch";
 
 class Routes extends Component {
   render() {

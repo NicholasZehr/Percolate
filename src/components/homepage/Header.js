@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { logout } from "../store/auth";
+import { logout } from "../../store/auth";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { Search } from "../components/Search";
+import { Search } from "../search/Search";
 
 const Header = () => {
   const history = useHistory();
