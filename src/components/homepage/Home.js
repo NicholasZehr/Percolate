@@ -133,7 +133,6 @@ const Home = (props) => {
     temp.sort((a,b)=>b.avgRating - a.avgRating)
     setLocalCoffee(temp)
   }
-  console.log(localBusiness)
   return (
     <>
       {loggedInUser && user ? (
