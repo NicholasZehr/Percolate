@@ -13,6 +13,7 @@ import SingleReview from "../reviews/SingleReview";
 import About from "../utils/About";
 import Home from "../homepage/Home";
 import MapSearch from "../search/MapSearch";
+import Contact from "../utils/Contact";
 
 class Routes extends Component {
   render() {
@@ -22,6 +23,7 @@ class Routes extends Component {
         <Route path="/review/:id" component={SingleReview} />
         <Route path="/login" component={LoginPage} />
         <Route path="/about" component={About} />
+        <Route path="/contact" component={Contact} />
         <Route path="/signup" component={Signup} />
         <Route exact path="/businesses" component={AllBusinesses} />
         <Route exact path="/businesses/:id" component={Business} />
