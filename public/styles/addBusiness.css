@@ -1,24 +1,33 @@
-#form_business_new {
-  margin-top: 2vh;
-  width: 700px;
-  padding: 10px;
-  height: 150px;
-  color: #c9e4ca;
-  background-color: #3b6064;
-  border-radius: 20px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-}
-
-.new-business-container {
-  align-items: center;
-}
-
-.form-input-submit-group {
+.new-business-form{
+  margin: auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: center;
+  align-content: center;
+  background-color: blanchedalmond;
+  width: 40%
 }
 
-.form-text-box {
-  border-radius: 5px;
+#new-business{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px 10px 10px 10px;
+}
+
+.textBox-business{
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 5px;
+  margin-top: 5px;
+  align-self: center;
+}
+
+#new-business button{
+  margin-top: 15px;
+  margin-bottom: 10px;
+  align-self: center;
+  width: 90%;
 }

@@ -17,6 +17,7 @@ class AddBusiness extends Component {
       _geoloc: {},
       ownerId: this.props.location.userId,
       photoURL: "",
+      coverURL: ""
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -63,6 +64,7 @@ class AddBusiness extends Component {
       phone: this.state.phone,
       name: this.state.name,
       photoURL: this.state.photoURL || "/default-business.png",
+      coverURL: this.state.coverURL || "/default-business.png"
     });
 
     this.setState({
@@ -77,17 +79,19 @@ class AddBusiness extends Component {
       _geoloc: {},
       ownerId: this.props.location.userId,
       photoURL: "",
+      coverURL: ""
     });
   }
 
   render() {
-    const { name, email, phone, state, city, zipcode, street, photoURL } =
+    const { name, email, phone, state, city, zipcode, street, photoURL, coverURL } =
       this.state;
 
     console.log("add bus prop", this.props);
     return (
-      <form onSubmit={this.handleSubmit}>
-        <div id="new-product">
+      <form className="new-business-form" onSubmit={this.handleSubmit}>
+        <div id="new-business">
+          <div className="textBox-business">
           <input
             type="text"
             name="name"
@@ -95,6 +99,8 @@ class AddBusiness extends Component {
             value={name}
             onChange={this.handleChange}
           />
+          </div>
+          <div className="textBox-business">
           <input
             type="text"
             name="phone"
@@ -102,6 +108,8 @@ class AddBusiness extends Component {
             value={phone}
             onChange={this.handleChange}
           />
+          </div>
+          <div className="textBox-business">
           <input
             type="text"
             name="email"
@@ -109,6 +117,8 @@ class AddBusiness extends Component {
             value={email}
             onChange={this.handleChange}
           />
+          </div>
+          <div className="textBox-business">
           <input
             type="text"
             name="state"
@@ -116,6 +126,8 @@ class AddBusiness extends Component {
             value={state}
             onChange={this.handleChange}
           />
+          </div>
+          <div className="textBox-business">
           <input
             type="text"
             name="city"
@@ -123,6 +135,8 @@ class AddBusiness extends Component {
             value={city}
             onChange={this.handleChange}
           />
+          </div>
+          <div className="textBox-business">
           <input
             type="text"
             name="zipcode"
@@ -130,6 +144,8 @@ class AddBusiness extends Component {
             value={zipcode}
             onChange={this.handleChange}
           />
+          </div>
+          <div className="textBox-business">
           <input
             type="text"
             name="street"
@@ -137,7 +153,8 @@ class AddBusiness extends Component {
             value={street}
             onChange={this.handleChange}
           />
-
+          </div>
+          <div className="textBox-business">
           <input
             type="text"
             name="photoURL"
@@ -145,9 +162,17 @@ class AddBusiness extends Component {
             value={photoURL}
             onChange={this.handleChange}
           />
-          <span>
+          </div>
+          <div className="textBox-business">
+          <input
+            type="text"
+            name="coverURL"
+            placeholder="Cover URL"
+            value={coverURL}
+            onChange={this.handleChange}
+          />
+          </div>
             <button type="submit">Submit</button>
-          </span>
         </div>
       </form>
     );
