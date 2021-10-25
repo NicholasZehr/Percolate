@@ -11,8 +11,7 @@ const About = () => {
 
             <img src="/Matt.jpeg" className="author zoomable" alt="hold up" />
             <p className="aboutAuthor">
-              Matt was an electrical engineer at AECOM designing power
-              distribution systems.{" "}
+              Matt is a former Electrical Engineer who studied at Southern Methodist University. He then went on to become an electrical engineer at AECOM designing power distribution systems.{" "}
             </p>
           </div>
           <div className="authorBox">

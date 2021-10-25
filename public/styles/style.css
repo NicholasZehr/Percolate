@@ -490,7 +490,7 @@ p strong {
   min-height: 300px;
   width: 100%;
   margin: auto;
-  border-radius: 5%;
+  border-radius: 10px;
   overflow: hidden;
 }
 
@@ -566,4 +566,8 @@ p strong {
 #txt {
   padding-left: 20px;
   padding-right: 20px;
+}
+
+.imageBox{
+  margin-right:10px;
 }
