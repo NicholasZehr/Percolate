@@ -144,7 +144,8 @@ body {
 }
 .leftSide {
   flex-grow: 1;
-  margin: 10px;
+  margin: 5px;
+  margin-right: 10px;
   display: flex;
   justify-content: start;
   flex-flow: column;
@@ -154,15 +155,22 @@ body {
   display: flex;
   flex-flow: column;
   background-color: white;
-  padding: 10px 0px 10px 10px;
+  padding: 10px 10px 10px 10px;
   border-radius: 10px;
   width: 100%;
   margin: 5px;
 }
-
+.middlePieceOfcard {
+  display: flex;
+  background-color: white;
+  flex-flow: column;
+  border-radius: 10px;
+  
+}
 .rightSide {
   flex-grow: 1;
-  margin: 10px;
+  margin: 5px;
+  margin-left:10px;
   display: flex;
   justify-content: start;
   flex-flow: column;
@@ -170,7 +178,8 @@ body {
 }
 .centerBody {
   flex-grow: 3;
-  margin: 10px;
+  margin-right: 10px;
+  margin-left:10px;
   display: flex;
   justify-content: start;
   flex-flow: column;
@@ -179,16 +188,22 @@ body {
 .feeding {
   height: auto;
 }
+.top {
+  margin-top:5px;
+  border-radius: 10px 10px 0 0;
+}
+.bottom {
+
+}
 .headNPost {
   display: flex;
   padding: 5px;
   justify-content: flex-start;
   align-items: center;
   background-color: white;
-  border-radius: 20px;
 }
 .commentImage {
-  flex-grow: 1;
+  flex-grow: 0.1;
 }
 .productAndBusiness {
   display: flex;
@@ -199,20 +214,7 @@ body {
   width: 100%;
   margin: 5px;
 }
-.post-input {
-  width: 100%;
-  height: auto;
-  background-color: rgb(228, 227, 227);
-  border-radius: 20px;
-  border: 0;
-  margin-right: 10px;
-  margin-left:2px;
-  font-size: 1rem;
-  color: gray;
-  text-align: left;
-  padding-left: 10px;
-  flex-grow: 10;
-}
+
 .writepost {
   color: black;
   font-size: 1rem;
@@ -227,7 +229,6 @@ body {
 }
 .post {
   display: flex;
-  flex-flow: column;
 }
 .postHead {
   height: 50px;
@@ -237,7 +238,7 @@ body {
   flex-grow: 0.5;
   width: 60px;
   height: 35px;
-  margin-right: 10px;
+
   background-color: #3b6064;
   border-radius: 20px;
   border: 0;
@@ -249,7 +250,7 @@ body {
 }
 .textarea {
   background-color: rgb(228, 227, 227);
-  width: 100%;
+  max-width: 100%;
   overflow: hidden;
   font-size: 18px;
   height: auto;
@@ -259,6 +260,7 @@ body {
   line-height: 20px;
   resize: none;
   border: 0;
+  flex-grow: 3;
   padding-top: 5px;
   border-radius: 20px;
   font-family: inherit;
@@ -391,7 +393,8 @@ p strong {
 }
 .cardUptwo {
   margin-top: 0px;
-  border-radius: 0px 0px 20px 20px;
+  border-radius: 0px 0px 10px 10px;
+  background-color: white;
 }
 .heart {
   height: 20px;
@@ -418,6 +421,21 @@ p strong {
 }
 .feedcard {
   width: 100%;
+  margin: 0 auto;
+  padding:0 auto;
+}
+.cardRound{
+  width: 100%;
+  background-color: white;
+  color:gray;
+  border-radius:10px;
+  margin-bottom: 5px;
+  margin-top: 10px;
+  padding-bottom: 10px;
+}
+.newCoffee {
+  width: fit-content;
+  font-size:18px;
 }
 .cardDown {
   margin-bottom: 1px;
@@ -425,6 +443,8 @@ p strong {
 }
 .card {
   flex-flow: row;
+  margin-top: 1px;
+  border-radius: 0;
   justify-content: space-around;
 }
 .coffeeInfo {
@@ -439,14 +459,75 @@ p strong {
 .insideComment {
   margin: 0;
   padding: 0;
-  width: 93%;
+  width: inherit;
   word-wrap: break-word;
+}
+.commentContent {
+  flex-grow: 5;
 }
 .commentPadding {
   padding: 5px;
+  text-align: start;
 }
 #map {
   height: 80%;
   width: 80%;
   margin: auto;
+}
+
+/* rating stars ===============================*/
+.rating_heart {
+  width: auto;
+  height: 60px;
+  background: url('/gray-bean.png');
+  background-size:contain;
+}
+.rating {
+  width: 150px;
+  height: 50px;
+  padding: 5px 10px;
+  margin: auto;
+  border-radius: 30px;
+  background: #FFF;
+  display: block;
+  overflow: hidden;
+
+  
+  unicode-bidi: bidi-override;
+  direction: rtl;
+}
+.rating:not(:checked) > input {
+  display: none;
+}
+
+
+/* - - - - - LIKE */
+#like {
+  bottom: -65px;
+}
+#like:not(:checked) > label {
+  cursor:pointer;
+  float: right;
+  width: 30px;
+  height: 48px;
+  display: block;
+  
+  color: rgba(233, 54, 40, .4);
+  line-height: 33px;
+  text-align: center;
+}
+#like:not(:checked) > label:hover,
+#like:not(:checked) > label:hover ~ label {
+  background:url('/color-bean.png');
+  color: rgba(170, 55, 47, 0.6);
+}
+#like > input:checked + label:hover,
+#like > input:checked + label:hover ~ label,
+#like > input:checked ~ label:hover,
+#like > input:checked ~ label:hover ~ label,
+#like > label:hover ~ input:checked ~ label {
+  color: rgba(233, 54, 40, .8);
+}
+#like > input:checked ~ label {
+  color: rgb(233, 54, 40);
 }

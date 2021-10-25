@@ -235,9 +235,8 @@
   width: 50%;
   display: flex;
   flex-flow: column;
-  background-color: white;
   justify-content: start;
   align-items: center;
-  margin-top: 30px;
+  margin-top: 20px;
   margin-left:30px;
 }

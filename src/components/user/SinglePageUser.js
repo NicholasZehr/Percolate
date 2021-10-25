@@ -17,7 +17,9 @@ import Modal from "react-modal";
 import { fetchLoginUser } from "../../store/auth";
 import FeedCard from "../feedCard";
 import { fetchReviews } from "../../store/reviewActions";
+
 import { fetchUserBusinesses } from "../../store/businessActions";
+
 
 Modal.setAppElement("#root");
 
@@ -332,13 +334,12 @@ const SingleUserPage = () => {
             </div>
             <div className="rightBody">
               {Object.keys(reviews).map((id) => (
-                <FeedCard
-                  key={id}
-                  reviewId={id}
-                  review={reviews[id]}
-                  user={user}
-                  loggedInUser={loginUser}
-                />
+                  <FeedCard
+                    reviewId={id}
+                    review={reviews[id]}
+                    user={user}
+                    loggedInUser={loginUser}
+                  />
               ))}
             </div>
             <div className="blank2"></div>

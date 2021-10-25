@@ -2,15 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Modal from "react-modal";
+import { useHistory } from "react-router";
 import { fetchLoginUser } from "../store/auth";
 import FeedCard from "./feedCard";
 import { fetchReviews } from "../store/reviewActions";
 import { fetchFeedReviews } from "../store/feed";
-
+import { doc, collection, addDoc, getDocs } from "firebase/firestore";
+import db from "../firebase";
 
 Modal.setAppElement("#root");
 
 const Home = (props) => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const loggedInUser = useSelector((state) => state.auth);
   const auth = getAuth();
@@ -20,6 +23,8 @@ const Home = (props) => {
   // const reviews = useSelector((state) => state.review.reviews);
   const reviews = useSelector((state) => state.feed);
   const [write, setWrite] = useState(false);
+  const [rating, setRating] = useState(0)
+
   onAuthStateChanged(auth, (u) => {
     setUser(u);
   });
@@ -72,15 +77,39 @@ const Home = (props) => {
   function writePage() {
     setWrite(!write);
   }
+  function changeRating(newRating, name) {
+    setRating(newRating)
+  }
 
+
+const handleSubmit = async (evt) => {
+  evt.preventDefault();
+
+  // if (loggedInUser) {
+  //   const content = evt.target.content.value;
+  //   const data = {
+  //     likeCount: 0,
+  //     reviewId: reviewId,
+  //     userId: loggedInUser.uid,
+  //     displayName: loggedInUser.displayName
+  //       ? loggedInUser.displayName
+  //       : null,
+  //     content: content,
+  //     photoURL: loggedInUser.photoURL,
+  //   };
+  //   const subCollection = collection(db, "reviews", reviewId, "comments");
+
+  //   evt.target.content.value = "";
+  //   await addDoc(subCollection, data);
+  // }
+};
   
 
-  console.log("n2o", props);
   return (
     <>
       {loggedInUser && user ? (
         <div className="home">
-          {/* <Modal className="modal" isOpen={write} onRequestClose={writePage}>
+          <Modal className="modal" isOpen={write} onRequestClose={writePage}>
             <div className="imageBox post">
               <img
                 className="profPic"
@@ -97,21 +126,77 @@ const Home = (props) => {
             </div>
             <div>
               <form className="form" onSubmit={handleSubmit}>
+                <div className="form-input-submit-group">
+                  {/* {this.state.error ? (
+              <ul className="error-label">
+                {this.error.map((error) => (
+                  <li>{error}</li>
+                ))}
+              </ul>
+            ) : null} */}
+                  <label htmlFor="rating">Rating</label>
+                  <input
+                    className="form-text-box"
+                    type="number"
+                    name="rating"
+                    placeholder={0.0}
+                    min="0"
+                    max="5"
+                    value={0}
+                  />
+                  <section id="like" className="rating">
+                    <input type="radio" id="heart_5" name="like" value="5" />
+                    <label
+                      className="rating_heart"
+                      htmlFor="heart_5"
+                      title="Five"
+                    ></label>
+
+                    <input type="radio" id="heart_4" name="like" value="4" />
+                    <label
+                      className="rating_heart"
+                      htmlFor="heart_4"
+                      title="Four"
+                    ></label>
+
+                    <input type="radio" id="heart_3" name="like" value="3" />
+                    <label
+                      className="rating_heart"
+                      for="heart_3"
+                      title="Three"
+                    ></label>
+
+                    <input type="radio" id="heart_2" name="like" value="2" />
+                    <label
+                      className="rating_heart"
+                      htmlFor="heart_2"
+                      title="Two"
+                    ></label>
+
+                    <input type="radio" id="heart_1" name="like" value="1" />
+                    <label
+                      className="rating_heart"
+                      htmlFor="heart_1"
+                      title="One"
+                    ></label>
+                  </section>
+                  <label htmlFor="content">Review Comments</label>
+                </div>
                 <textarea
                   rows="5"
                   className="textarea"
                   maxLength="500"
                   name="content"
-                  placeholder={`What's on your mind? ${
+                  placeholder={`What's on your mind about this product? ${
                     user ? user.displayName : ""
                   }`}
                 ></textarea>
                 <div className="signupBox">
-                  <button className="signupPage">Post</button>
+                  <button className="signupPage">Submit Review</button>
                 </div>
               </form>
             </div>
-          </Modal> */}
+          </Modal>
           <div className="leftSide">
             <div className="self">
               <h3>{`Welcome, ${
@@ -134,12 +219,18 @@ const Home = (props) => {
           </div>
 
           <div className="centerBody">
+            <div className="cardRound">
+              <p>Try Something New and Good Recently? </p>
+              <button className="postNow newCoffee" onClick={writePage}>
+                Add New Product
+              </button>
+            </div>
             {Object.keys(reviews).length > 0
               ? Object.keys(reviews).map((id, index) => (
                   <FeedCard
                     key={index}
                     reviewId={id}
-                    review = {reviews[id]}
+                    review={reviews[id]}
                     user={user}
                     loggedInUser={loggedInUser}
                   />
@@ -147,7 +238,7 @@ const Home = (props) => {
               : ""}
           </div>
           <div className="rightSide">
-            <div className="productAndBusiness">fdsafdsafsda</div>
+            <div className="self">fdsafdsafsda</div>
           </div>
         </div>
       ) : (

@@ -9,7 +9,7 @@ const FeedCard = (props) => {
   const [show, setShow] = useState(false);
   const textarea = document.getElementById("txt");
   const [cssShow, setCssShow] = useState("noShow");
-  const [round, setRound] = useState("cardUptwo")
+  const [round, setRound] = useState("cardUptwo");
   const [allComments, setAllComents] = useState([]);
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const FeedCard = (props) => {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-    
+
     if (props.loggedInUser) {
       const content = evt.target.content.value;
       const data = {
@@ -61,8 +61,7 @@ const FeedCard = (props) => {
         props.reviewId,
         "comments"
       );
-      
-      
+
       evt.target.content.value = "";
       await addDoc(subCollection, data);
     }
@@ -98,16 +97,16 @@ const FeedCard = (props) => {
     setShow(!show);
     if (cssShow == "noShow") {
       setCssShow("show");
-      setRound("cardUp")
+      setRound("cardUp");
     } else {
       setCssShow("noShow");
-      setRound("cardUptwo")
+      setRound("cardUptwo");
     }
   }
   return (
     <div className="feedcard">
-      <div className="self feeding cardDown">
-        <div className="headNPost">
+      <div className="feeding cardDown">
+        <div className="headNPost top">
           <div className="imageBox post">
             <img
               className="profPic postHead"
@@ -135,14 +134,7 @@ const FeedCard = (props) => {
           </div>
         </div>
       </div>
-      <div className="self feeding cardUpAdjustment">
-
-
-
-
-
-
-
+      <div className="feeding cardUpAdjustment">
         <div className="headNPost card">
           <img
             className="favCoffee"
@@ -160,14 +152,8 @@ const FeedCard = (props) => {
             <p>" {props.review.content} "</p>
           </div>
         </div>
-
-
-
-
-
-
       </div>
-      <div className="self feeding cardUp ">
+      <div className="middlePieceOfcard feeding cardUp ">
         <div className="blank"></div>
 
         <div className="likes">
@@ -181,9 +167,9 @@ const FeedCard = (props) => {
           <p>Comments</p>
         </div>
       </div>
-      <div className={`self feeding ${round}`}>
+      <div>
         <form className="form" onSubmit={handleSubmit}>
-          <div className="headNPost">
+          <div className={`headNPost ${round}`}>
             <div className="imageBox commentImage">
               <img
                 className="profPic"
@@ -197,26 +183,24 @@ const FeedCard = (props) => {
               />
             </div>
 
-            <div className="post-input ">
-              <textarea
-                className="textarea"
-                id="txt"
-                name="content"
-                maxLength="200"
-                placeholder="Write a comment..."
-              ></textarea>
-            </div>
+            <textarea
+              className="textarea"
+              id="txt"
+              name="content"
+              maxLength="200"
+              placeholder="Write a comment..."
+            ></textarea>
             <button className="postNow">
               <i className="fa fa-paper-plane-o"></i>
             </button>
           </div>
         </form>
       </div>
-      <div className={`self feeding cardUptwo ${cssShow}`}>
+      <div className={`cardUptwo ${cssShow}`}>
         {allComments.length > 0
           ? allComments.map((each, index) => (
               <div key={index} className="self feeding insideComment">
-                <div className="headNPost">
+                <div className="headNPost ">
                   <div className="imageBox commentImage">
                     <img
                       className="profPic"
@@ -225,7 +209,7 @@ const FeedCard = (props) => {
                       onClick={(_) => history.push(`/users/${each.userId}`)}
                     />
                   </div>
-                  <div className="post-input ">
+                  <div className="post-input commentContent">
                     <span className="textarea commentPadding">
                       {each.content}
                     </span>

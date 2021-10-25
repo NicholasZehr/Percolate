@@ -178,7 +178,6 @@ const SingleReview = (props) => {
                 />
               </div>
 
-              <div className="post-input ">
                 <textarea
                   className="textarea"
                   id="txt"
@@ -186,7 +185,6 @@ const SingleReview = (props) => {
                   maxLength="200"
                   placeholder="Write a comment..."
                 ></textarea>
-              </div>
               <button className="postNow">
                 <i className="fa fa-paper-plane-o"></i>
               </button>
