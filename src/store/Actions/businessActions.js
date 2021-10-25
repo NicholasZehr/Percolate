@@ -98,9 +98,9 @@ export const fetchUserBusinesses = (ownerId) => {
       const businessesRef = collection(db, "businesses");
       const q = query(businessesRef, where("ownerId", "==", ownerId));
       const docSnap = await getDocs(q);
-      const businesses = [];
+      const businesses = {};
       docSnap.forEach((business) => {
-        businesses.push(business.data());
+        businesses[business.id] = business.data()
       });
       dispatch(_fetchUserBusinesses(businesses));
     } catch (error) {
