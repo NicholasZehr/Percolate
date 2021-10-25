@@ -19,6 +19,7 @@ import FeedCard from "../utils/FeedCard";
 import { fetchReviews } from "../../store/Actions/reviewActions";
 
 import { fetchUserBusinesses } from "../../store/Actions/businessActions";
+import MapSearch from "../search/MapSearch"
 
 Modal.setAppElement("#root");
 

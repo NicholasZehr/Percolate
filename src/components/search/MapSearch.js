@@ -10,7 +10,7 @@ const client = algoliasearch(
 
 const index = client.initIndex('businesses');
 
-const AnyReactComponent = ({ text, id }) => <Link to={`businesses/${id}`}><img className="marker"src = '/color-bean.png'/></Link>;
+const AnyReactComponent = ({ rating, displayName, id }) => <Link className='marker-hover' to={`businesses/${id}`}><span>{displayName} {rating?(rating):(null)}</span><img className="marker"src = '/color-bean.png'/></Link>;
 
 const MapSearch =()=> {
   let [center, setCenter] = useState({})
@@ -54,8 +54,9 @@ const MapSearch =()=> {
            <AnyReactComponent
            lat = {marker._geoloc.lat}
            lng = {marker._geoloc.lng}
-           text= {marker.name}
            id = {marker.objectID}
+           displayName = {marker.name}
+           rating={marker.rating?(marker.rating):(null)}
            />)})}
         </GoogleMapReact>
       </div>):(<h1>loading location...</h1>)

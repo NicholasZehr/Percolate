@@ -184,6 +184,8 @@ body {
   justify-content: start;
   flex-flow: column;
   align-items: center;
+  height: 100vh;
+  overflow-y: scroll;
 }
 .feeding {
   height: auto;
@@ -470,9 +472,10 @@ p strong {
   text-align: start;
 }
 #map {
-  height: 80%;
-  width: 80%;
+  min-height: 300px;
+  width: 100%;
   margin: auto;
+  border-radius: 10%;
 }
 
 /* rating stars ===============================*/
@@ -532,4 +535,17 @@ p strong {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.marker-hover span{
+  display: none;
+  position: absolute;
+  background: lightgray;
+  color: black;
+  font-size: 20px;
+
+}
+
+.marker-hover:hover span {
+  display:inline-block;
 }
