@@ -1,5 +1,5 @@
 import { getDoc, doc, updateDoc } from "firebase/firestore";
-import db from "../firebase";
+import db from "../../firebase";
 import { fetchSingleCoffeeReviews } from "./reviewActions";
 // action types
 

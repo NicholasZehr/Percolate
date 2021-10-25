@@ -15,10 +15,10 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import EditProfileButton from "./EditProfileButton";
 import Modal from "react-modal";
 import { fetchLoginUser } from "../../store/auth";
-import FeedCard from "../feedCard";
-import { fetchReviews } from "../../store/reviewActions";
+import FeedCard from "../utils/feedCard";
+import { fetchReviews } from "../../store/Actions/reviewActions";
 
-import { fetchUserBusinesses } from "../../store/businessActions";
+import { fetchUserBusinesses } from "../../store/Actions/businessActions";
 
 
 Modal.setAppElement("#root");

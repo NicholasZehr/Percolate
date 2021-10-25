@@ -5,10 +5,10 @@ import thunkMiddleware from "redux-thunk";
 import auth from "./auth";
 import { getFirestore, reduxFirestore } from "redux-firestore";
 import db from "../firebase";
-import businessesReducer from "./businessesReducer";
+import businessesReducer from "./Reducers/businessesReducer";
 import usersReducers from "./Reducers/usersReducer";
-import singleCoffeeReducer from "./singleCoffee";
-import reviewReducer from "./reviewReducer";
+import singleCoffeeReducer from "./Actions/singleCoffee";
+import reviewReducer from "./Reducers/reviewReducer";
 import feedReducer from "./feed";
 
 const reducer = combineReducers({

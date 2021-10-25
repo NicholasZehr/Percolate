@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Modal from "react-modal";
-import { fetchBusiness } from "../../../store/businessActions";
+import { fetchBusiness } from "../../../store/Actions/businessActions";
 import { doc, setDoc } from "firebase/firestore";
 import db from "../../../firebase";
 

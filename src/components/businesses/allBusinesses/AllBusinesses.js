@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { fetchBusinesses } from "../../../store/businessActions";
+import { fetchBusinesses } from "../../../store/Actions/businessActions";
 
 class Businesses extends Component {
   componentDidMount() {

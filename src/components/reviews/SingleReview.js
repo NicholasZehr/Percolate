@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSingleReview } from "../../store/reviewActions";
+import { fetchSingleReview } from "../../store/Actions/reviewActions";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { fetchLoginUser } from "../../store/auth";
 import { useHistory } from "react-router";
