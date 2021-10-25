@@ -165,21 +165,26 @@ body {
   background-color: white;
   flex-flow: column;
   border-radius: 10px;
-
 }
 .rightSide {
   flex-grow: 1;
   margin: 5px;
-  margin-left:10px;
+  margin-left: 10px;
   display: flex;
   justify-content: start;
   flex-flow: column;
+  height: 100vh;
+  overflow-y: scroll;
+  scrollbar-width: none;
   align-items: center;
+}
+.rightSide::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
 }
 .centerBody {
   flex-grow: 3;
   margin-right: 10px;
-  margin-left:10px;
+  margin-left: 10px;
   display: flex;
   justify-content: start;
   flex-flow: column;
@@ -193,16 +198,14 @@ body {
   display: none; /* for Chrome, Safari, and Opera */
 }
 
-
 .feeding {
   height: auto;
 }
 .top {
-  margin-top:5px;
+  margin-top: 5px;
   border-radius: 10px 10px 0 0;
 }
 .bottom {
-
 }
 .headNPost {
   display: flex;
@@ -224,7 +227,7 @@ body {
   margin: 5px;
 }
 .businessSideBar {
-  padding:5px;
+  padding: 5px;
   display: flex;
   flex-flow: column;
 }
@@ -436,20 +439,20 @@ p strong {
 .feedcard {
   width: 100%;
   margin: 0 auto;
-  padding:0 auto;
+  padding: 0 auto;
 }
-.cardRound{
+.cardRound {
   width: 100%;
   background-color: white;
-  color:gray;
-  border-radius:10px;
+  color: gray;
+  border-radius: 10px;
   margin-bottom: 5px;
   margin-top: 10px;
   padding-bottom: 10px;
 }
 .newCoffee {
   width: fit-content;
-  font-size:18px;
+  font-size: 18px;
 }
 .cardDown {
   margin-bottom: 1px;
@@ -495,14 +498,14 @@ p strong {
 .rating_heart {
   width: auto;
   height: 60px;
-  background: url('/gray-bean.png');
-  background-size:contain;
+  background: url("/gray-bean.png");
+  background-size: contain;
 }
 .rating {
   width: 150px;
   height: 50px;
   padding: 5px 10px;
-  background: #FFF;
+  background: #fff;
   display: block;
   overflow: hidden;
   unicode-bidi: bidi-override;
@@ -513,35 +516,34 @@ p strong {
   display: none;
 }
 
-
 /* - - - - - LIKE */
 #rate {
   bottom: -65px;
 }
 #rate:not(:checked) > label {
-  cursor:pointer;
+  cursor: pointer;
   float: right;
   width: 30px;
   height: 48px;
   display: block;
 
-  color: rgba(233, 54, 40, .4);
+  color: rgba(233, 54, 40, 0.4);
   line-height: 33px;
   text-align: center;
 }
 #rate:not(:checked) > label:hover,
 #rate:not(:checked) > label:hover ~ label {
-  background:url('/color-bean.png');
+  background: url("/color-bean.png");
 }
 #rate > input:checked + label:hover,
 #rate > input:checked + label:hover ~ label,
 #rate > input:checked ~ label:hover,
 #rate > input:checked ~ label:hover ~ label,
 #rate > label:hover ~ input:checked ~ label {
-  background:url('/color-bean.png');
+  background: url("/color-bean.png");
 }
 #rate > input:checked ~ label {
-  background:url('/color-bean.png');
+  background: url("/color-bean.png");
 }
 
 .ratingBox {
@@ -550,19 +552,18 @@ p strong {
   align-items: center;
 }
 
-.marker-hover span{
+.marker-hover span {
   display: none;
   position: absolute;
   background: lightgray;
   color: black;
   font-size: 20px;
-
 }
 
 .marker-hover:hover span {
-  display:inline-block;
+  display: inline-block;
 }
-#txt{
+#txt {
   padding-left: 20px;
   padding-right: 20px;
 }
