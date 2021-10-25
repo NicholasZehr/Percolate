@@ -13,6 +13,7 @@ import { serverTimestamp } from "firebase/firestore";
 import { addReview } from "../../store/Actions/reviewActions";
 import MapSearch from "../search/MapSearch";
 import { fetchBusinesses } from "../../store/Actions/businessActions";
+import { fetchAllCoffee } from "../../store/Actions/coffeeActions";
 
 Modal.setAppElement("#root");
 
@@ -29,6 +30,7 @@ const Home = (props) => {
   const [write, setWrite] = useState(false);
   const [rating, setRating] = useState(0);
   const allBusiness = useSelector((state) => state.businesses.businesses);
+  const allCoffee = useSelector((state) => state.coffee.allCoffee);
 
   onAuthStateChanged(auth, (u) => {
     setUser(u);
@@ -39,6 +41,7 @@ const Home = (props) => {
       //* Fetch the user using it's id
       await dispatch(fetchLoginUser());
       await dispatch(fetchBusinesses());
+      await dispatch(fetchAllCoffee());
     }
     if (mounted) {
       fetchData();
@@ -82,7 +85,6 @@ const Home = (props) => {
   function writePage() {
     setWrite(!write);
   }
-
   const handleSubmit = async (evt) => {
     evt.preventDefault();
 
@@ -114,12 +116,16 @@ const Home = (props) => {
   const handleChange = (evt) => {
     setRating(evt.target.value);
   };
+
   if (allBusiness.length > 0) {
     allBusiness.sort(
       (a, b) => b.data().followers.length - a.data().followers.length
     );
   }
-
+  if (allCoffee.length > 0) {
+    allCoffee.sort((a, b) => b.avgRating - a.avgRating);
+  }
+  console.log(allCoffee)
   return (
     <>
       {loggedInUser && user ? (
@@ -327,16 +333,23 @@ const Home = (props) => {
           <div className="rightSide">
             <div className="self">
               <span className="favoriteTitle">Trending coffees:</span>
-              <img
-                className="favCoffee"
-                src={loggedInUser ? loggedInUser.coffeeURL : "whiteBack2.png"}
-                alt="favCoffee"
-              />
+              {allCoffee.length > 0
+                ? allCoffee.slice(0, 3).map((each) => (
+                    <div className="businessSideBar" key={each.id}>
+                      <span>{each.name} </span>
+                      <span>Average Rating: {each.avgRating}</span>
+                      <img
+                        className="favCoffee"
+                        src={each.photoURL ? each.photoURL : "/whiteBack.png"}
+                      />
+                    </div>
+                  ))
+                : ""}
             </div>
             <div className="self">
               <p className="favoriteTitle">Most Follwed Businesses:</p>
               {allBusiness.length > 0
-                ? allBusiness.slice(0,5).map((each) => (
+                ? allBusiness.slice(0, 5).map((each) => (
                     <div className="businessSideBar" key={each.data().id}>
                       <hr className="divider" />
                       <span>{each.data().name} </span>

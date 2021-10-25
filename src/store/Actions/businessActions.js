@@ -70,7 +70,6 @@ export const fetchBusinesses = () => {
       let businesses = [];
       response.forEach((business) => businesses.push(business));
       dispatch(_fetchBusinesses(businesses));
-      console.log("businesses fetch response:", businesses);
     } catch (error) {
       console.log("Failed to fetch all businesses");
       return;
