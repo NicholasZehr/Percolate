@@ -55,3 +55,12 @@
 
   color: #c9e4ca;
 }
+.ais-SearchBox-submit{
+  margin-right:5px;
+  margin-left:2px;
+}
+
+.ais-SearchBox-reset{
+  display: none;
+}
+
