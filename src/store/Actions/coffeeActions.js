@@ -1,11 +1,6 @@
 import {
-  FETCH_BUSINESS,
-  FETCH_BUSINESSES,
-  FETCH_USER_BUSINESS,
-  ADD_BUSINESS,
-  ADD_LIKE_BUSINESS,
-  REMOVE_LIKE_BUSINESS,
-} from "../Reducers/businessesReducer";
+  FETCH_ALL_COFFEE,
+} from "../Reducers/coffeeReducer";
 import {
   collection,
   getDocs,
@@ -16,3 +11,9 @@ import {
   where,
 } from "firebase/firestore";
 import db from "../../firebase";
+
+
+export const _fetchAllCoffee = (coffee) => ({
+  type: FETCH_BUSINESSES,
+  businesses,
+});
