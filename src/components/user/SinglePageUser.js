@@ -315,14 +315,14 @@ const SingleUserPage = () => {
                   )}
 
                   <div className="followerListBox">
-                    {businesses.length > 0
-                      ? businesses.map((each, index) => {
+                    {businessArr.length > 0
+                      ? businessArr.map((each, index) => {
                         console.log('each', each)
                           return (
                             <div
                               key={index}
                               className="followerIcon"
-                              onClick={() => history.push(`/users/${each.uid}`)}
+                              onClick={() => history.push(`/businesses/${each[0]}`)}
                             >
                               <img
                                 alt="Business"
