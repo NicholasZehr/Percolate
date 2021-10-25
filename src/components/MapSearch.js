@@ -9,6 +9,21 @@ import {
 https://www.algolia.com/doc/api-reference/widgets/geo-search/js/
 https://www.algolia.com/doc/guides/managing-results/refine-results/geolocation/
 https://www.algolia.com/doc/guides/managing-results/refine-results/geolocation/how-to/filter-results-around-a-location/?client=javascript*/
+// for the default version
+import algoliasearch from 'algoliasearch';
+
+
+// or just use algoliasearch if you are using a <script> tag
+// if you are using AMD module loader, algoliasearch will not be defined in window,
+// but in the AMD modules of the page
+const client = algoliasearch(
+  "JP955S508F",
+  "3de80a48e4011b0c171789a11801fb58"
+);
+
+const index = client.initIndex('businesses');
+
+
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
@@ -31,6 +46,12 @@ const MapSearch =()=> {
   }
 
   navigator.geolocation.getCurrentPosition(success, error, options)},[]);
+  index.search('', {
+    aroundLatLng: `${center.lat}, ${center.lng}`,
+    aroundRadius: 1000000 // 1000 km
+  }).then(({ hits }) => {
+    console.log(hits);
+  });
     return (
       // Important! Always set the container height explicitly
       center.lng?(
