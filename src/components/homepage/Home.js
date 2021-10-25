@@ -11,6 +11,7 @@ import { doc, collection, addDoc, getDocs } from "firebase/firestore";
 import db from "../../firebase";
 import { serverTimestamp } from "firebase/firestore";
 import {addReview} from "../../store/Actions/reviewActions"
+import MapSearch from "../search/MapSearch"
 
 Modal.setAppElement("#root");
 
@@ -299,6 +300,7 @@ const Home = (props) => {
           </div>
 
           <div className="centerBody">
+          <MapSearch/>
             <div className="cardRound">
               <p>Try Something New and Good Recently? </p>
               <button className="postNow newCoffee" onClick={writePage}>
