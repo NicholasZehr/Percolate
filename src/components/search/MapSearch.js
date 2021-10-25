@@ -10,7 +10,7 @@ const client = algoliasearch(
 
 const index = client.initIndex('businesses');
 
-const AnyReactComponent = ({ rating, displayName, id }) => <Link className='marker-hover' to={`businesses/${id}`}><span>{displayName} {rating?(rating):(null)}</span><img className="marker"src = '/color-bean.png'/></Link>;
+const AnyReactComponent = ({ rating, displayName, id }) => <Link className='marker-hover' to={`businesses/${id}`}><span>{displayName} {rating?(rating):(null)}</span><img className="marker"src = '/color-bean.png' alt=""/></Link>;
 
 const MapSearch =()=> {
   let [center, setCenter] = useState({lat: 0.00, lng: 0.00})
