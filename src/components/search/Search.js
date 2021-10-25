@@ -28,7 +28,7 @@ export const Search = () => (
 
 function Hit(props) {
   return (
-    <Link to={`/${props.hit.path}`}>
+    <Link  to={`/${props.hit.path}`}>
       <div className="results">
         <img
           className="hit-photo"
