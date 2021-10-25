@@ -9,6 +9,8 @@ import { fetchReviews } from "../../store/Actions/reviewActions";
 import { fetchFeedReviews } from "../../store/feed";
 import { doc, collection, addDoc, getDocs } from "firebase/firestore";
 import db from "../../firebase";
+import { serverTimestamp } from "firebase/firestore";
+import {addReview} from "../../store/Actions/reviewActions"
 
 Modal.setAppElement("#root");
 
@@ -23,7 +25,7 @@ const Home = (props) => {
   // const reviews = useSelector((state) => state.review.reviews);
   const reviews = useSelector((state) => state.feed);
   const [write, setWrite] = useState(false);
-  const [rating, setRating] = useState(0)
+  const [rating, setRating] = useState(0);
 
   onAuthStateChanged(auth, (u) => {
     setUser(u);
@@ -78,32 +80,39 @@ const Home = (props) => {
     setWrite(!write);
   }
 
+  const handleSubmit = async (evt) => {
+    evt.preventDefault();
 
-const handleSubmit = async (evt) => {
-  evt.preventDefault();
+    if (loggedInUser) {
+      const content = evt.target.content.value;
+      const data = {
+        name: evt.target.name.value,
+        brandName: evt.target.brandName.value,
+        roast:evt.target.roast.value,
+        userId: loggedInUser.uid,
+        displayName: loggedInUser.displayName
+          ? loggedInUser.displayName
+          : null,
+        rating: rating,
+        time: serverTimestamp(),
+        likeCount:0,
+        feedURL:loggedInUser.photoURL,
+        content: content,
+        photoURL: evt.target.photoURL.value,
+      };
+      const coffeeRef = collection(db, "coffees");
 
-  // if (loggedInUser) {
-  //   const content = evt.target.content.value;
-  //   const data = {
-  //     likeCount: 0,
-  //     reviewId: reviewId,
-  //     userId: loggedInUser.uid,
-  //     displayName: loggedInUser.displayName
-  //       ? loggedInUser.displayName
-  //       : null,
-  //     content: content,
-  //     photoURL: loggedInUser.photoURL,
-  //   };
-  //   const subCollection = collection(db, "reviews", reviewId, "comments");
-
-  //   evt.target.content.value = "";
-  //   await addDoc(subCollection, data);
-  // }
-};
+      evt.target.content.value = "";
+      const newCoffee = await addDoc(coffeeRef, data);
+      data["id"] = newCoffee.id
+      data["type"] = "coffee"
+      dispatch(addReview(data));
+    }
+    setWrite(!write);
+  };
   const handleChange = (evt) => {
-    setRating(evt.target.value)
-  }
-
+    setRating(evt.target.value);
+  };
 
   return (
     <>
@@ -125,50 +134,66 @@ const handleSubmit = async (evt) => {
               </div>
             </div>
             <div>
-              <form className="form" onSubmit={handleSubmit}>
-                <div className="emailBox">
-                  <label>Drink name</label>
+              <h2>Add A New Product</h2>
+              <form
+                className="signupform"
+                onSubmit={handleSubmit}
+                name="signup"
+              >
+                <div className="emailBox mod">
+                  <span className="formName">Product Name:</span>
                   <input
                     className="email"
-                    name="email"
+                    name="name"
                     type="text"
-                    placeholder="Email"
+                    placeholder="Product Name"
                   />
+                  <div className="blank3"></div>
                 </div>
-                <div className="emailBox">
+                <div className="emailBox mod">
+                  <span className="formName">Brand Name:</span>
                   <input
                     className="email"
-                    name="firstName"
+                    name="brandName"
                     type="text"
-                    placeholder="First Name"
+                    placeholder="Brand Name"
                   />
+                  <div className="blank3"></div>
                 </div>
-                <div className="emailBox">
+                <div className="emailBox mod">
+                  <span className="formName">Roast:</span>
                   <input
                     className="email"
-                    name="lastName"
-                    placeholder="Last Name"
+                    name="roast"
+                    placeholder="Roast"
                     type="text"
                   />
+                  <div className="blank3"></div>
                 </div>
-                <div className="emailBox">
+                <div className="emailBox mod">
+                  <span className="formName">Roaster City:</span>
+                  <input
+                    className="email"
+                    name="roasterCity"
+                    placeholder="Roaster City"
+                    type="text"
+                  />
+                  <div className="blank3"></div>
+                </div>
+                <div className="emailBox mod">
+                  <span className="formName">Product Photo:</span>
                   <input
                     className="email"
                     name="photoURL"
                     type="text"
-                    placeholder="Profile Photo URL"
+                    placeholder="Product Photo URL"
                   />
+                  <div className="blank3"></div>
                 </div>
-                <div className="emailBox">
-                  <input
-                    className="email"
-                    name="password"
-                    placeholder="Password"
-                    type="password"
-                  />
-                </div>
-                <div className="form-input-submit-group">
-                  <label htmlFor="rating">Rating</label>
+
+                <div className="ratingBox">
+                  <div className="blank"></div>
+                  <label htmlFor="rating" >Rating: </label>
                   <section id="rate" className="rating">
                     <input
                       onChange={handleChange}
@@ -182,7 +207,6 @@ const handleSubmit = async (evt) => {
                       htmlFor="heart_5"
                       title="Five"
                     ></label>
-
                     <input
                       onChange={handleChange}
                       type="radio"
@@ -235,8 +259,9 @@ const handleSubmit = async (evt) => {
                       title="One"
                     ></label>
                   </section>
-                  <label htmlFor="content">Review Comments</label>
+                  <div className="blank"></div>
                 </div>
+                <label htmlFor="content">Review Comments:</label>
                 <textarea
                   rows="5"
                   className="textarea"

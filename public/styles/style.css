@@ -486,16 +486,12 @@ p strong {
   width: 150px;
   height: 50px;
   padding: 5px 10px;
-  margin: auto;
-  border-radius: 30px;
   background: #FFF;
   display: block;
   overflow: hidden;
 
-  
-  unicode-bidi: bidi-override;
-  direction: rtl;
 }
+/* hide circular selection dots */
 .rating:not(:checked) > input {
   display: none;
 }
@@ -529,4 +525,10 @@ p strong {
 }
 #rate > input:checked ~ label {
   background:url('/color-bean.png');
+}
+
+.ratingBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

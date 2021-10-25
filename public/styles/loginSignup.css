@@ -160,7 +160,7 @@
 .signupPage {
   background: #3B6064;
   color: white;
-  width: 10vw;
+  width: fit-content;
   height: 35px;
   font-size: 20px;
   border-radius: 5px;
