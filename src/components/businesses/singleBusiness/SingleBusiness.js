@@ -5,6 +5,9 @@ import { fetchBusiness } from "../../../store/Actions/businessActions";
 import { doc, setDoc } from "firebase/firestore";
 import db from "../../../firebase";
 import { getAuth } from "firebase/auth";
+import { Link } from "react-router-dom";
+import FeedCard from "../../utils/FeedCard";
+import { fetchReviews } from "../../../store/Actions/reviewActions";
 const auth = getAuth();
 class Business extends Component {
   constructor() {
@@ -19,6 +22,7 @@ class Business extends Component {
   componentDidMount() {
     console.log("singlebusiness did mount");
     this.props.fetchBusiness(this.props.match.params.id);
+    this.props.fetchReviews(this.props.match.params.id);
     console.log("fetch business called");
   }
 
@@ -57,6 +61,8 @@ class Business extends Component {
     if (!business.name) {
       return <h2>loading...</h2>;
     }
+    const reviews = this.props.reviews;
+    console.log("These are the reviews", reviews);
     const edit = this.state.edit;
     const {
       email,
@@ -73,6 +79,7 @@ class Business extends Component {
       about,
       newestCoffee,
       newestCoffeeURL,
+      followers,
     } = this.props.business;
 
     //const business = businessProps.data();
@@ -255,11 +262,7 @@ class Business extends Component {
               </span>
               <img
                 className="favCoffee"
-                src={
-                  newestCoffeeURL
-                    ? newestCoffeeURL
-                    : "https://www.peakscoffeeco.com/shop/mountain-climber-espresso"
-                }
+                src={newestCoffeeURL ? newestCoffeeURL : "whiteBack2.png"}
                 alt="coffee"
               />
             </div>
@@ -267,6 +270,36 @@ class Business extends Component {
           </div>
           <div className="rightBody"></div>
           <div className="blank2"></div>
+        </div>
+        <div className="followers ">
+          <b>{followers.length} followers: </b>
+          <div className="followerListBox">
+            {followers.length > 0
+              ? followers.map((each, index) => {
+                  return (
+                    <Link to={`/users/${each.uid}`}>
+                      <div key={index} className="followerIcon">
+                        <img
+                          className="profPic pictureSize"
+                          alt="follower icon"
+                          src={each.photoURL}
+                        />
+                        <span>{each.firstName}</span>
+                      </div>
+                    </Link>
+                  );
+                })
+              : "No one is following you."}
+          </div>
+        </div>
+        <div className="rightBody">
+          {Object.keys(this.props.reviews).map((id) => (
+            <FeedCard
+              reviewId={id}
+              review={this.props.reviews[id]}
+              type="business"
+            />
+          ))}
         </div>
       </div>
     );
@@ -276,12 +309,14 @@ class Business extends Component {
 const mapState = (state) => {
   return {
     business: state.businesses.business,
+    reviews: state.review.reviews,
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
     fetchBusiness: (businessId) => dispatch(fetchBusiness(businessId)),
+    fetchReviews: (id) => dispatch(fetchReviews("business", id)),
   };
 };
 
