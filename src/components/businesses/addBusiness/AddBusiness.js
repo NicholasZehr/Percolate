@@ -16,7 +16,7 @@ class AddBusiness extends Component {
       zipcode: '',
       street: '',
       followers: [],
-      _geoloc:{}
+      _geoloc:{},
       ownerId: this.props.location.userId,
     }
     this.handleChange = this.handleChange.bind(this);
@@ -72,7 +72,7 @@ class AddBusiness extends Component {
       zipcode: '',
       street: '',
       followers: [],
-      _geoloc:{}
+      _geoloc:{},
       ownerId: this.props.location.userId,
     })
   }
