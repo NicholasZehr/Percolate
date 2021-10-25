@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
-import { doc, collection, addDoc, getDocs } from "firebase/firestore";
+import {
+  doc,
+  collection,
+  addDoc,
+  getDocs,
+  serverTimestamp,
+  orderBy,
+  query,
+} from "firebase/firestore";
 import db from "../../firebase";
 
 const FeedCard = (props) => {
@@ -21,7 +29,8 @@ const FeedCard = (props) => {
         "comments"
       );
       async function fetchComments() {
-        const response = await getDocs(subCollection);
+        const q = query(subCollection, orderBy("timestamp", "desc"));
+        const response = await getDocs(q);
         const temp = [];
         response.forEach((doc) => {
           temp.push(doc.data());
@@ -54,6 +63,7 @@ const FeedCard = (props) => {
           : null,
         content: content,
         photoURL: props.loggedInUser.photoURL,
+        timestamp: serverTimestamp(),
       };
       const subCollection = collection(
         db,
