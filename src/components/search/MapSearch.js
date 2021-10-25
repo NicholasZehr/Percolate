@@ -31,7 +31,9 @@ const MapSearch =()=> {
   }
 
   navigator.geolocation.getCurrentPosition(success, error, options)
+},[]);
 
+  useEffect(()=>{
   index.search('', {
     aroundLatLng: `${center.lat}, ${center.lng}`,
     aroundRadius: 10000 // 10 km
