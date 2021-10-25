@@ -20,7 +20,6 @@ import { fetchReviews } from "../../store/Actions/reviewActions";
 
 import { fetchUserBusinesses } from "../../store/Actions/businessActions";
 
-
 Modal.setAppElement("#root");
 
 const SingleUserPage = () => {
@@ -38,6 +37,7 @@ const SingleUserPage = () => {
   const [following, setFollowing] = useState([]);
   const [alreadyFollowed, setAlreadyFollowed] = useState(false);
   const reviews = useSelector((state) => state.review.reviews);
+  const [stick, setStick] = useState("stick");
 
   onAuthStateChanged(auth, (u) => {
     setUser(u);
@@ -94,6 +94,11 @@ const SingleUserPage = () => {
 
   function editPage() {
     setEdit(!edit);
+    if (stick === "stick") {
+      setStick("notStick");
+    } else {
+      setStick("stick");
+    }
   }
   async function followingUser() {
     if (Object.keys(loginUser).length > 0 && id !== loginUser.uid) {
@@ -218,10 +223,10 @@ const SingleUserPage = () => {
                 </h2>
                 <hr className="divider" />
                 <div className="menu">
-                  <div>Reviews</div>
-                  <div>About</div>
-                  <div>Followers</div>
-                  <div>Following</div>
+                  <a href="#starting">Reviews</a>
+                  <a href="#starting">About</a>
+                  <a href="#followers">Followers</a>
+                  <a href="#following">Following</a>
                 </div>
               </div>
               <div className="blank2"></div>
@@ -230,8 +235,8 @@ const SingleUserPage = () => {
           <div className="body">
             <div className="blank2"></div>
             <div className="leftBody ">
-              <div className="stick">
-                <div className="intro">
+              <div className={`${stick}`}>
+                <div className="intro" id="starting">
                   <h2>Intro: </h2>
                   <span className="favoriteTitle">My favorite coffee:</span>
                   <img
@@ -244,7 +249,7 @@ const SingleUserPage = () => {
                     }
                   />
                 </div>
-                <div className="followers ">
+                <div className="followers" id="followers">
                   <b>{followers.length} followers: </b>
                   <div className="followerListBox">
                     {followers.length > 0
@@ -267,7 +272,7 @@ const SingleUserPage = () => {
                       : "No one is following you."}
                   </div>
                 </div>
-                <div className="followers">
+                <div className="followers" id="following">
                   <b>{following.length} following: </b>
                   <div className="followerListBox">
                     {following.length > 0
@@ -334,12 +339,12 @@ const SingleUserPage = () => {
             </div>
             <div className="rightBody">
               {Object.keys(reviews).map((id) => (
-                  <FeedCard
-                    reviewId={id}
-                    review={reviews[id]}
-                    user={user}
-                    loggedInUser={loginUser}
-                  />
+                <FeedCard
+                  reviewId={id}
+                  review={reviews[id]}
+                  user={user}
+                  loggedInUser={loginUser}
+                />
               ))}
             </div>
             <div className="blank2"></div>
