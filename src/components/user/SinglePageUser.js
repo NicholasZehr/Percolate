@@ -20,6 +20,7 @@ import { fetchReviews } from "../../store/Actions/reviewActions";
 
 import { fetchUserBusinesses } from "../../store/Actions/businessActions";
 import MapSearch from "../search/MapSearch"
+import Login from "../loginSignup/Login"
 
 Modal.setAppElement("#root");
 
@@ -358,11 +359,7 @@ const SingleUserPage = () => {
           </div>
         </div>
       ) : (
-        <div className="home loading">
-          <div className="self loading">
-            <p>Loading ...</p>
-          </div>
-        </div>
+        <Login />
       )}
     </>
   );

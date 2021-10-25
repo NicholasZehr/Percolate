@@ -13,6 +13,7 @@ import { serverTimestamp } from "firebase/firestore";
 import { addReview } from "../../store/Actions/reviewActions";
 import MapSearch from "../search/MapSearch";
 import { fetchBusinesses } from "../../store/Actions/businessActions";
+import Login from "../loginSignup/Login"
 
 Modal.setAppElement("#root");
 
@@ -348,11 +349,7 @@ const Home = (props) => {
           </div>
         </div>
       ) : (
-        <div className="home loading">
-          <div className="self loading">
-            <p>Loading ...</p>
-          </div>
-        </div>
+       <Login />
       )}
     </>
   );

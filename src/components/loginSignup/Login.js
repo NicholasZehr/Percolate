@@ -20,9 +20,6 @@ const LoginPage = () => {
       ) : (
         <div className='loginbodyBox'>
           <div className='loginbody'>
-            <div>
-              <h1>Log In to Energize Your Day</h1>
-            </div>
             {auth.error ? (
               <label className='errorLogin'>{`Oops Something went wrong! Try it again!`}</label>
             ) : (
