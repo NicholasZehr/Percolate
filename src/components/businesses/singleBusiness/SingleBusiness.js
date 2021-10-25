@@ -71,6 +71,8 @@ class Business extends Component {
       name,
       phone,
       about,
+      newestCoffee,
+      newestCoffeeURL,
     } = this.props.business;
 
     //const business = businessProps.data();
@@ -248,11 +250,15 @@ class Business extends Component {
             <div className="intro">
               <h2>About: </h2>
               <p>{about}</p>
-              <span className="favoriteTitle">Newest Coffee:</span>
+              <span className="favoriteTitle">
+                Newest Coffee: {newestCoffee}{" "}
+              </span>
               <img
                 className="favCoffee"
                 src={
-                  business.menu ? business.menu[0].photoURL : "whiteBack2.png"
+                  newestCoffeeURL
+                    ? newestCoffeeURL
+                    : "https://www.peakscoffeeco.com/shop/mountain-climber-espresso"
                 }
                 alt="coffee"
               />
