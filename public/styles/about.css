@@ -6,9 +6,10 @@
 }
 .author {
   background-color: rgb(202, 211, 211);
+  flex-shrink: inherit;
   margin-top: 20px;
-  width: 250px;
-  height: 250px;
+  width: 20vw;
+  height: 20vw;
   align-self: center;
   overflow: hidden;
   object-fit: cover;
@@ -22,16 +23,19 @@
 .authors {
   display: flex;
   justify-content: space-around;
+  flex-shrink: inherit;
+  overflow: none;
 }
 
 .aboutbox {
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100vh;
 }
 .aboutAuthor {
   margin-top: 30px;
-  width: 300px;
+  width: 100%;
   font-size: 1rem;
   text-align: center;
 }
@@ -43,4 +47,5 @@ label {
   display: flex;
   flex-direction: column;
   text-align: justify;
+  width: 15%
 }
