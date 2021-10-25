@@ -165,7 +165,7 @@ body {
   background-color: white;
   flex-flow: column;
   border-radius: 10px;
-  
+
 }
 .rightSide {
   flex-grow: 1;
@@ -492,7 +492,7 @@ p strong {
   display: block;
   overflow: hidden;
 
-  
+
   unicode-bidi: bidi-override;
   direction: rtl;
 }
@@ -511,7 +511,7 @@ p strong {
   width: 30px;
   height: 48px;
   display: block;
-  
+
   color: rgba(233, 54, 40, .4);
   line-height: 33px;
   text-align: center;
@@ -530,4 +530,23 @@ p strong {
 }
 #like > input:checked ~ label {
   color: rgb(233, 54, 40);
+}
+
+.marker{
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid black;
+  width: 20px;
+  height: 20px;
+}
+
+.marker::after {
+  position: absolute;
+  content: '';
+  width: 0px;
+  height: 0px;
+  bottom: -30px;
+  left: -6px;
+  border: 10px solid transparent;
+  border-top: 17px solid #fff;
 }
