@@ -2,15 +2,59 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { likeClick } from "../../store/Actions/reviewActions";
 import ListedReview from "./ListedReview";
+import { query, where, collection, getDocs } from "firebase/firestore";
+import db from "../../firebase";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router";
+import { useState, useEffect } from "react";
+import { fetchLoginUser } from "../../store/auth";
+const auth = getAuth();
+const ReviewPane = (props) => {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const reviews = useSelector((state) => state.review.reviews);
+  const auth = getAuth();
+  const [user, setUser] = useState(getAuth().currentUser);
+  onAuthStateChanged(auth, (u) => {
+    setUser(u);
+  });
+  useEffect(() => {
+    let mounted = true;
+    async function fetchData() {
+      //* Fetch the user using it's id
+      await dispatch(fetchLoginUser());
+    }
+    if (mounted) {
+      fetchData();
+    }
+    return () => {
+      mounted = false;
+    };
+  }, [user]);
 
-class ReviewPane extends Component {
-  constructor(props) {
-    super(props);
-    this.checkReview = this.checkReview.bind(this);
-  }
+  const componentDidMount = () => {
+    this.unsubscribeFromAuth = onAuthStateChanged((user) => {
+      this.setState({ ...this.state, user: user });
+    });
+    const q = query(
+      collection(db, "likeRelation"),
+      where("userId", "==", `${this.state.user.uid}`)
+    );
+    const likedReviews = getDocs(q);
+    const likedObj = {};
+    likedReviews.forEach((doc) => {
+      likedObj[doc.data().reviewId] = true;
+    });
+    this.setState({
+      ...this.state,
+      likedObj: likedObj,
+    });
+    console.log("these are the liked reviews", likedObj);
+  };
 
-  checkReview(content) {
-    let revWords = content ? content.split(" ") : '';
+  const checkReview = (content) => {
+    let revWords = content ? content.split(" ") : "";
     const length = revWords.length;
     let newReview = "";
     if (length >= 10) {
@@ -18,16 +62,16 @@ class ReviewPane extends Component {
       return newReview;
     }
     return content;
-  }
+  };
 
-  render() {
+  const render = () => {
     const { checkReview } = this;
     const id = this.props.id;
     const type = this.props.type;
     const arrReviews =
       this.props.reviews !== {} ? Object.entries(this.props.reviews) : false;
     // const reviewArr = this.props.reviews.reviews;
-    console.log(arrReviews);
+    console.log(this.state.likedObj);
     return (
       <>
         {arrReviews.length > 0 ? (
@@ -38,6 +82,7 @@ class ReviewPane extends Component {
                   //checkReview(review.content);
                   return (
                     <ListedReview
+                      liked={this.state.likedObj[review[0]] ? true : false}
                       id={id}
                       type={type}
                       key={review[0]}
@@ -58,16 +103,7 @@ class ReviewPane extends Component {
         )}
       </>
     );
-  }
-}
-
-const mapState = (state) => {
-  return {
-    reviews: state.review.reviews,
   };
 };
-const mapDispatch = (dispatch) => ({
-  fetchReviews: (type, id) => dispatch(likeClick(type, id)),
-});
 
-export default connect(mapState, mapDispatch)(ReviewPane);
+export default ReviewPane;
