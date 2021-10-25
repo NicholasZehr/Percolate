@@ -1,0 +1,24 @@
+#form_business_new {
+  margin-top: 2vh;
+  width: 700px;
+  padding: 10px;
+  height: 150px;
+  color: #c9e4ca;
+  background-color: #3b6064;
+  border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.new-business-container {
+  align-items: center;
+}
+
+.form-input-submit-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-text-box {
+  border-radius: 5px;
+}
