@@ -4,7 +4,8 @@ import Modal from "react-modal";
 import { fetchBusiness } from "../../../store/Actions/businessActions";
 import { doc, setDoc } from "firebase/firestore";
 import db from "../../../firebase";
-
+import { getAuth } from "firebase/auth";
+const auth = getAuth();
 class Business extends Component {
   constructor() {
     super();
@@ -59,13 +60,18 @@ class Business extends Component {
     const edit = this.state.edit;
     const {
       email,
+      city,
+      state,
+      street,
+      streetNum,
+      zip,
       displayName,
       coverURL,
       photoURL,
       name,
-      password,
+
       phone,
-      location,
+      about,
     } = this.props.business;
 
     //const business = businessProps.data();
@@ -141,7 +147,7 @@ class Business extends Component {
                 name="state"
                 placeholder="State"
                 type="text"
-                defaultValue={location.state ? location.state : ""}
+                defaultValue={state ? state : ""}
               />
               <div className="blank3"></div>
             </div>
@@ -152,7 +158,7 @@ class Business extends Component {
                 name="city"
                 type="text"
                 placeholder="City"
-                defaultValue={location.city ? location.city : ""}
+                defaultValue={city ? city : ""}
               />
               <div className="blank3"></div>
             </div>
@@ -163,9 +169,20 @@ class Business extends Component {
                 name="zip"
                 placeholder="Zipcode"
                 type="text"
-                defaultValue={location.zip ? location.zip : ""}
+                defaultValue={zip ? zip : ""}
               />
               <div className="blank3"></div>
+              <div className="emailBox mod">
+                <span className="formName">Street:</span>
+                <input
+                  className="email"
+                  name="streetNum"
+                  placeholder="StreetNum"
+                  type="text"
+                  defaultValue={streetNum ? streetNum : ""}
+                />
+                <div className="blank3"></div>
+              </div>
               <div className="emailBox mod">
                 <span className="formName">Street:</span>
                 <input
@@ -173,7 +190,7 @@ class Business extends Component {
                   name="street"
                   placeholder="Street"
                   type="text"
-                  defaultValue={location.street ? location.street : ""}
+                  defaultValue={street ? street : ""}
                 />
                 <div className="blank3"></div>
               </div>
@@ -203,9 +220,11 @@ class Business extends Component {
               />
             </div>
             <div className="profileNavBar">
-              <div onClick={this.editPage} className="editProfileButton">
-                Edit Profile
-              </div>
+              {this.props.business.ownerId === auth.currentUser.uid ? (
+                <div onClick={this.editPage} className="editProfileButton">
+                  Edit Profile
+                </div>
+              ) : null}
               <h2>{business.name ? business.name : ""}</h2>
               <hr className="divider" />
               <div className="menu">
@@ -224,7 +243,8 @@ class Business extends Component {
           <div className="blank2"></div>
           <div className="leftBody">
             <div className="intro">
-              <h2>Intro: </h2>
+              <h2>About: </h2>
+              <p></p>
               <span className="favoriteTitle">Newest Coffee:</span>
               <img
                 className="favCoffee"
