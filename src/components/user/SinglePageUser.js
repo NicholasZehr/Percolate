@@ -33,6 +33,7 @@ const SingleUserPage = () => {
   const loginUser = useSelector((state) => state.auth);
   const currentPageUser = useSelector((state) => state.users.user);
   const businesses = useSelector((state) => state.businesses.businesses);
+  const businessArr = Object.entries(businesses);
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
   const [alreadyFollowed, setAlreadyFollowed] = useState(false);
@@ -157,6 +158,7 @@ const SingleUserPage = () => {
     }
     setAlreadyFollowed(!alreadyFollowed);
   }
+
   return (
     <>
       {currentPageUser && user && loginUser ? (
@@ -306,7 +308,7 @@ const SingleUserPage = () => {
                           userId: id,
                         }}
                       >
-                        <div className="editProfileButton">Add</div>
+                        <div className="add-business-button">Add</div>
                       </Link>
                     ) : (
                       ""
@@ -314,21 +316,24 @@ const SingleUserPage = () => {
                   ) : (
                     ""
                   )}
+
                   <div className="followerListBox">
-                    {businesses.length > 0
-                      ? businesses.map((each, index) => {
+                    {businessArr.length > 0
+                      ? businessArr.map((each, index) => {
                           return (
                             <div
                               key={index}
                               className="followerIcon"
-                              onClick={() => history.push(`/users/${each.uid}`)}
+                              onClick={() =>
+                                history.push(`/businesses/${each[0]}`)
+                              }
                             >
                               <img
                                 alt="Business"
                                 className="profPic pictureSize"
-                                src={each.photoURL}
+                                src={each[1].photoURL}
                               />
-                              <span>{each.firstName}</span>
+                              <span>{each[1].name}</span>
                             </div>
                           );
                         })
@@ -340,6 +345,7 @@ const SingleUserPage = () => {
             <div className="rightBody">
               {Object.keys(reviews).map((id) => (
                 <FeedCard
+                  key={id}
                   reviewId={id}
                   review={reviews[id]}
                   user={user}

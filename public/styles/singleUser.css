@@ -137,6 +137,21 @@
   background: #2c484b;
 }
 
+.add-business-button {
+  padding-top: 8px;
+  align-self: flex-end;
+  background: #3b6064;
+  color: #fffef9;
+  width: 50px;
+  height: 20px;
+  font-size: 1vw;
+  border-radius: 5px;
+  text-align: center;
+}
+.add-business-button:hover {
+  background: #2c484b;
+}
+
 /* adjust screen part */
 
 @media only screen and (max-width: 800px) {
