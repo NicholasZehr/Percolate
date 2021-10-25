@@ -4,7 +4,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Modal from "react-modal";
 import { useHistory } from "react-router";
 import { fetchLoginUser } from "../../store/auth";
-import FeedCard from "../utils/feedCard";
+import FeedCard from "../utils/FeedCard";
 import { fetchReviews } from "../../store/Actions/reviewActions";
 import { fetchFeedReviews } from "../../store/feed";
 import { doc, collection, addDoc, getDocs } from "firebase/firestore";

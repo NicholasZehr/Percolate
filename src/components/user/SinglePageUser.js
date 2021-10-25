@@ -15,7 +15,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import EditProfileButton from "./EditProfileButton";
 import Modal from "react-modal";
 import { fetchLoginUser } from "../../store/auth";
-import FeedCard from "../utils/feedCard";
+import FeedCard from "../utils/FeedCard";
 import { fetchReviews } from "../../store/Actions/reviewActions";
 
 import { fetchUserBusinesses } from "../../store/Actions/businessActions";
