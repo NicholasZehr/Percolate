@@ -13,18 +13,17 @@ const index = client.initIndex('businesses');
 const AnyReactComponent = ({ rating, displayName, id }) => <Link className='marker-hover' to={`businesses/${id}`}><span>{displayName} {rating?(rating):(null)}</span><img className="marker"src = '/color-bean.png'/></Link>;
 
 const MapSearch =()=> {
-  let [center, setCenter] = useState({})
+  let [center, setCenter] = useState({lat: 0.00, lng: 0.00})
   let [markers, setMarkers] = useState([])
   useEffect(()=>{
   var options = {
     enableHighAccuracy: true,
-    timeout: 15000,
     maximumAge: 0
   };
 
   function success(pos) {
     var crd = pos.coords;
-    setCenter({lat: crd.latitude, lng: crd.longitude});
+    setCenter({lat: parseFloat(crd.latitude), lng: parseFloat(crd.longitude)});
   }
 
   function error(err) {
@@ -32,11 +31,11 @@ const MapSearch =()=> {
   }
 
   navigator.geolocation.getCurrentPosition(success, error, options)
+
   index.search('', {
     aroundLatLng: `${center.lat}, ${center.lng}`,
     aroundRadius: 10000 // 10 km
   }).then(({ hits }) => {
-    hits.forEach(hit=>console.log(hit.objectID));
     setMarkers(hits)
   });
 },[center]);
@@ -52,6 +51,7 @@ const MapSearch =()=> {
           {markers.map(marker=>{
             return(
            <AnyReactComponent
+           key={marker.objectID}
            lat = {marker._geoloc.lat}
            lng = {marker._geoloc.lng}
            id = {marker.objectID}
