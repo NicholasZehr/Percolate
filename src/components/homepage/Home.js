@@ -307,14 +307,14 @@ const Home = (props) => {
               <span className="favoriteTitle">My favorite coffee:</span>
               <img
                 className="favCoffee"
-                src={loggedInUser ? loggedInUser.coffeeURL : "/whiteBack2.png"}
+                src={loggedInUser ? loggedInUser.coffeeURL || "" : ""}
                 alt=""
               />
             </div>
             <div className="self">
               <p className="favoriteTitle">You have:</p>
               <span>{followers.length} followers </span>
-              <span>{following.length} followings </span>
+              <span>{following.length} following </span>
             </div>
           </div>
 
@@ -349,7 +349,8 @@ const Home = (props) => {
                         <span>Average Rating: {each.avgRating}</span>
                         <img
                           className="favCoffee"
-                          src={each.photoURL ? each.photoURL : "/whiteBack.png"}
+                          src={each.photoURL ? each.photoURL || "" : ""}
+                          alt=""
                         />
                       </div>
                     </Link>
