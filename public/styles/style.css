@@ -612,3 +612,7 @@ p strong {
   margin-bottom: 0;
 }
 
+#add-review-text{
+  padding-left: 15px;
+  padding-right: 15px;
+}

@@ -32,14 +32,10 @@ function Hit(props) {
         <img
           className="hit-photo"
           src={
-            props.hit.photoURL
-              ? props.hit.photoURL
-              : props.hit.photoUrl
-              ? props.hit.photoUrl
-              : props.hit.imageUrl
+            props.hit.photoURL?(props.hit.photoURL):("/background.jpeg")
           }
           align="left"
-          alt="results"
+          alt=""
         />
         <p>
           {props.hit.displayName

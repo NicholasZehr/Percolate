@@ -17,7 +17,7 @@ class SingleCoffee extends Component {
     const {
       name,
       brandName,
-      photoURL: coffeePhoto,
+      photoURL,
       roast,
       roasterCity,
       avgRating,
@@ -36,8 +36,8 @@ class SingleCoffee extends Component {
                 <div className="single-coffee-image">
                   <img
                     id="single-coffee-img"
-                    src={coffeePhoto}
-                    alt={`${name} by ${brandName}`}
+                    src={photoURL}
+                    alt={''}
                   />
                 </div>
                 <div className="image-details-row">
@@ -55,7 +55,7 @@ class SingleCoffee extends Component {
             type={type}
             name={name}
             brandName={brandName}
-            feedURL={coffeePhoto}
+            feedURL={photoURL}
             roast={roast}
             roasterCity={roasterCity}
           />

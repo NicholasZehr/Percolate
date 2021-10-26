@@ -283,6 +283,7 @@ const Home = (props) => {
                 </div>
                 <label htmlFor="content">Review Comments:</label>
                 <textarea
+                  id="add-review-text"
                   rows="5"
                   className="textarea"
                   maxLength="500"
