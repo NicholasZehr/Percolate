@@ -186,22 +186,20 @@ export const fetchSingleReview = (reviewId) => {
 export const likeClick = (
   id,
   reviewId,
-  userId,
   displayName,
   photoURL,
-  type
+  type,
+  userId
 ) => {
   return async (dispatch) => {
     try {
-      console.log("prior to query");
       const q = query(
         collection(db, "likeRelation"),
         where("reviewId", "==", reviewId),
         where("userId", "==", userId)
       );
-      console.log(id, reviewId, userId, displayName, photoURL, type);
       const docSnapLikeRelation = await getDocs(q);
-      console.log(docSnapLikeRelation);
+      console.log("this is docSnapLikeRelation", docSnapLikeRelation);
       const docRefReviewLikeCount = doc(db, "reviews", reviewId);
       const docRefSubColLikeCount = doc(
         db,
