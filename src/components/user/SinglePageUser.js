@@ -251,11 +251,11 @@ const SingleUserPage = () => {
                   <span className="favoriteTitle">My favorite coffee:</span>
                   <img
                     className="favCoffee"
-                    alt="favorite coffee"
+                    alt=""
                     src={
                       currentPageUser
                         ? currentPageUser.coffeeURL
-                        : "whiteBack2.png"
+                        : "/whiteBack2.png"
                     }
                   />
                 </div>
@@ -338,7 +338,7 @@ const SingleUserPage = () => {
                             </div>
                           );
                         })
-                      : "You have no businesses. What are you a communist?"}
+                      : "You have no businesses."}
                   </div>
                 </div>
               </div>

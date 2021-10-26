@@ -238,6 +238,10 @@ body {
   padding: 5px;
   display: flex;
   flex-flow: column;
+  border-top: solid 1px grey;
+}
+.businessSideBar:hover {
+  background-color: lightgray;
 }
 
 .writepost {
@@ -382,8 +386,11 @@ p strong {
 .results {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   width: 100%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
 }
 
 .header-left {
@@ -501,13 +508,13 @@ p strong {
   flex-grow: 5;
 }
 .commentPadding {
-  padding: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
   text-align: start;
 }
 #map {
   min-height: 300px;
   width: 100%;
-  margin: auto;
   border-radius: 10px;
   overflow: hidden;
 }
@@ -599,5 +606,9 @@ p strong {
 
 .marker{
   height: 25px;
+}
+
+.favoriteTitle{
+  margin-bottom: 0;
 }
 

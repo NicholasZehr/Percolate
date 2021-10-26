@@ -151,7 +151,7 @@ const FeedCard = (props) => {
             className="favCoffee"
             alt="favorite coffee"
             onClick={(_) => history.push(`/coffees/${props.review.id}`)}
-            src={props.review ? props.review.feedURL : "/whiteBack.png"}
+            src={props.review ? props.review.feedURL : ""}
           />
           <div className="coffeeInfo">
             <p>Roast: {props.review.roast} </p>
@@ -175,7 +175,7 @@ const FeedCard = (props) => {
           chat
         </i>
         <div onClick={showComments} className="comments">
-          <p>Comments</p>
+          <p>{`Comments (${allComments.length})`}</p>
         </div>
       </div>
       <div>

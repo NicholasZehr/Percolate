@@ -28,8 +28,7 @@ export const Search = () => (
 
 function Hit(props) {
   return (
-    <Link  to={`/${props.hit.path}`}>
-      <div className="results">
+    <Link className="results" to={`/${props.hit.path}`}>
         <img
           className="hit-photo"
           src={
@@ -49,7 +48,6 @@ function Hit(props) {
             ? props.hit.name
             : `${props.hit.firstName} ${props.hit.lastName}`}
         </p>
-      </div>
     </Link>
   );
 }

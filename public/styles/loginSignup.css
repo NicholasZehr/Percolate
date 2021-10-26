@@ -40,7 +40,9 @@
   border: gray solid 0.5px;
   border-radius: 5px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-around;
+  align-content: center;
   row-gap: 10px;
   margin-bottom: 20px;
 }
@@ -103,10 +105,10 @@
   background-color: rgb(202, 202, 202);
 }
 .error {
-  width: 40%;
-  height: 4vh;
   color: red;
   font-size: 15px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 .errorLogin {
   color: red;
@@ -127,11 +129,9 @@
 }
 
 .signupBox {
-  width: 35vw;
   text-align: center;
 }
 .signupTitle {
-  width: 20vw;
   text-align: center;
 }
 .form {
@@ -168,4 +168,25 @@
 }
 .signupPage:hover {
   background: #2c484b;
+}
+
+.sign-up-left{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 45%;
+  text-align: center;
+  margin-bottom: 15px;
+}
+.sign-up-right{
+  padding-top: 35px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 45%;
+  margin-bottom: 15px;
+}
+
+span.error{
+  text-align: center;
 }
