@@ -48,7 +48,7 @@ const Signup = () => {
       firstName: evt.target.firstName.value,
       lastName: evt.target.lastName.value,
       password: evt.target.password.value,
-      photoURL: evt.target.photoURL.value || '/guest.jpeg',
+      photoURL: '/guest.jpeg',
       coverURL: '/background.jpeg'
     };
 
@@ -120,15 +120,6 @@ const Signup = () => {
                   onChange={handleChange}
                   placeholder="Last Name"
                   type="text"
-                />
-              </div>
-              <div className="emailBox">
-                <input
-                  className="email"
-                  name="photoURL"
-                  type="text"
-                  onChange={handleChange}
-                  placeholder="Profile Photo URL"
                 />
               </div>
               <div className="emailBox">
