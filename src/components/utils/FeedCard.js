@@ -116,7 +116,7 @@ const FeedCard = (props) => {
   }
   function handleHeadClick() {
     if (props.type === 'reviews') {
-      history.push(`/users/${props.user.uid}`);
+      history.push(`/users/${props.review.userId}`);
     } else if (props.type === 'business') {
       history.push(`/coffees/${props.coffeeId}`);
     }
@@ -134,17 +134,17 @@ const FeedCard = (props) => {
                   ? props.review.photoURL || "/guest.jpeg"
                   : "/guest.jpeg"
               }
-              onClick={(_) => history.push(`/users/${props.review.userId}`)}
+              onClick={handleHeadClick}
             />
           </div>
           <div className="nameAndTime">
-            <span className="writepost">{props.review.displayName}: </span>
+            <span className="writepost">{props.review.displayName?props.review.displayName:props.review.name}: </span>
             {props.review.time ? (
               <span className="ago">{`${timeDifference(
                 props.review.time.seconds
               )}`}</span>
             ) : (
-              <span className="ago">no time</span>
+              <span className="ago"></span>
             )}
           </div>
           <div className="username writepost">
@@ -158,19 +158,20 @@ const FeedCard = (props) => {
             className="favCoffee"
             alt="favorite coffee"
             onClick={(_) => history.push(`/coffees/${props.review.id}`)}
-            src={props.review ? props.review.feedURL : "/whiteBack.png"}
+            src={props.review ? props.review.feedURL || props.review.photoURL: "/whiteBack.png"}
           />
           <div className="coffeeInfo">
             <p>Roast: {props.review.roast} </p>
             <p>Brand: {props.review.brandName} </p>
             <p>
-              <b>{props.review.displayName}'s </b>Rating: {props.review.rating}
+              <b> User </b>Rating: {props.type==="reviews"?props.review.rating:props.review.avgRating}
               /5
             </p>
-            <p>" {props.review.content} "</p>
           </div>
         </div>
       </div>
+      {props.type === "reviews" ?
+        <div>
       <div className="middlePieceOfcard feeding cardUp ">
         <div className="blank"></div>
 
@@ -213,7 +214,8 @@ const FeedCard = (props) => {
             </button>
           </div>
         </form>
-      </div>
+          </div>
+      </div>:''}
       <div className={`cardUptwo ${cssShow}`}>
         {allComments.length > 0
           ? allComments.map((each, index) => (

@@ -368,6 +368,7 @@ const SingleUserPage = () => {
                   review={reviews[id]}
                   user={user}
                   loggedInUser={loginUser}
+                  type="reviews"
                 />
               ))}
             </div>

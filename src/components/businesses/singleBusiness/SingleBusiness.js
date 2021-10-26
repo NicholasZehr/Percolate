@@ -291,13 +291,16 @@ class Business extends Component {
             </div>
           </div>
           <div className="rightBody">
-            {this.props.business?this.props.business.coffees.map((coffee) => (
-              <FeedCard
-                reviewId={coffee.id}
-                review = {coffee}
-                type="business"
-              />
-            )):''}
+            {this.props.business
+              ? this.props.business.coffees.map((coffee) => (
+                  <FeedCard
+                    review={coffee}
+                    coffeeId={coffee.id}
+                    user={auth.currentUser}
+                    type="business"
+                  />
+                ))
+              : ""}
           </div>
           <div className="blank2"></div>
         </div>
