@@ -38,10 +38,10 @@ function Hit(props) {
           alt=""
         />
         <p>
-          {props.hit.displayName
-            ? props.hit.displayName
-            : props.hit.name
+          {props.hit.name
             ? props.hit.name
+            : props.hit.displayName
+            ? props.hit.displayName
             : `${props.hit.firstName} ${props.hit.lastName}`}
         </p>
     </Link>

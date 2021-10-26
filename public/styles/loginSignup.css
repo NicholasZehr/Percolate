@@ -95,11 +95,12 @@
   background: #2c484b;
 }
 .signup {
-  background-color: rgb(220, 245, 0);
+  background-color: #3b6064;
   color: rgb(0, 0, 0);
   font-size: 20px;
   border: 1px solid rgb(0, 0, 0);
   border-radius: 5px;
+  color: white
 }
 .signup:hover {
   background-color: rgb(202, 202, 202);
