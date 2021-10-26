@@ -168,10 +168,11 @@ body {
 }
 .rightSide {
   flex-grow: 1;
-  margin: 5px;
-  margin-left: 10px;
+  margin-top: 5px;
+  margin-left:0;
+  margin-right: -5px;
+  margin-bottom: 5px;
   display: flex;
-  justify-content: start;
   flex-flow: column;
   height: 100vh;
   overflow-y: scroll;
@@ -180,6 +181,13 @@ body {
 }
 .rightSide::-webkit-scrollbar {
   display: none; /* for Chrome, Safari, and Opera */
+}
+.rightsideBar {
+  background-color: white;
+  width: 100%;
+  border-radius: 10px;
+  margin-top:5px;
+  margin-bottom: 5px;
 }
 .centerBody {
   flex-grow: 3;
@@ -202,7 +210,7 @@ body {
   height: auto;
 }
 .top {
-  margin-top: 5px;
+  margin-top: 10px;
   border-radius: 10px 10px 0 0;
 }
 .bottom {
@@ -582,6 +590,14 @@ p strong {
   margin-right:10px;
 }
 
+.feedcardCss{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  row-gap: 15px;
+}
+
 .marker{
   height: 25px;
 }
+
