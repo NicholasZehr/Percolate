@@ -50,9 +50,6 @@ const Header = () => {
             <div className="about" onClick={(_) => history.push("/about")}>
               About
             </div>
-            <div className="about" onClick={(_) => history.push("/contact")}>
-              <div>Contact Us</div>
-            </div>
             <div className="space"></div>
           </div>
         </div>
