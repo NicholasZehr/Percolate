@@ -266,11 +266,11 @@ const SingleUserPage = () => {
                 <span className="favoriteTitle">My favorite coffee:</span>
                 <img
                   className="favCoffee"
-                  alt="favorite coffee"
+                  alt=""
                   src={
                     currentPageUser
                       ? currentPageUser.coffeeURL
-                      : "whiteBack2.png"
+                      : ""
                   }
                 />
               </div>
