@@ -9,6 +9,8 @@ import { Link } from "react-router-dom";
 import FeedCard from "../../utils/FeedCard";
 import { fetchReviews } from "../../../store/Actions/reviewActions";
 const auth = getAuth();
+
+
 class Business extends Component {
   constructor() {
     super();
@@ -81,7 +83,7 @@ class Business extends Component {
       newestCoffeeURL,
       followers,
     } = this.props.business;
-
+    console.log(this.props.business)
     //const business = businessProps.data();
     return (
       <div className="singleUserPageBox">
@@ -266,40 +268,41 @@ class Business extends Component {
                 alt="coffee"
               />
             </div>
-            <div className="friendList"></div>
+            <div className="friendList intro">
+              <b>{followers.length} followers: </b>
+              <div className="followerListBox">
+                {followers.length > 0
+                  ? followers.map((each, index) => {
+                      return (
+                        <Link to={`/users/${each.uid}`}>
+                          <div key={index} className="followerIcon">
+                            <img
+                              className="profPic pictureSize"
+                              alt="follower icon"
+                              src={each.photoURL}
+                            />
+                            <span>{each.firstName}</span>
+                          </div>
+                        </Link>
+                      );
+                    })
+                  : "No one is following you."}
+              </div>
+            </div>
           </div>
-          <div className="rightBody"></div>
+          <div className="rightBody">
+            {this.props.business
+              ? this.props.business.coffees.map((coffee) => (
+                  <FeedCard
+                    review={coffee}
+                    coffeeId={coffee.id}
+                    user={auth.currentUser}
+                    type="business"
+                  />
+                ))
+              : ""}
+          </div>
           <div className="blank2"></div>
-        </div>
-        <div className="followers ">
-          <b>{followers.length} followers: </b>
-          <div className="followerListBox">
-            {followers.length > 0
-              ? followers.map((each, index) => {
-                  return (
-                    <Link to={`/users/${each.uid}`}>
-                      <div key={index} className="followerIcon">
-                        <img
-                          className="profPic pictureSize"
-                          alt="follower icon"
-                          src={each.photoURL}
-                        />
-                        <span>{each.firstName}</span>
-                      </div>
-                    </Link>
-                  );
-                })
-              : "No one is following you."}
-          </div>
-        </div>
-        <div className="rightBody">
-          {Object.keys(this.props.reviews).map((id) => (
-            <FeedCard
-              reviewId={id}
-              review={this.props.reviews[id]}
-              type="business"
-            />
-          ))}
         </div>
       </div>
     );
