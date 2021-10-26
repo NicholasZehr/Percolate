@@ -59,7 +59,7 @@ class SingleCoffee extends Component {
             roast={roast}
             roasterCity={roasterCity}
           />
-          <ReviewPane type={type} id={id} arrReviews={reviews} />
+          <ReviewPane type={type} id={id} reviews={reviews} />
           {/* ) : ( */}
           {/* <div className="home loading">
             <div className="self loading">
