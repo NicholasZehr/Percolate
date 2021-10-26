@@ -302,6 +302,13 @@ p strong {
   border: 0;
 }
 
+.ais-SearchBox-reset{
+  display:none
+}
+.ais-SearchBox-submit{
+  margin-right: 5px;
+}
+
 .ais-SearchBox-form {
   flex-grow: 3.5;
   background: #ffffff;
