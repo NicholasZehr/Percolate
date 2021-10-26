@@ -48,11 +48,12 @@ const Signup = () => {
       firstName: evt.target.firstName.value,
       lastName: evt.target.lastName.value,
       password: evt.target.password.value,
-      photoURL: evt.target.photoURL.value,
+      photoURL: evt.target.photoURL.value || '/guest.jpeg',
+      coverURL: '/background.jpeg'
     };
 
     dispatch(authenticateSignup(user, formName));
-    history.push(`/home`);
+    setTimeout(() => {history.push(`/home`);}, 1000);
   };
   const handleChange = (evt) => {
     let errors = {
@@ -69,7 +70,7 @@ const Signup = () => {
     }
 
     if (!userInput.user.password) {
-      errors.password = "Password is required.";
+      errors.password = "Password is required. Must be 6 characters long.";
     }
     if (!userInput.user.email) {
       errors.email = "E-mail is required.";

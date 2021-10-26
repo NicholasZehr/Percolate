@@ -307,8 +307,8 @@ const Home = (props) => {
               <span className="favoriteTitle">My favorite coffee:</span>
               <img
                 className="favCoffee"
-                src={loggedInUser ? loggedInUser.coffeeURL : "whiteBack2.png"}
-                alt="favCoffee"
+                src={loggedInUser ? loggedInUser.coffeeURL : "/whiteBack2.png"}
+                alt=""
               />
             </div>
             <div className="self">
