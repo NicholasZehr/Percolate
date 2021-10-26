@@ -4,25 +4,47 @@ import { fetchSingleCoffee } from "../../store/Actions/singleCoffee";
 import AddReview from "../reviews/AddReview";
 import ReviewPane from "../reviews/ReviewPane";
 import { fetchUserBusinesses } from "../../store/Actions/businessActions";
-import { arrayUnion } from "firebase/firestore";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import {
+  arrayUnion,
+  doc,
+  collection,
+  addDoc,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
+import db from "../../firebase";
+import { getAuth } from "firebase/auth";
 class SingleCoffee extends Component {
   constructor() {
     super();
     this.state = {
       user: getAuth().currentUser,
     };
-
+    this.addToBusiness = this.addToBusiness.bind(this);
   }
   async componentDidMount() {
     const id = this.props.match.params.id;
     await this.props.fetchCoffee(id);
-    
+
     this.setState({ user: getAuth().currentUser });
     this.props.fetchUserBusinesses(this.state.user.uid);
   }
-  addToBusiness() {
-    console.log();
+  async addToBusiness(evt) {
+    evt.preventDefault();
+    const businessRef = doc(db, "businesses", evt.target.business.value);
+    await updateDoc(businessRef, {
+      coffees: arrayUnion(this.props.singleCoffee),
+    });
+
+    const businessData = {
+      id: evt.target.business.value,
+      name: this.props.businesses[evt.target.business.value].name,
+      photoURL: this.props.businesses[evt.target.business.value].photoURL,
+    };
+    const coffeeRef = doc(db, "coffees", this.props.match.params.id);
+    await updateDoc(coffeeRef, {
+      businessId: arrayUnion(businessData),
+    });
   }
 
   render() {
@@ -37,8 +59,8 @@ class SingleCoffee extends Component {
       roasterCity,
       avgRating,
     } = this.props.singleCoffee;
-    console.log(this.state.user)
-    console.log(this.props.businesses)
+    console.log(this.state.user);
+    console.log(this.props.businesses);
     return (
       <>
         <div className="whole-page">
@@ -62,15 +84,28 @@ class SingleCoffee extends Component {
                     <p>Roast: {roast}</p>
                     <p>Roasted in {roasterCity}</p>
                     <p>User Rating: {avgRating}</p>
-                    <form onSubmit={(_) => this.addToBusiness()}>
-                      <label for="cars">Claim this product to:</label>
-                      <select name="cars" id="cars">
-                        {Object.keys(this.props.businesses).map((id) => (
-                          <option key={id} value={id}>{this.props.businesses[id].name}</option>
-                        ))}
-                      </select>
-                      <button type="submit">Claim</button>
-                    </form>
+                    {Object.keys(this.props.businesses).length > 0 ? (
+                      <form
+                        className="claim_coffee"
+                        onSubmit={this.addToBusiness}
+                      >
+                        <label for="cars">
+                          Claim this product to your business:
+                        </label>
+                        <select name="business">
+                          {Object.keys(this.props.businesses).map((id) => (
+                            <option key={id} value={id}>
+                              {this.props.businesses[id].name}
+                            </option>
+                          ))}
+                        </select>
+                        <button className="signup claim-button" type="submit">
+                          Claim
+                        </button>
+                      </form>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 </div>
               </div>

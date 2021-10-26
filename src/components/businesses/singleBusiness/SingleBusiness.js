@@ -83,7 +83,7 @@ class Business extends Component {
       newestCoffeeURL,
       followers,
     } = this.props.business;
-
+    console.log(this.props.business)
     //const business = businessProps.data();
     return (
       <div className="singleUserPageBox">
@@ -291,13 +291,13 @@ class Business extends Component {
             </div>
           </div>
           <div className="rightBody">
-            {Object.keys(this.props.reviews).map((id) => (
+            {this.props.business?this.props.business.coffees.map((coffee) => (
               <FeedCard
-                reviewId={id}
-                review={this.props.reviews[id]}
+                reviewId={coffee.id}
+                review = {coffee}
                 type="business"
               />
-            ))}
+            )):''}
           </div>
           <div className="blank2"></div>
         </div>

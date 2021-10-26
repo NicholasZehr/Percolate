@@ -114,6 +114,13 @@ const FeedCard = (props) => {
       setRound("cardUptwo");
     }
   }
+  function handleHeadClick() {
+    if (props.type === 'reviews') {
+      history.push(`/users/${props.user.uid}`);
+    } else if (props.type === 'business') {
+      history.push(`/coffees/${props.coffeeId}`);
+    }
+  }
   return (
     <div className="feedcard">
       <div className="feeding cardDown">
@@ -190,7 +197,7 @@ const FeedCard = (props) => {
                     ? props.user.photoURL || "/guest.jpeg"
                     : "/guest.jpeg"
                 }
-                onClick={(_) => history.push(`/users/${props.user.uid}`)}
+                onClick={handleHeadClick}
               />
             </div>
 

@@ -344,6 +344,7 @@ const Home = (props) => {
                     review={reviews[id]}
                     user={user}
                     loggedInUser={loggedInUser}
+                    type="reviews"
                   />
                 ))
               : ""}

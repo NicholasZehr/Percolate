@@ -80,3 +80,10 @@ hr.solid {
 .single-coffee-info {
   text-align: left;
 }
+.claim_coffee {
+  display: flex;
+  flex-flow:column;
+}
+.claim-button {
+  margin-top: 5px;
+}
