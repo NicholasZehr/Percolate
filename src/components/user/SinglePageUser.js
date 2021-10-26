@@ -196,7 +196,9 @@ const SingleUserPage = () => {
                   alt=""
                   src={
                     currentPageUser
-                      ? currentPageUser.coverURL?(currentPageUser.coverURL):"/background.jpeg"
+                      ? currentPageUser.coverURL
+                        ? currentPageUser.coverURL
+                        : "/background.jpeg"
                       : "/background.jpeg"
                   }
                 />
@@ -259,7 +261,6 @@ const SingleUserPage = () => {
           <div className="body">
             <div className="blank2"></div>
             <div className="leftBody ">
-
               <div className="intro" id="starting">
                 <h2>Intro: </h2>
                 <span className="favoriteTitle">My favorite coffee:</span>
@@ -337,28 +338,27 @@ const SingleUserPage = () => {
                   ""
                 )}
 
-                  <div className="followerListBox">
-                    {businessArr.length > 0
-                      ? businessArr.map((each, index) => {
-                          return (
-                            <div
-                              key={index}
-                              className="followerIcon"
-                              onClick={() =>
-                                history.push(`/businesses/${each[0]}`)
-                              }
-                            >
-                              <img
-                                alt="Business"
-                                className="profPic pictureSize"
-                                src={each[1].photoURL}
-                              />
-                              <span>{each[1].name}</span>
-                            </div>
-                          );
-                        })
-                      : "You have no businesses."}
-                  </div>
+                <div className="followerListBox">
+                  {businessArr.length > 0
+                    ? businessArr.map((each, index) => {
+                        return (
+                          <div
+                            key={index}
+                            className="followerIcon"
+                            onClick={() =>
+                              history.push(`/businesses/${each[0]}`)
+                            }
+                          >
+                            <img
+                              alt="Business"
+                              className="profPic pictureSize"
+                              src={each[1].photoURL}
+                            />
+                            <span>{each[1].name}</span>
+                          </div>
+                        );
+                      })
+                    : "You have no businesses."}
                 </div>
               </div>
             </div>
@@ -376,6 +376,7 @@ const SingleUserPage = () => {
             </div>
             <div className="blank2"></div>
           </div>
+        </div>
       ) : (
         <div className="home loading">
           <div className="self loading">
