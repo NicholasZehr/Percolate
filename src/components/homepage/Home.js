@@ -340,7 +340,7 @@ const Home = (props) => {
           </div>
           <div className="rightSide">
             <div className="rightsideBar">
-              <span className="favoriteTitle">Trending coffees:</span>
+              <p className="favoriteTitle">Trending coffees:</p>
               {localCoffee.length > 0
                 ? localCoffee.slice(0, 3).map((each) => (
                     <Link key={each.id} to={`/coffees/${each.id}`}>
@@ -362,7 +362,6 @@ const Home = (props) => {
                 ? localBusiness.slice(0, 5).map((each) => (
                     <Link key={each.id} to={`/businesses/${each.id}`}>
                       <div className="businessSideBar">
-                        <hr className="divider" />
                         <span>{each.name} </span>
                         <span>{each.followers.length} followers</span>
                       </div>

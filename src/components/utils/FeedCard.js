@@ -175,7 +175,7 @@ const FeedCard = (props) => {
           chat
         </i>
         <div onClick={showComments} className="comments">
-          <p>Comments</p>
+          <p>{`Comments (${allComments.length})`}</p>
         </div>
       </div>
       <div>

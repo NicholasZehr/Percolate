@@ -238,6 +238,10 @@ body {
   padding: 5px;
   display: flex;
   flex-flow: column;
+  border-top: solid 1px grey;
+}
+.businessSideBar:hover {
+  background-color: lightgray;
 }
 
 .writepost {
@@ -501,7 +505,8 @@ p strong {
   flex-grow: 5;
 }
 .commentPadding {
-  padding: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
   text-align: start;
 }
 #map {
@@ -599,5 +604,9 @@ p strong {
 
 .marker{
   height: 25px;
+}
+
+.favoriteTitle{
+  margin-bottom: 0;
 }
 
