@@ -179,7 +179,7 @@ const FeedCard = (props) => {
         </div>
       </div>
       <div>
-        <form className="form" onSubmit={handleSubmit}>
+        <form className="feedcardCss" onSubmit={handleSubmit}>
           <div className={`headNPost ${round}`}>
             <div className="imageBox commentImage">
               <img
