@@ -487,7 +487,11 @@ p strong {
   flex-flow: row;
   margin-top: 1px;
   border-radius: 0;
-  justify-content: space-around;
+  justify-content: flex-start;
+}
+.card .favCoffee{
+  margin-right: 15px;
+  margin-left: 10px;
 }
 .coffeeInfo {
   text-align: left;
@@ -616,3 +620,29 @@ p strong {
   padding-left: 15px;
   padding-right: 15px;
 }
+
+#commentImage{
+  margin-right: 10px;
+}
+
+.singleComment{
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  width: 100%
+}
+.commentName{
+  text-align: left;
+}
+.commentContentImage{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%
+}
+
+.headNPost{
+  border-bottom: 1px solid lightgray;
+}
+
+
