@@ -293,6 +293,7 @@ const Home = (props) => {
                 </div>
                 <label htmlFor="content">Review Comments:</label>
                 <textarea
+                  id="add-review-text"
                   rows="5"
                   className="textarea"
                   maxLength="500"
@@ -317,14 +318,14 @@ const Home = (props) => {
               <span className="favoriteTitle">My favorite coffee:</span>
               <img
                 className="favCoffee"
-                src={loggedInUser ? loggedInUser.coffeeURL : "whiteBack2.png"}
-                alt="favCoffee"
+                src={loggedInUser ? loggedInUser.coffeeURL || "" : ""}
+                alt=""
               />
             </div>
             <div className="self">
               <p className="favoriteTitle">You have:</p>
               <span>{followers.length} followers </span>
-              <span>{following.length} followings </span>
+              <span>{following.length} following </span>
             </div>
           </div>
 
@@ -351,7 +352,7 @@ const Home = (props) => {
           </div>
           <div className="rightSide">
             <div className="rightsideBar">
-              <span className="favoriteTitle">Trending coffees:</span>
+              <p className="favoriteTitle">Trending coffees:</p>
               {localCoffee.length > 0
                 ? localCoffee.slice(0, 3).map((each) => (
                     <Link key={each.id} to={`/coffees/${each.id}`}>
@@ -360,7 +361,8 @@ const Home = (props) => {
                         <span>Average Rating: {each.avgRating}</span>
                         <img
                           className="favCoffee"
-                          src={each.photoURL ? each.photoURL : "/whiteBack.png"}
+                          src={each.photoURL ? each.photoURL || "" : ""}
+                          alt=""
                         />
                       </div>
                     </Link>
@@ -373,7 +375,6 @@ const Home = (props) => {
                 ? localBusiness.slice(0, 5).map((each) => (
                     <Link key={each.id} to={`/businesses/${each.id}`}>
                       <div className="businessSideBar">
-                        <hr className="divider" />
                         <span>{each.name} </span>
                         <span>{each.followers.length} followers</span>
                       </div>

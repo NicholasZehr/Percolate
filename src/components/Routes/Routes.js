@@ -23,7 +23,6 @@ class Routes extends Component {
         <Route path="/review/:id" component={SingleReview} />
         <Route path="/login" component={LoginPage} />
         <Route path="/about" component={About} />
-        <Route path="/contact" component={Contact} />
         <Route path="/signup" component={Signup} />
         <Route exact path="/businesses/:id" component={Business} />
         <Route path="/users/:id" component={SingleUserPage} />

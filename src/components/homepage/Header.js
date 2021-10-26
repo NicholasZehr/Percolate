@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { logout } from "../../store/auth";
@@ -50,9 +50,6 @@ const Header = () => {
             <div className="about" onClick={(_) => history.push("/about")}>
               About
             </div>
-            <div className="about" onClick={(_) => history.push("/contact")}>
-              <div>Contact Us</div>
-            </div>
             <div className="space"></div>
           </div>
         </div>
@@ -85,7 +82,7 @@ const Header = () => {
         </div>
       </div>
     </div>
-  );
+  )
 };
 
 export default Header;
