@@ -244,7 +244,7 @@ const FeedCard = (props) => {
                 {each.displayName}
                     </div>
                     <div className="commentContentImage">
-                  <div id='commentImage'lassName="imageBox commentImage">
+                  <div id='commentImage'className="imageBox commentImage">
                     <img
                       className="profPic"
                       alt=""
