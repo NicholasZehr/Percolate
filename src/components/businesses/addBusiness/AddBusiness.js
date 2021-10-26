@@ -14,10 +14,11 @@ class AddBusiness extends Component {
       zipcode: "",
       street: "",
       followers: [],
+      coffees: [],
       _geoloc: {},
       ownerId: this.props.userId,
       photoURL: "",
-      coverURL: ""
+      coverURL: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -63,7 +64,7 @@ class AddBusiness extends Component {
       name: this.state.name,
       ownerId: this.props.userId,
       photoURL: this.state.photoURL || "/default-business.png",
-      coverURL: this.state.coverURL || "/default-business.png"
+      coverURL: this.state.coverURL || "/default-business.png",
     });
 
     this.setState({
@@ -78,100 +79,109 @@ class AddBusiness extends Component {
       _geoloc: {},
       ownerId: this.props.userId,
       photoURL: "",
-      coverURL: ""
+      coverURL: "",
     });
   }
 
   render() {
-    const { name, email, phone, state, city, zipcode, street, photoURL, coverURL } =
-      this.state;
+    const {
+      name,
+      email,
+      phone,
+      state,
+      city,
+      zipcode,
+      street,
+      photoURL,
+      coverURL,
+    } = this.state;
 
     console.log("add bus prop", this.props);
     return (
       <form className="new-business-form" onSubmit={this.handleSubmit}>
         <div id="new-business">
           <div className="textBox-business">
-          <input
-            type="text"
-            name="name"
-            placeholder="name..."
-            value={name}
-            onChange={this.handleChange}
-          />
+            <input
+              type="text"
+              name="name"
+              placeholder="name..."
+              value={name}
+              onChange={this.handleChange}
+            />
           </div>
           <div className="textBox-business">
-          <input
-            type="text"
-            name="phone"
-            placeholder="Phone..."
-            value={phone}
-            onChange={this.handleChange}
-          />
+            <input
+              type="text"
+              name="phone"
+              placeholder="Phone..."
+              value={phone}
+              onChange={this.handleChange}
+            />
           </div>
           <div className="textBox-business">
-          <input
-            type="text"
-            name="email"
-            placeholder="Email..."
-            value={email}
-            onChange={this.handleChange}
-          />
+            <input
+              type="text"
+              name="email"
+              placeholder="Email..."
+              value={email}
+              onChange={this.handleChange}
+            />
           </div>
           <div className="textBox-business">
-          <input
-            type="text"
-            name="state"
-            placeholder="State..."
-            value={state}
-            onChange={this.handleChange}
-          />
+            <input
+              type="text"
+              name="state"
+              placeholder="State..."
+              value={state}
+              onChange={this.handleChange}
+            />
           </div>
           <div className="textBox-business">
-          <input
-            type="text"
-            name="city"
-            placeholder="City..."
-            value={city}
-            onChange={this.handleChange}
-          />
+            <input
+              type="text"
+              name="city"
+              placeholder="City..."
+              value={city}
+              onChange={this.handleChange}
+            />
           </div>
           <div className="textBox-business">
-          <input
-            type="text"
-            name="zipcode"
-            placeholder="Zipcode..."
-            value={zipcode}
-            onChange={this.handleChange}
-          />
+            <input
+              type="text"
+              name="zipcode"
+              placeholder="Zipcode..."
+              value={zipcode}
+              onChange={this.handleChange}
+            />
           </div>
           <div className="textBox-business">
-          <input
-            type="text"
-            name="street"
-            placeholder="Street..."
-            value={street}
-            onChange={this.handleChange}
-          />
+            <input
+              type="text"
+              name="street"
+              placeholder="Street..."
+              value={street}
+              onChange={this.handleChange}
+            />
           </div>
           <div className="textBox-business">
-          <input
-            type="text"
-            name="photoURL"
-            placeholder="Photo URL"
-            value={photoURL}
-            onChange={this.handleChange}
-          />
+            <input
+              type="text"
+              name="photoURL"
+              placeholder="Photo URL"
+              value={photoURL}
+              onChange={this.handleChange}
+            />
           </div>
           <div className="textBox-business">
-          <input
-            type="text"
-            name="coverURL"
-            placeholder="Cover URL"
-            value={coverURL}
-            onChange={this.handleChange}
-          />
+            <input
+              type="text"
+              name="coverURL"
+              placeholder="Cover URL"
+              value={coverURL}
+              onChange={this.handleChange}
+            />
           </div>
-            <button type="submit">Submit</button>
+          <button type="submit">Submit</button>
         </div>
       </form>
     );

@@ -7,7 +7,7 @@ export const REMOVE_LIKE_BUSINESS = "REMOVE_LIKE_BUSINESS";
 // ------------------ Initial State -----------------------
 
 const initialState = {
-  businesses: [],
+  businesses: {},
   business: {},
 };
 

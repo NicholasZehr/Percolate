@@ -8,13 +8,18 @@ import { fetchLoginUser } from "../../store/auth";
 import FeedCard from "../utils/FeedCard";
 import { fetchReviews } from "../../store/Actions/reviewActions";
 import { fetchFeedReviews } from "../../store/feed";
-import { doc, collection, addDoc, getDocs } from "firebase/firestore";
+import {
+  doc,
+  collection,
+  addDoc,
+  getDocs,
+  serverTimestamp,
+} from "firebase/firestore";
 import db from "../../firebase";
-import { serverTimestamp } from "firebase/firestore";
 import { addReview } from "../../store/Actions/reviewActions";
 import MapSearch from "../search/MapSearch";
 import { fetchBusinesses } from "../../store/Actions/businessActions";
-import Login from "../loginSignup/Login"
+import Login from "../loginSignup/Login";
 import { fetchAllCoffee } from "../../store/Actions/coffeeActions";
 import AllBusinesses from "../businesses/allBusinesses/AllBusinesses";
 
@@ -34,8 +39,8 @@ const Home = (props) => {
   const [rating, setRating] = useState(0);
   const allBusiness = useSelector((state) => state.businesses.businesses);
   const allCoffee = useSelector((state) => state.coffee.allCoffee);
-  const [localCoffee, setLocalCoffee] = useState([])
-  const [localBusiness, setLocalBusiness] = useState([])
+  const [localCoffee, setLocalCoffee] = useState([]);
+  const [localBusiness, setLocalBusiness] = useState([]);
 
   onAuthStateChanged(auth, (u) => {
     setUser(u);
@@ -98,10 +103,12 @@ const Home = (props) => {
       const data = {
         name: evt.target.name.value,
         brandName: evt.target.brandName.value,
+        roasterCity: evt.target.roasterCity.value,
         roast: evt.target.roast.value,
         userId: loggedInUser.uid,
         displayName: loggedInUser.displayName ? loggedInUser.displayName : null,
         rating: rating,
+        businessId: [],
         time: serverTimestamp(),
         likeCount: 0,
         feedURL: loggedInUser.photoURL,
@@ -123,16 +130,18 @@ const Home = (props) => {
   };
 
   if (Object.keys(allBusiness).length > 0 && localBusiness.length === 0) {
-    const temp = []
-    Object.keys(allBusiness).forEach(id => temp.push({ ...allBusiness[id], id }))
-    temp.sort((a, b) => b.followers.length - a.followers.length)
-    setLocalBusiness(temp)
+    const temp = [];
+    Object.keys(allBusiness).forEach((id) =>
+      temp.push({ ...allBusiness[id], id })
+    );
+    temp.sort((a, b) => b.followers.length - a.followers.length);
+    setLocalBusiness(temp);
   }
   if (Object.keys(allCoffee).length > 0 && localCoffee.length === 0) {
-    const temp = []
-    Object.keys(allCoffee).forEach(id => temp.push({ ...allCoffee[id], id }))
-    temp.sort((a,b)=>b.avgRating - a.avgRating)
-    setLocalCoffee(temp)
+    const temp = [];
+    Object.keys(allCoffee).forEach((id) => temp.push({ ...allCoffee[id], id }));
+    temp.sort((a, b) => b.avgRating - a.avgRating);
+    setLocalCoffee(temp);
   }
   return (
     <>
@@ -180,6 +189,7 @@ const Home = (props) => {
                   />
                   <div className="blank3"></div>
                 </div>
+
                 <div className="emailBox mod">
                   <span className="formName">Roast:</span>
                   <input

@@ -13,14 +13,14 @@ import {
 } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import EditProfileButton from "./EditProfileButton";
-import AddBusiness from "../businesses/addBusiness/AddBusiness"
+import AddBusiness from "../businesses/addBusiness/AddBusiness";
 import Modal from "react-modal";
 import { fetchLoginUser } from "../../store/auth";
 import FeedCard from "../utils/FeedCard";
 import { fetchReviews } from "../../store/Actions/reviewActions";
 
 import { fetchUserBusinesses } from "../../store/Actions/businessActions";
-import MapSearch from "../search/MapSearch"
+import MapSearch from "../search/MapSearch";
 
 Modal.setAppElement("#root");
 
@@ -60,7 +60,7 @@ const SingleUserPage = () => {
     return () => {
       mounted = false;
     };
-  }, [id,editBusiness]);
+  }, [id, editBusiness]);
 
   useEffect(() => {
     const list = [];
@@ -97,11 +97,9 @@ const SingleUserPage = () => {
 
   function editPage() {
     setEditProfile(!editProfile);
-    console.log(user)
   }
   function openAddBusiness() {
     setEditBusiness(!editBusiness);
-    console.log(user)
   }
   async function followingUser() {
     if (Object.keys(loginUser).length > 0 && id !== loginUser.uid) {
@@ -165,13 +163,29 @@ const SingleUserPage = () => {
     <>
       {currentPageUser && user && loginUser ? (
         <div className="singleUserPageBox">
-          <Modal className="modal" isOpen={editProfile} onRequestClose={editPage}>
-            <EditProfileButton edit={editProfile} setEdit={setEditProfile} user={user} />
+          <Modal
+            className="modal"
+            isOpen={editProfile}
+            onRequestClose={editPage}
+          >
+            <EditProfileButton
+              edit={editProfile}
+              setEdit={setEditProfile}
+              user={user}
+            />
           </Modal>
-          <Modal className="modal" isOpen={editBusiness} onRequestClose={openAddBusiness}>
+          <Modal
+            className="modal"
+            isOpen={editBusiness}
+            onRequestClose={openAddBusiness}
+          >
             <div className="addBusinessDiv">
-            <h2>Tell us about the business</h2>
-            <AddBusiness edit={editBusiness} setEdit={setEditBusiness}userId={id}/>
+              <h2>Tell us about the business</h2>
+              <AddBusiness
+                edit={editBusiness}
+                setEdit={setEditBusiness}
+                userId={id}
+              />
             </div>
           </Modal>
           <div className="profileBox">
@@ -245,101 +259,104 @@ const SingleUserPage = () => {
           <div className="body">
             <div className="blank2"></div>
             <div className="leftBody ">
-              <div>
-                <div className="intro" id="starting">
-                  <h2>Intro: </h2>
-                  <span className="favoriteTitle">My favorite coffee:</span>
-                  <img
-                    className="favCoffee"
-                    alt="favorite coffee"
-                    src={
-                      currentPageUser
-                        ? currentPageUser.coffeeURL
-                        : "whiteBack2.png"
-                    }
-                  />
+              <div className="intro" id="starting">
+                <h2>Intro: </h2>
+                <span className="favoriteTitle">My favorite coffee:</span>
+                <img
+                  className="favCoffee"
+                  alt="favorite coffee"
+                  src={
+                    currentPageUser
+                      ? currentPageUser.coffeeURL
+                      : "whiteBack2.png"
+                  }
+                />
+              </div>
+              <div className="followers" id="followers">
+                <b>{followers.length} followers: </b>
+                <div className="followerListBox">
+                  {followers.length > 0
+                    ? followers.map((each, index) => {
+                        return (
+                          <div
+                            key={index}
+                            className="followerIcon"
+                            onClick={() => history.push(`/users/${each.uid}`)}
+                          >
+                            <img
+                              className="profPic pictureSize"
+                              alt="follower icon"
+                              src={each.photoURL}
+                            />
+                            <span>{each.firstName}</span>
+                          </div>
+                        );
+                      })
+                    : "No one is following you."}
                 </div>
-                <div className="followers" id="followers">
-                  <b>{followers.length} followers: </b>
-                  <div className="followerListBox">
-                    {followers.length > 0
-                      ? followers.map((each, index) => {
-                          return (
-                            <div
-                              key={index}
-                              className="followerIcon"
-                              onClick={() => history.push(`/users/${each.uid}`)}
-                            >
-                              <img
-                                className="profPic pictureSize"
-                                alt="follower icon"
-                                src={each.photoURL}
-                              />
-                              <span>{each.firstName}</span>
-                            </div>
-                          );
-                        })
-                      : "No one is following you."}
-                  </div>
+              </div>
+              <div className="followers" id="following">
+                <b>{following.length} following: </b>
+                <div className="followerListBox">
+                  {following.length > 0
+                    ? following.map((each, index) => {
+                        return (
+                          <div
+                            key={index}
+                            className="followerIcon"
+                            onClick={() => history.push(`/users/${each.uid}`)}
+                          >
+                            <img
+                              alt="follower-icon"
+                              className="profPic pictureSize"
+                              src={each.photoURL}
+                            />
+                            <span>{each.firstName}</span>
+                          </div>
+                        );
+                      })
+                    : "You are not following anyone."}
                 </div>
-                <div className="followers" id="following">
-                  <b>{following.length} following: </b>
-                  <div className="followerListBox">
-                    {following.length > 0
-                      ? following.map((each, index) => {
-                          return (
-                            <div
-                              key={index}
-                              className="followerIcon"
-                              onClick={() => history.push(`/users/${each.uid}`)}
-                            >
-                              <img
-                                alt="follower-icon"
-                                className="profPic pictureSize"
-                                src={each.photoURL}
-                              />
-                              <span>{each.firstName}</span>
-                            </div>
-                          );
-                        })
-                      : "You are not following anyone."}
-                  </div>
-                </div>
+              </div>
 
-                <div className="followers">
-                  <b>Businesses:</b>
-                  {user ? (
-                    id === user.uid ? (
-                        <div className="add-business-button" onClick={openAddBusiness} >Add</div>
-                    ) : (
-                      ""
-                    )
+              <div className="followers">
+                <b>Businesses:</b>
+                {user ? (
+                  id === user.uid ? (
+                    <div
+                      className="add-business-button"
+                      onClick={openAddBusiness}
+                    >
+                      Add
+                    </div>
                   ) : (
                     ""
-                  )}
+                  )
+                ) : (
+                  ""
+                )}
 
-                  <div className="followerListBox">
-                    {businessArr.length > 0
-                      ? businessArr.map((each, index) => {
-                          return (
-                            <div
-                              key={index}
-                              className="followerIcon"
-                              onClick={() =>
-                                history.push(`/businesses/${each[0]}`)
-                              }
-                            >
-                              <img
-                                alt="Business"
-                                className="profPic pictureSize"
-                                src={each[1].photoURL}
-                              />
-                              <span>{each[1].name}</span>
-                            </div>
-                          );
-                        })
-                      : "You have no businesses. What are you a communist?"}
-                  </div>
+                <div className="followerListBox">
+                  {businessArr.length > 0
+                    ? businessArr.map((each, index) => {
+                        return (
+                          <div
+                            key={index}
+                            className="followerIcon"
+                            onClick={() =>
+                              history.push(`/businesses/${each[0]}`)
+                            }
+                          >
+                            <img
+                              alt="Business"
+                              className="profPic pictureSize"
+                              src={each[1].photoURL}
+                            />
+                            <span>{each[1].name}</span>
+                          </div>
+                        );
+                      })
+                    : "You have no businesses. What are you a communist?"}
                 </div>
               </div>
             </div>
