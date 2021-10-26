@@ -31,3 +31,10 @@
   align-self: center;
   width: 90%;
 }
+
+.addBusinessDiv{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}

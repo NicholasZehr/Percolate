@@ -15,7 +15,7 @@ class AddBusiness extends Component {
       street: "",
       followers: [],
       _geoloc: {},
-      ownerId: this.props.location.userId,
+      ownerId: this.props.userId,
       photoURL: "",
       coverURL: ""
     };
@@ -33,7 +33,6 @@ class AddBusiness extends Component {
     // get a callback when the server responds
     xhr.addEventListener("load", () => {
       // update the state of the component with the result here
-      console.log("setting state");
       this.setState({
         _geoloc: JSON.parse(xhr.responseText).results[0].geometry.location,
       });
@@ -46,7 +45,6 @@ class AddBusiness extends Component {
     );
     // send the request
     xhr.send();
-    console.log("sending business: ", this.state);
   }
 
   async handleSubmit(event) {
@@ -63,6 +61,7 @@ class AddBusiness extends Component {
       followers: this.state.followers,
       phone: this.state.phone,
       name: this.state.name,
+      ownerId: this.props.userId,
       photoURL: this.state.photoURL || "/default-business.png",
       coverURL: this.state.coverURL || "/default-business.png"
     });
@@ -77,7 +76,7 @@ class AddBusiness extends Component {
       street: "",
       followers: [],
       _geoloc: {},
-      ownerId: this.props.location.userId,
+      ownerId: this.props.userId,
       photoURL: "",
       coverURL: ""
     });

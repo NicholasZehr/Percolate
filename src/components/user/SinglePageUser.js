@@ -13,6 +13,7 @@ import {
 } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import EditProfileButton from "./EditProfileButton";
+import AddBusiness from "../businesses/addBusiness/AddBusiness"
 import Modal from "react-modal";
 import { fetchLoginUser } from "../../store/auth";
 import FeedCard from "../utils/FeedCard";
@@ -20,7 +21,6 @@ import { fetchReviews } from "../../store/Actions/reviewActions";
 
 import { fetchUserBusinesses } from "../../store/Actions/businessActions";
 import MapSearch from "../search/MapSearch"
-import Login from "../loginSignup/Login"
 
 Modal.setAppElement("#root");
 
@@ -31,7 +31,8 @@ const SingleUserPage = () => {
   //componentDidMount here
   const auth = getAuth();
   const [user, setUser] = useState(getAuth().currentUser);
-  const [edit, setEdit] = useState(false);
+  const [editProfile, setEditProfile] = useState(false);
+  const [editBusiness, setEditBusiness] = useState(false);
   const loginUser = useSelector((state) => state.auth);
   const currentPageUser = useSelector((state) => state.users.user);
   const businesses = useSelector((state) => state.businesses.businesses);
@@ -40,7 +41,6 @@ const SingleUserPage = () => {
   const [following, setFollowing] = useState([]);
   const [alreadyFollowed, setAlreadyFollowed] = useState(false);
   const reviews = useSelector((state) => state.review.reviews);
-  const [stick, setStick] = useState("stick");
 
   onAuthStateChanged(auth, (u) => {
     setUser(u);
@@ -60,7 +60,7 @@ const SingleUserPage = () => {
     return () => {
       mounted = false;
     };
-  }, [id]);
+  }, [id,editBusiness]);
 
   useEffect(() => {
     const list = [];
@@ -96,12 +96,12 @@ const SingleUserPage = () => {
   }, [currentPageUser]);
 
   function editPage() {
-    setEdit(!edit);
-    if (stick === "stick") {
-      setStick("notStick");
-    } else {
-      setStick("stick");
-    }
+    setEditProfile(!editProfile);
+    console.log(user)
+  }
+  function openAddBusiness() {
+    setEditBusiness(!editBusiness);
+    console.log(user)
   }
   async function followingUser() {
     if (Object.keys(loginUser).length > 0 && id !== loginUser.uid) {
@@ -165,8 +165,14 @@ const SingleUserPage = () => {
     <>
       {currentPageUser && user && loginUser ? (
         <div className="singleUserPageBox">
-          <Modal className="modal" isOpen={edit} onRequestClose={editPage}>
-            <EditProfileButton edit={edit} setEdit={setEdit} user={user} />
+          <Modal className="modal" isOpen={editProfile} onRequestClose={editPage}>
+            <EditProfileButton edit={editProfile} setEdit={setEditProfile} user={user} />
+          </Modal>
+          <Modal className="modal" isOpen={editBusiness} onRequestClose={openAddBusiness}>
+            <div className="addBusinessDiv">
+            <h2>Tell us about the business</h2>
+            <AddBusiness edit={editBusiness} setEdit={setEditBusiness}userId={id}/>
+            </div>
           </Modal>
           <div className="profileBox">
             <div className="profileCover">
@@ -239,7 +245,7 @@ const SingleUserPage = () => {
           <div className="body">
             <div className="blank2"></div>
             <div className="leftBody ">
-              <div className={`${stick}`}>
+              <div>
                 <div className="intro" id="starting">
                   <h2>Intro: </h2>
                   <span className="favoriteTitle">My favorite coffee:</span>
@@ -304,14 +310,7 @@ const SingleUserPage = () => {
                   <b>Businesses:</b>
                   {user ? (
                     id === user.uid ? (
-                      <Link
-                        to={{
-                          pathname: "/addBusiness",
-                          userId: id,
-                        }}
-                      >
-                        <div className="add-business-button">Add</div>
-                      </Link>
+                        <div className="add-business-button" onClick={openAddBusiness} >Add</div>
                     ) : (
                       ""
                     )
@@ -359,7 +358,11 @@ const SingleUserPage = () => {
           </div>
         </div>
       ) : (
-        <Login />
+        <div className="home loading">
+          <div className="self loading">
+            <p>Loading ...</p>
+          </div>
+        </div>
       )}
     </>
   );
