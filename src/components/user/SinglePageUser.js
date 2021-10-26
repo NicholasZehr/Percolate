@@ -179,11 +179,11 @@ const SingleUserPage = () => {
               <div className="shadow">
                 <img
                   className="cover"
-                  alt="cover"
+                  alt=""
                   src={
                     currentPageUser
-                      ? currentPageUser.coverURL
-                      : "/whiteBack2.png"
+                      ? currentPageUser.coverURL?(currentPageUser.coverURL):"/background.jpeg"
+                      : "/background.jpeg"
                   }
                 />
               </div>

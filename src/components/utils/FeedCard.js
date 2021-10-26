@@ -40,6 +40,23 @@ const FeedCard = (props) => {
       fetchComments();
     }
   }, [show]);
+  useEffect(() => {
+      const subCollection = collection(
+        db,
+        "reviews",
+        props.reviewId,
+        "comments")
+      async function fetchComments() {
+        const q = query(subCollection, orderBy("timestamp", "desc"));
+        const response = await getDocs(q);
+        const temp = [];
+        response.forEach((doc) => {
+          temp.push(doc.data());
+        });
+        setAllComents(temp);
+      }
+      fetchComments();
+    }, []);
 
   // auto extpand textarea fix it later
   if (textarea) {
@@ -149,9 +166,9 @@ const FeedCard = (props) => {
         <div className="headNPost card">
           <img
             className="favCoffee"
-            alt="favorite coffee"
+            alt=""
             onClick={(_) => history.push(`/coffees/${props.review.id}`)}
-            src={props.review ? props.review.feedURL : ""}
+            src={props.review ? props.review.feedURL||"" : ""}
           />
           <div className="coffeeInfo">
             <p>Roast: {props.review.roast} </p>
@@ -212,19 +229,26 @@ const FeedCard = (props) => {
           ? allComments.map((each, index) => (
               <div key={index} className="self feeding insideComment">
                 <div className="headNPost ">
-                  <div className="imageBox commentImage">
+                  <div className="singleComment">
+                    <div className="commentName">
+                {each.displayName}
+                    </div>
+                    <div className="commentContentImage">
+                  <div id='commentImage'lassName="imageBox commentImage">
                     <img
                       className="profPic"
-                      alt="User Profile AVI"
-                      src={each.photoURL}
+                      alt=""
+                      src={each.photoURL||''}
                       onClick={(_) => history.push(`/users/${each.userId}`)}
                     />
-                  </div>
-                  <div className="post-input commentContent">
+                  </div> <div className="post-input commentContent">
                     <span className="textarea commentPadding">
                       {each.content}
                     </span>
                   </div>
+                  </div>
+                  </div>
+
                 </div>
               </div>
             ))
