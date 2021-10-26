@@ -70,7 +70,7 @@ hr.solid {
   right: 54.43%;
   top: 19.25%;
   bottom: 24.75%;
-
+  margin-right: 15px;
   background: url(image.png);
   box-sizing: border-box;
 
@@ -86,4 +86,5 @@ hr.solid {
 }
 .claim-button {
   margin-top: 5px;
+  background-color: #3b6064;
 }
