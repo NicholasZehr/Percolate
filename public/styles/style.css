@@ -302,6 +302,13 @@ p strong {
   border: 0;
 }
 
+.ais-SearchBox-reset{
+  display:none
+}
+.ais-SearchBox-submit{
+  margin-right: 5px;
+}
+
 .ais-SearchBox-form {
   flex-grow: 3.5;
   background: #ffffff;
@@ -343,6 +350,7 @@ p strong {
   display: flex;
   flex-direction: column;
   width: 98%;
+  border-top: solid black 2px;
 }
 
 .ais-Hits-list {
@@ -360,7 +368,9 @@ p strong {
   border-bottom: solid grey 1px;
   align-items: center;
 }
-
+.ais-Hits-item:hover {
+  background-color: lightgray;
+}
 .results {
   display: flex;
   flex-direction: row;
@@ -552,16 +562,16 @@ p strong {
   align-items: center;
 }
 
-.marker-hover span {
+.marker-hover div {
   display: none;
   position: absolute;
   background: lightgray;
   color: black;
-  font-size: 20px;
+  font-size: 15px;
 }
 
-.marker-hover:hover span {
-  display: inline-block;
+.marker-hover:hover div {
+  display: flex;
 }
 #txt {
   padding-left: 20px;
@@ -570,4 +580,8 @@ p strong {
 
 .imageBox{
   margin-right:10px;
+}
+
+.marker{
+  height: 25px;
 }

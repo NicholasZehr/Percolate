@@ -1,0 +1,40 @@
+.new-business-form{
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  background-color: blanchedalmond;
+  width: 40%
+}
+
+#new-business{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px 10px 10px 10px;
+}
+
+.textBox-business{
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 5px;
+  margin-top: 5px;
+  align-self: center;
+}
+
+#new-business button{
+  margin-top: 15px;
+  margin-bottom: 10px;
+  align-self: center;
+  width: 90%;
+}
+
+.addBusinessDiv{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
