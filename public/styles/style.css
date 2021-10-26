@@ -559,16 +559,16 @@ p strong {
   align-items: center;
 }
 
-.marker-hover span {
+.marker-hover div {
   display: none;
   position: absolute;
   background: lightgray;
   color: black;
-  font-size: 20px;
+  font-size: 15px;
 }
 
-.marker-hover:hover span {
-  display: inline-block;
+.marker-hover:hover div {
+  display: flex;
 }
 #txt {
   padding-left: 20px;
@@ -577,4 +577,8 @@ p strong {
 
 .imageBox{
   margin-right:10px;
+}
+
+.marker{
+  height: 25px;
 }
