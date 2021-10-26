@@ -350,6 +350,7 @@ p strong {
   display: flex;
   flex-direction: column;
   width: 98%;
+  border-top: solid black 2px;
 }
 
 .ais-Hits-list {
@@ -367,7 +368,9 @@ p strong {
   border-bottom: solid grey 1px;
   align-items: center;
 }
-
+.ais-Hits-item:hover {
+  background-color: lightgray;
+}
 .results {
   display: flex;
   flex-direction: row;
