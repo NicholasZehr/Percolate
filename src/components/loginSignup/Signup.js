@@ -66,7 +66,7 @@ const Signup = () => {
       errors.firstName = `Please provide your first name.`;
     }
     if (!userInput.user.lastName) {
-      errors.lastName = "Please provide your first name.";
+      errors.lastName = "Please provide your last name.";
     }
 
     if (!userInput.user.password) {
@@ -90,6 +90,7 @@ const Signup = () => {
       ) : (
         <div className="loginbodyBox">
           <div className="loginbody">
+            <div className="sign-up-left">
             <div className="signupTitle">
               <h2>Signup your account</h2>
             </div>
@@ -102,9 +103,6 @@ const Signup = () => {
                   onChange={handleChange}
                   placeholder="Email"
                 />
-                {userInput.errors !== "" && (
-                  <span className="error">{userInput.errors.email}</span>
-                )}
               </div>
               <div className="emailBox">
                 <input
@@ -114,9 +112,6 @@ const Signup = () => {
                   onChange={handleChange}
                   placeholder="First Name"
                 />
-                {userInput.errors !== "" && (
-                  <span className="error">{userInput.errors.firstName}</span>
-                )}
               </div>
               <div className="emailBox">
                 <input
@@ -126,9 +121,6 @@ const Signup = () => {
                   placeholder="Last Name"
                   type="text"
                 />
-                {userInput.errors !== "" && (
-                  <span className="error">{userInput.errors.lastName}</span>
-                )}
               </div>
               <div className="emailBox">
                 <input
@@ -138,7 +130,6 @@ const Signup = () => {
                   onChange={handleChange}
                   placeholder="Profile Photo URL"
                 />
-                {userInput.errors !== "" && <span className="error"></span>}
               </div>
               <div className="emailBox">
                 <input
@@ -148,9 +139,6 @@ const Signup = () => {
                   placeholder="Password"
                   type="password"
                 />
-                {userInput.errors !== "" && (
-                  <span className="error">{userInput.errors.password}</span>
-                )}
               </div>
               <div className="signupBox">
                 <button className="signupPage" name="button1">
@@ -158,6 +146,23 @@ const Signup = () => {
                 </button>
               </div>
             </form>
+            </div>
+            <div class="sign-up-right">
+            {userInput.errors !== "" && (
+                  <span className="error">{userInput.errors.email}</span>
+                )}
+                {userInput.errors !== "" && (
+                  <span className="error">{userInput.errors.firstName}</span>
+                )}
+                {userInput.errors !== "" && (
+                  <span className="error">{userInput.errors.lastName}</span>
+                )}
+                {userInput.errors !== "" && (
+                  <span className="error">{userInput.errors.password}</span>
+                )}
+                {userInput.errors !== "" && <span className="error"></span>}
+                {userInput.errors !== "" && <span className="error"></span>}
+              </div>
           </div>
           <h1 className="welcome">Welcome to Percolate</h1>
         </div>
