@@ -40,6 +40,23 @@ const FeedCard = (props) => {
       fetchComments();
     }
   }, [show]);
+  useEffect(() => {
+      const subCollection = collection(
+        db,
+        "reviews",
+        props.reviewId,
+        "comments")
+      async function fetchComments() {
+        const q = query(subCollection, orderBy("timestamp", "desc"));
+        const response = await getDocs(q);
+        const temp = [];
+        response.forEach((doc) => {
+          temp.push(doc.data());
+        });
+        setAllComents(temp);
+      }
+      fetchComments();
+    }, []);
 
   // auto extpand textarea fix it later
   if (textarea) {
