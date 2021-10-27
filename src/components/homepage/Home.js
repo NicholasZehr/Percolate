@@ -83,14 +83,29 @@ const Home = (props) => {
       // dispatch(fetchReviews("user", user.uid));
       dispatch(fetchFeedReviews(user.uid));
     }
+
     if (mounted) {
+      const temp1 = [];
+      Object.keys(allCoffee).forEach((id) =>
+        temp1.push({ ...allCoffee[id], id })
+      );
+      temp1.sort((a, b) => b.avgRating - a.avgRating);
+      setLocalCoffee(temp1);
+
+      const temp = [];
+      Object.keys(allBusiness).forEach((id) =>
+        temp.push({ ...allBusiness[id], id })
+      );
+      temp.sort((a, b) => b.followers.length - a.followers.length);
+      setLocalBusiness(temp);
       setFollowers(list);
       setFollowing(fol);
     }
     return () => {
+      setLocalBusiness([]);
       mounted = false;
     };
-  }, [loggedInUser]);
+  }, [loggedInUser, allBusiness, allCoffee]);
 
   function writePage() {
     setWrite(!write);
@@ -129,20 +144,6 @@ const Home = (props) => {
     setRating(evt.target.value);
   };
 
-  if (Object.keys(allBusiness).length > 0 && localBusiness.length === 0) {
-    const temp = [];
-    Object.keys(allBusiness).forEach((id) =>
-      temp.push({ ...allBusiness[id], id })
-    );
-    temp.sort((a, b) => b.followers.length - a.followers.length);
-    setLocalBusiness(temp);
-  }
-  if (Object.keys(allCoffee).length > 0 && localCoffee.length === 0) {
-    const temp = [];
-    Object.keys(allCoffee).forEach((id) => temp.push({ ...allCoffee[id], id }));
-    temp.sort((a, b) => b.avgRating - a.avgRating);
-    setLocalCoffee(temp);
-  }
   return (
     <>
       {loggedInUser && user ? (
