@@ -62,6 +62,7 @@ class AddBusiness extends Component {
       followers: this.state.followers,
       phone: this.state.phone,
       name: this.state.name,
+      coffees:[],
       ownerId: this.props.userId,
       photoURL: this.state.photoURL || "/default-business.png",
       coverURL: this.state.coverURL || "/default-business.png",
