@@ -52,7 +52,7 @@ const Signup = () => {
       coverURL: '/background.jpeg'
     };
 
-    dispatch(authenticateSignup(user, formName));
+    await dispatch(authenticateSignup(user, formName));
     await dispatch(authenticate(user.email, user.password))
   };
   const handleChange = (evt) => {
