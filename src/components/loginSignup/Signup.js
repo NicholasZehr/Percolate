@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { authenticateSignup } from "../../store";
+import { authenticateSignup, authenticate } from "../../store";
 import { useHistory } from "react-router";
 
 const Signup = () => {
@@ -40,7 +40,7 @@ const Signup = () => {
   //     mounted = false;
   //   };
   // }, []);
-  const handleSubmit = (evt) => {
+  const handleSubmit = async(evt) => {
     evt.preventDefault();
     const formName = evt.target.name;
     const user = {
@@ -52,8 +52,8 @@ const Signup = () => {
       coverURL: '/background.jpeg'
     };
 
-    dispatch(authenticateSignup(user, formName));
-    setTimeout(() => {history.push(`/home`);}, 1000);
+    await dispatch(authenticateSignup(user, formName));
+    await dispatch(authenticate(user.email, user.password))
   };
   const handleChange = (evt) => {
     let errors = {
@@ -133,7 +133,7 @@ const Signup = () => {
               </div>
               <div className="signupBox">
                 <button className="signupPage" name="button1">
-                  sign up
+                  Sign Up
                 </button>
               </div>
             </form>

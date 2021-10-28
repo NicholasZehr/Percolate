@@ -84,26 +84,34 @@
   position:relative;
   background: #3B6064;
   color: white;
-  width: 25.5vw;
-  height: 4vh;
+  width: 25%;
+  padding-top: 2px;
+  padding-bottom: 2px ;
+  margin-top: 10px;
   font-size: 20px;
   border-radius: 5px;
   text-align: center;
   align-self: center;
 }
 .signin:hover {
-  background: #2c484b;
+  background-color: rgb(202, 202, 202);;
+  cursor: pointer;
 }
 .signup {
   background-color: #3b6064;
   color: rgb(0, 0, 0);
   font-size: 20px;
   border: 1px solid rgb(0, 0, 0);
+  padding-top: 2px;
+  padding-bottom: 2px ;
+  padding-left: 2px;
+  padding-right: 2px;
   border-radius: 5px;
   color: white
 }
 .signup:hover {
   background-color: rgb(202, 202, 202);
+  cursor: pointer;
 }
 .error {
   color: red;
@@ -166,9 +174,11 @@
   border-radius: 5px;
   text-align: center;
   align-self: center;
+  margin-top: 10px;
 }
 .signupPage:hover {
-  background: #2c484b;
+  background: rgb(202, 202, 202);
+  cursor: pointer;
 }
 
 .sign-up-left{

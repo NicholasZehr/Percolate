@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Switch } from "react-router";
 import AllBusinesses from "../businesses/allBusinesses/AllBusinesses";
-
+import { getAuth } from "firebase/auth";
 import AddBusiness from "../businesses/addBusiness/AddBusiness";
 import LoginPage from "../loginSignup/Login";
 import Signup from "../loginSignup/Signup";
@@ -14,11 +14,14 @@ import About from "../utils/About";
 import Home from "../homepage/Home";
 import MapSearch from "../search/MapSearch";
 import Contact from "../utils/Contact";
+import { useSelector } from "react-redux";
 
-class Routes extends Component {
-  render() {
+const Routes = ()=> {
+  const isLoggedIn = useSelector((state) => state.auth.accessToken);
     return (
       <Switch>
+        {isLoggedIn?(
+          <>
         <Route exact path="/reviewPane" component={ReviewPane} />
         <Route path="/review/:id" component={SingleReview} />
         <Route path="/login" component={LoginPage} />
@@ -28,10 +31,11 @@ class Routes extends Component {
         <Route path="/users/:id" component={SingleUserPage} />
         <Route exact path="/coffees/:id" component={SingleCoffee} />
         <Route path="/Home" component={Home} />
-        <Route exact path="/" component={Home} />
-      </Switch>
-    );
-  }
+        <Route exact path="/" component={Home} /></>):(<><Route exact path="/login" component={LoginPage} />
+        <Route exact path="/about" component={About} />
+        <Route exact path="/signup" component={Signup} />
+        <Route path="/" component={LoginPage} /></>)}
+      </Switch>)
 }
 
 export default Routes;
