@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Switch } from "react-router";
 import AllBusinesses from "../businesses/allBusinesses/AllBusinesses";
-
+import { getAuth } from "firebase/auth";
 import AddBusiness from "../businesses/addBusiness/AddBusiness";
 import LoginPage from "../loginSignup/Login";
 import Signup from "../loginSignup/Signup";
@@ -15,10 +15,14 @@ import Home from "../homepage/Home";
 import MapSearch from "../search/MapSearch";
 import Contact from "../utils/Contact";
 
-class Routes extends Component {
-  render() {
+const Routes = ()=> {
+  const [user, setUser] = useState({});
+  useEffect(()=>{
+    setUser(getAuth())
+    console.log('firing')
+  },[user])
     return (
-      <Switch>
+      user.currentUser?(<Switch>
         <Route exact path="/reviewPane" component={ReviewPane} />
         <Route path="/review/:id" component={SingleReview} />
         <Route path="/login" component={LoginPage} />
@@ -29,9 +33,13 @@ class Routes extends Component {
         <Route exact path="/coffees/:id" component={SingleCoffee} />
         <Route path="/Home" component={Home} />
         <Route exact path="/" component={Home} />
-      </Switch>
+      </Switch>):(<Switch>
+        <Route path="/login" component={LoginPage} />
+        <Route exact path="/about" component={About} />
+        <Route exact path="/signup" component={Signup} />
+        <Route path="/" component={LoginPage} />
+      </Switch>)
     );
-  }
 }
 
 export default Routes;
