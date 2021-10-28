@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { Route, Switch, Redirect } from "react-router";
-import AllBusinesses from "../businesses/allBusinesses/AllBusinesses";
+import React, { useState } from "react";
+import { Route, Switch } from "react-router";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import AddBusiness from "../businesses/addBusiness/AddBusiness";
 import LoginPage from "../loginSignup/Login";
 import Signup from "../loginSignup/Signup";
 import Business from "../businesses/singleBusiness/SingleBusiness";
@@ -12,14 +10,10 @@ import ReviewPane from "../reviews/ReviewPane";
 import SingleReview from "../reviews/SingleReview";
 import About from "../utils/About";
 import Home from "../homepage/Home";
-import MapSearch from "../search/MapSearch";
-import Contact from "../utils/Contact";
-import { useSelector } from "react-redux";
 
 const Routes = ()=> {
   const [user, setUser] = useState(getAuth().currentUser)
   const login = getAuth()
-  const isLoggedIn = useSelector((state) => state.auth.accessToken);
   onAuthStateChanged(login, (u) => {
     setUser(u);
   });
