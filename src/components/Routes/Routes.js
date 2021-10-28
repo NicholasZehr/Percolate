@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Route, Switch } from "react-router";
+import { Route, Switch, Redirect } from "react-router";
 import AllBusinesses from "../businesses/allBusinesses/AllBusinesses";
 import { getAuth } from "firebase/auth";
 import AddBusiness from "../businesses/addBusiness/AddBusiness";
@@ -34,7 +34,8 @@ const Routes = ()=> {
         <Route exact path="/" component={Home} /></>):(<><Route exact path="/login" component={LoginPage} />
         <Route exact path="/about" component={About} />
         <Route exact path="/signup" component={Signup} />
-        <Route path="/" component={LoginPage} /></>)}
+        <Redirect from="/" to="/login" />
+        </>)}
       </Switch>)
 }
 
