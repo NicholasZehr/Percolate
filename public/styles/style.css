@@ -43,6 +43,9 @@ body {
   display: flex;
   text-align: center;
 }
+.oursite:hover{
+  cursor: pointer;
+}
 .brand {
   margin-top: 5px;
 }

@@ -133,7 +133,7 @@ const Signup = () => {
               </div>
               <div className="signupBox">
                 <button className="signupPage" name="button1">
-                  sign up
+                  Sign Up
                 </button>
               </div>
             </form>
