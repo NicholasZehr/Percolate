@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import algoliasearch from "algoliasearch/lite";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
   InstantSearch,
   SearchBox,
@@ -15,16 +16,18 @@ const searchClient = algoliasearch(
   "3de80a48e4011b0c171789a11801fb58"
 );
 
-export const Search = () => (
+export const Search = () => {
+  const [user, setUser] = useState(getAuth());
+  return(
   <InstantSearch indexName="coffees" searchClient={searchClient}>
     <SearchBox />
-    {isSearch ? (
+    {isSearch? (user.currentUser?(
       <div className="search-results">
         <Results></Results>
       </div>
-    ) : null}
+    ):(null)) : null}
   </InstantSearch>
-);
+)};
 
 function Hit(props) {
   return (

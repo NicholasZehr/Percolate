@@ -242,6 +242,7 @@ body {
 }
 .businessSideBar:hover {
   background-color: lightgray;
+  cursor: pointer;
 }
 
 .writepost {
@@ -275,6 +276,7 @@ body {
 }
 .postNow:hover {
   background: #2c484b;
+  cursor: pointer;
 }
 .textarea {
   background-color: rgb(228, 227, 227);
@@ -345,7 +347,7 @@ p strong {
   background-color: white;
   overflow-y: scroll;
   max-height: 50vh;
-  z-index: 10;
+  z-index: 100;
   width: 40%;
   border-radius: 0 0 2% 2%;
   box-shadow: black 0px 1px 1px 1px;
@@ -381,6 +383,7 @@ p strong {
 }
 .ais-Hits-item:hover {
   background-color: lightgray;
+  cursor: pointer;
 }
 .results {
   display: flex;
@@ -590,6 +593,7 @@ p strong {
 
 .marker-hover:hover div {
   display: flex;
+  cursor: pointer;
 }
 #txt {
   padding-left: 20px;
