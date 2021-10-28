@@ -88,7 +88,7 @@ const FeedCard = (props) => {
         props.reviewId,
         "comments"
       );
-      temp.push(data);
+      temp.unshift(data);
       evt.target.content.value = "";
       setAllComents(temp);
       await addDoc(subCollection, data);
