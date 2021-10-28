@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { logout } from "../../store/auth";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -10,6 +10,7 @@ const Header = () => {
   const login = getAuth();
   const dispatch = useDispatch();
   const [user, setUser] = useState(getAuth().currentUser);
+  const isLoggedIn = useSelector((state) => state.auth.accessToken);
   onAuthStateChanged(login, (u) => {
     setUser(u);
   });
@@ -67,7 +68,7 @@ const Header = () => {
               />
             </div>
             <div className="username">
-              {user ? (
+              {isLoggedIn ? (
                 <div>
                   <span onClick={gotoPage}>{user.displayName}</span>
                   <div className="signoutButton" onClick={(_) => signOut()}>

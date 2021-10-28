@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { authenticateSignup } from "../../store";
+import { authenticateSignup, authenticate } from "../../store";
 import { useHistory } from "react-router";
 
 const Signup = () => {
@@ -40,7 +40,7 @@ const Signup = () => {
   //     mounted = false;
   //   };
   // }, []);
-  const handleSubmit = (evt) => {
+  const handleSubmit = async(evt) => {
     evt.preventDefault();
     const formName = evt.target.name;
     const user = {
@@ -53,7 +53,7 @@ const Signup = () => {
     };
 
     dispatch(authenticateSignup(user, formName));
-    setTimeout(() => {history.push(`/home`);}, 1000);
+    await dispatch(authenticate(user.email, user.password))
   };
   const handleChange = (evt) => {
     let errors = {

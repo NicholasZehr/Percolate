@@ -14,15 +14,14 @@ import About from "../utils/About";
 import Home from "../homepage/Home";
 import MapSearch from "../search/MapSearch";
 import Contact from "../utils/Contact";
+import { useSelector } from "react-redux";
 
 const Routes = ()=> {
-  const [user, setUser] = useState({});
-  useEffect(()=>{
-    setUser(getAuth())
-    console.log('firing')
-  },[user])
+  const isLoggedIn = useSelector((state) => state.auth.accessToken);
     return (
-      user.currentUser?(<Switch>
+      <Switch>
+        {isLoggedIn?(
+          <>
         <Route exact path="/reviewPane" component={ReviewPane} />
         <Route path="/review/:id" component={SingleReview} />
         <Route path="/login" component={LoginPage} />
@@ -32,14 +31,11 @@ const Routes = ()=> {
         <Route path="/users/:id" component={SingleUserPage} />
         <Route exact path="/coffees/:id" component={SingleCoffee} />
         <Route path="/Home" component={Home} />
-        <Route exact path="/" component={Home} />
-      </Switch>):(<Switch>
-        <Route path="/login" component={LoginPage} />
+        <Route exact path="/" component={Home} /></>):(<><Route exact path="/login" component={LoginPage} />
         <Route exact path="/about" component={About} />
         <Route exact path="/signup" component={Signup} />
-        <Route path="/" component={LoginPage} />
+        <Route path="/" component={LoginPage} /></>)}
       </Switch>)
-    );
 }
 
 export default Routes;
