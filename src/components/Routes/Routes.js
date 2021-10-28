@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Route, Switch, Redirect } from "react-router";
 import AllBusinesses from "../businesses/allBusinesses/AllBusinesses";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import AddBusiness from "../businesses/addBusiness/AddBusiness";
 import LoginPage from "../loginSignup/Login";
 import Signup from "../loginSignup/Signup";
@@ -17,10 +17,15 @@ import Contact from "../utils/Contact";
 import { useSelector } from "react-redux";
 
 const Routes = ()=> {
+  const [user, setUser] = useState(getAuth().currentUser)
+  const login = getAuth()
   const isLoggedIn = useSelector((state) => state.auth.accessToken);
+  onAuthStateChanged(login, (u) => {
+    setUser(u);
+  });
     return (
       <Switch>
-        {isLoggedIn?(
+        {user?(
           <>
         <Route exact path="/reviewPane" component={ReviewPane} />
         <Route path="/review/:id" component={SingleReview} />
@@ -31,12 +36,12 @@ const Routes = ()=> {
         <Route path="/users/:id" component={SingleUserPage} />
         <Route exact path="/coffees/:id" component={SingleCoffee} />
         <Route path="/Home" component={Home} />
-        <Route exact path="/" component={Home} /></>):(<><Route exact path="/login" component={LoginPage} />
-        <Route exact path="/about" component={About} />
-        <Route exact path="/signup" component={Signup} />
-        <Redirect from="/" to="/login" />
+        <Route exact path="/" component={Home} /></>):(<><Route path="/" component={LoginPage} />
+        <Route path="/about" component={About} />
+        <Route path="/signup" component={Signup} />
         </>)}
-      </Switch>)
+      </Switch>
+      )
 }
 
 export default Routes;

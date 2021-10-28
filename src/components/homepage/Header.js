@@ -64,7 +64,7 @@ const Header = () => {
                 onClick={gotoPage}
                 className="profPic"
                 alt="User Profile AVI"
-                src={user ? user.photoURL || "/guest.jpeg" : "/guest.jpeg"}
+                src={isLoggedIn ? user.photoURL || "/guest.jpeg" : "/guest.jpeg"}
               />
             </div>
             <div className="username">
