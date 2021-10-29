@@ -77,7 +77,7 @@ const ReviewPane = (props) => {
                     id={props.id}
                     type={props.type}
                     displayName={loggedInUser.displayName}
-                    photoURL={loggedInUser.photoURL}
+                    photoURL={review.feedURL}
                     key={review[0]}
                     content={checkReview(review[1].content)}
                     review={review[1]}
