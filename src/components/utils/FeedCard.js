@@ -41,6 +41,7 @@ const FeedCard = (props) => {
     }
   }, [show]);
   useEffect(() => {
+    if (props.type === "reviews") {
       const subCollection = collection(
         db,
         "reviews",
@@ -56,6 +57,7 @@ const FeedCard = (props) => {
         setAllComents(temp);
       }
       fetchComments();
+    }
     }, []);
 
   // auto extpand textarea fix it later
