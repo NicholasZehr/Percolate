@@ -148,7 +148,7 @@ const FeedCard = (props) => {
               alt="User Profile AVI"
               src={
                 props.review
-                  ? props.review.photoURL || "/guest.jpeg"
+                  ? props.review.feedURL || "/guest.jpeg"
                   : "/guest.jpeg"
               }
               onClick={handleHeadClick}
@@ -175,7 +175,7 @@ const FeedCard = (props) => {
             className="favCoffee"
             alt=""
             onClick={(_) => history.push(`/coffees/${props.review.id}`)}
-            src={props.review ? props.review.feedURL || props.review.photoURL || "": "/whiteBack.png"}
+            src={props.review ? props.review.photoURL || props.review.feedURL || "": "/whiteBack.png"}
 
           />
           <div className="coffeeInfo">

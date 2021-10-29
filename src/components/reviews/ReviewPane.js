@@ -87,12 +87,7 @@ const ReviewPane = (props) => {
               })
             : null}
         </div>
-      ) : (
-        <div className="home loading">
-          <div className="self loading">
-            <p>Loading ...</p>
-          </div>
-        </div>
+      ) : (null
       )}
     </>
   );
