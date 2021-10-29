@@ -93,7 +93,7 @@ export const addReview = (review) => {
         rating: review.rating,
         likeCount: review.likeCount,
         userId: review.userId,
-        photoURL: review.photoURL,
+        photoURL: review.feedURL,
       };
       const coffeeRef = doc(
         db,
