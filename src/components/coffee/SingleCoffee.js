@@ -33,7 +33,7 @@ class SingleCoffee extends Component {
     evt.preventDefault();
     const businessRef = doc(db, "businesses", evt.target.business.value);
     await updateDoc(businessRef, {
-      coffees: arrayUnion(this.props.singleCoffee),
+      coffees: arrayUnion({...this.props.singleCoffee, id:this.props.match.params.id }),
     });
 
     const businessData = {
