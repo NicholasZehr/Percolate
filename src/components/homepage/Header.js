@@ -68,7 +68,7 @@ const Header = () => {
               />
             </div>
             <div className="username">
-              {isLoggedIn ? (
+              {user ? (
                 <div>
                   <span onClick={gotoPage}>{user.displayName}</span>
                   <div className="signoutButton" onClick={(_) => signOut()}>
