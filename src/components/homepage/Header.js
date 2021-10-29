@@ -10,10 +10,10 @@ const Header = () => {
   const login = getAuth();
   const dispatch = useDispatch();
   const [user, setUser] = useState(getAuth().currentUser);
-  const isLoggedIn = useSelector((state) => state.auth.accessToken);
   onAuthStateChanged(login, (u) => {
     setUser(u);
   });
+
   function gotoPage() {
     if (user) {
       history.push(`/users/${user.uid}`);
@@ -27,9 +27,9 @@ const Header = () => {
   }
   function clickLogo() {
     if (user) {
-      history.push("/home")
+      history.push("/home");
     } else {
-      history.push("/login")
+      history.push("/login");
     }
   }
 
@@ -55,7 +55,7 @@ const Header = () => {
           </div>
         </div>
         <div className="header-middle ">
-            <Search />
+          <Search />
         </div>
         <div className="header-right">
           <div className="loginBox">
@@ -64,11 +64,13 @@ const Header = () => {
                 onClick={gotoPage}
                 className="profPic"
                 alt="User Profile AVI"
-                src={isLoggedIn ? user.photoURL || "/guest.jpeg" : "/guest.jpeg"}
+                src={
+                  user ? user.photoURL || "/guest.jpeg" : "/guest.jpeg"
+                }
               />
             </div>
             <div className="username">
-              {isLoggedIn ? (
+              {user ? (
                 <div>
                   <span onClick={gotoPage}>{user.displayName}</span>
                   <div className="signoutButton" onClick={(_) => signOut()}>
@@ -83,7 +85,7 @@ const Header = () => {
         </div>
       </div>
     </div>
-  )
+  );
 };
 
 export default Header;

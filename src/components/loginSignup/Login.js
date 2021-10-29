@@ -1,11 +1,20 @@
 import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { Link, Redirect } from "react-router-dom";
 import { authenticate } from "../../store";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 // import 'simplebar/dist/simplebar.min.css'
 const LoginPage = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.accessToken);
   const auth = useSelector((state) => state.auth);
+  const [user, setUser] = useState(getAuth().currentUser);
+  onAuthStateChanged(getAuth(), (u) => {
+    setUser(u);
+  });
+
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     const username = evt.target.username.value;
@@ -15,7 +24,7 @@ const LoginPage = () => {
 
   return (
     <div className='login'>
-      {isLoggedIn ? (
+      {user ? (
         <Redirect to={`/home`} />
       ) : (
         <div className='loginbodyBox'>
