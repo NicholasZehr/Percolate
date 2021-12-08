@@ -4,17 +4,11 @@ import { likeClick } from "../../store/Actions/reviewActions";
 import { getAuth } from "firebase/auth";
 const auth = getAuth();
 //Prior to conversion to hooks and functional component
-class LikeButton extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: auth.currentUser,
-      loading: false,
-      liked: false,
-      mounted: "",
-    };
-    this.handleLike = this.handleLike.bind(this);
-  }
+
+const LikeButton = (props) => {
+  const [user, setUser] = useState(getAuth.currentUser)
+  const [loading, setLoading] = useState(false)
+  const [liked, setLiked] = useState(false)
   componentDidMount() {
     this.setState({
       ...this.state,
@@ -24,7 +18,7 @@ class LikeButton extends Component {
   }
   async handleLike() {
     const { id, userId, reviewId, displayName, photoURL, type, likeClick } =
-      this.props;
+    this.props;
     this.setState({ ...this.state, loading: true });
     await likeClick(id, reviewId, displayName, photoURL, type, userId);
     this.setState({ ...this.state, loading: false, liked: !this.state.liked });
@@ -39,7 +33,7 @@ class LikeButton extends Component {
           className="heart"
           src={this.state.liked ? "/Brown-heart.png" : "/Grey-heart.png"}
           alt="Like Heart Icon"
-        />
+          />
         Like
       </div>
     ) : (
@@ -48,20 +42,22 @@ class LikeButton extends Component {
           className="heart"
           src={this.state.liked ? "/Brown-heart.png" : "/Grey-heart.png"}
           alt="Like Heart Icon"
-        />
+          />
         ...
       </div>
     );
   }
 }
-const mapState = (state) => {
-  return {
-    reviews: state.review.reviews,
-  };
-};
-const mapDispatch = (dispatch) => ({
-  likeClick: (id, reviewId, displayName, photoURL, type, userId) =>
-    dispatch(likeClick(id, reviewId, displayName, photoURL, type, userId)),
-});
+}
 
-export default connect(mapState, mapDispatch)(LikeButton);
+export default LikeButton;
+
+// const mapState = (state) => {
+//   return {
+//     reviews: state.review.reviews,
+//   };
+// };
+// const mapDispatch = (dispatch) => ({
+//   likeClick: (id, reviewId, displayName, photoURL, type, userId) =>
+//     dispatch(likeClick(id, reviewId, displayName, photoURL, type, userId)),
+// });
