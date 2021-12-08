@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { likeClick } from "../../store/Actions/reviewActions";
 import { getAuth } from "firebase/auth";
 const auth = getAuth();
-
+//Prior to conversion to hooks and functional component
 class LikeButton extends Component {
   constructor(props) {
     super(props);
