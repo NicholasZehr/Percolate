@@ -1,54 +1,53 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { useState, useEffect } from "react";
 import { likeClick } from "../../store/Actions/reviewActions";
 import { getAuth } from "firebase/auth";
 const auth = getAuth();
 //Prior to conversion to hooks and functional component
 
 const LikeButton = (props) => {
-  const [user, setUser] = useState(getAuth.currentUser)
-  const [loading, setLoading] = useState(false)
-  const [liked, setLiked] = useState(false)
-  componentDidMount() {
-    this.setState({
-      ...this.state,
-      liked: this.props.liked,
-      mounted: this.props.mounted,
-    });
-  }
-  async handleLike() {
+  const likeCount = props.likeCount;
+  const [user, setUser] = useState(getAuth.currentUser);
+  const [loading, setLoading] = useState(false);
+  const [liked, setLiked] = useState(false);
+
+  useEffect(() => {
+    return () => {
+      setLiked(props.liked);
+    };
+  }, []);
+
+  async function handleLike() {
     const { id, userId, reviewId, displayName, photoURL, type, likeClick } =
-    this.props;
-    this.setState({ ...this.state, loading: true });
+      props;
+    setLoading(true);
     await likeClick(id, reviewId, displayName, photoURL, type, userId);
-    this.setState({ ...this.state, loading: false, liked: !this.state.liked });
+    setLiked((liked) => !liked);
+    setLoading(false);
   }
-  render() {
-    const thisConst = this.props.reviews;
-    const likeCount = this.props.likeCount;
-    const { handleLike } = this;
-    return `${likeCount}` && !this.state.loading ? (
-      <div className="like_button" onClick={handleLike}>
-        <img
-          className="heart"
-          src={this.state.liked ? "/Brown-heart.png" : "/Grey-heart.png"}
-          alt="Like Heart Icon"
+  return (
+    <>
+      {`${likeCount}` && !loading ? (
+        <div className="like_button" onClick={handleLike()}>
+          <img
+            className="heart"
+            src={liked ? "/Brown-heart.png" : "/Grey-heart.png"}
+            alt="Like Heart Icon"
           />
-        Like
-      </div>
-    ) : (
-      <div className="like_button like-in-progress">
-        <img
-          className="heart"
-          src={this.state.liked ? "/Brown-heart.png" : "/Grey-heart.png"}
-          alt="Like Heart Icon"
+          Like
+        </div>
+      ) : (
+        <div className="like_button like-in-progress">
+          <img
+            className="heart"
+            src={liked ? "/Brown-heart.png" : "/Grey-heart.png"}
+            alt="Like Heart Icon"
           />
-        ...
-      </div>
-    );
-  }
-}
-}
+          ...
+        </div>
+      )}
+    </>
+  );
+};
 
 export default LikeButton;
 
