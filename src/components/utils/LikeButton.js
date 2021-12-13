@@ -16,18 +16,17 @@ const LikeButton = (props) => {
     };
   }, []);
 
-  async function handleLike() {
-    const { id, userId, reviewId, displayName, photoURL, type, likeClick } =
-      props;
+  const handleLike = async (evt) => {
+    const { id, userId, reviewId, displayName, photoURL, type } = props;
     setLoading(true);
     await likeClick(id, reviewId, displayName, photoURL, type, userId);
     setLiked((liked) => !liked);
     setLoading(false);
-  }
+  };
   return (
     <>
       {`${likeCount}` && !loading ? (
-        <div className="like_button" onClick={handleLike()}>
+        <div className="like_button" onClick={handleLike}>
           <img
             className="heart"
             src={liked ? "/Brown-heart.png" : "/Grey-heart.png"}
