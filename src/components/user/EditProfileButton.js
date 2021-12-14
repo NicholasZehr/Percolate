@@ -4,9 +4,9 @@ import { fetchUser } from "../../store/Actions/usersActions";
 import db from "../../firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { updateProfile, updatePassword } from "firebase/auth";
-import { useEffect } from "react";
 
 const EditProfileButton = (props) => {
+  const userRef = doc(db, "Users", props.user.uid);
   const dispatch = useDispatch();
   const [user, setUser] = useState(props.user);
   const handleSubmit = async (evt) => {
@@ -37,7 +37,6 @@ const EditProfileButton = (props) => {
       await updatePassword(props.user, userInfo.password);
     }
     //============== update detail info in firestore data
-    const userRef = doc(db, "Users", props.user.uid);
     await setDoc(userRef, nonEmptyValue, { merge: true });
     //==============update redux store user info
     await dispatch(fetchUser(props.user ? props.user.uid : {}));
@@ -46,6 +45,7 @@ const EditProfileButton = (props) => {
   function editPage() {
     props.setEdit(!props.edit);
   }
+  console.log(user);
   return (
     <>
       <div className="close" onClick={editPage}></div>
@@ -63,6 +63,7 @@ const EditProfileButton = (props) => {
             name="email"
             type="text"
             placeholder="E-Mail"
+            defaultValue={user.email ? user.email : null}
           />
           <div className="blank3"></div>
         </div>
@@ -73,6 +74,7 @@ const EditProfileButton = (props) => {
             name="firstName"
             type="text"
             placeholder="First Name"
+            defaultValue={user.displayName ? user.displayName : null}
           />
           <div className="blank3"></div>
         </div>
@@ -83,6 +85,7 @@ const EditProfileButton = (props) => {
             name="lastName"
             placeholder="Last Name"
             type="text"
+            defaultValue={user.lastName ? user.lastName : null}
           />
           <div className="blank3"></div>
         </div>
@@ -103,6 +106,7 @@ const EditProfileButton = (props) => {
             name="photoURL"
             type="text"
             placeholder="Photo URL"
+            defaultValue={user.photoURL ? user.photoURL : null}
           />
           <div className="blank3"></div>
         </div>
