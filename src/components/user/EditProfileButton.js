@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchUser } from "../../store/Actions/usersActions";
 import db from "../../firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { updateProfile, updatePassword } from "firebase/auth";
+import { useEffect } from "react";
 
 const EditProfileButton = (props) => {
   const dispatch = useDispatch();
-
+  const [user, setUser] = useState(props.user);
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     const userInfo = {
@@ -61,7 +62,7 @@ const EditProfileButton = (props) => {
             className="email"
             name="email"
             type="text"
-            placeholder="Email"
+            placeholder="E-Mail"
           />
           <div className="blank3"></div>
         </div>
@@ -71,7 +72,7 @@ const EditProfileButton = (props) => {
             className="email"
             name="firstName"
             type="text"
-            placeholder="Frist Name"
+            placeholder="First Name"
           />
           <div className="blank3"></div>
         </div>
@@ -101,7 +102,7 @@ const EditProfileButton = (props) => {
             className="email"
             name="photoURL"
             type="text"
-            placeholder="picture URL"
+            placeholder="Photo URL"
           />
           <div className="blank3"></div>
         </div>
@@ -110,7 +111,7 @@ const EditProfileButton = (props) => {
           <input
             className="email"
             name="coverURL"
-            placeholder="cover image url"
+            placeholder="Cover Photo URL"
             type="text"
           />
           <div className="blank3"></div>
@@ -130,7 +131,7 @@ const EditProfileButton = (props) => {
           <input
             className="email"
             name="coffeeURL"
-            placeholder="favorite coffee url"
+            placeholder="Favorite Coffee URL"
             type="text"
           />
           <div className="blank3"></div>
