@@ -267,11 +267,7 @@ const SingleUserPage = () => {
                 <img
                   className="favCoffee"
                   alt=""
-                  src={
-                    currentPageUser
-                      ? currentPageUser.coffeeURL
-                      : ""
-                  }
+                  src={currentPageUser ? currentPageUser.coffeeURL : ""}
                 />
               </div>
               <div className="followers" id="followers">
