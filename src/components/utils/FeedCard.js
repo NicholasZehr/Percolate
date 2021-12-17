@@ -46,7 +46,8 @@ const FeedCard = (props) => {
         db,
         "reviews",
         props.reviewId,
-        "comments")
+        "comments"
+      );
       async function fetchComments() {
         const q = query(subCollection, orderBy("timestamp", "desc"));
         const response = await getDocs(q);
@@ -58,7 +59,7 @@ const FeedCard = (props) => {
       }
       fetchComments();
     }
-    }, []);
+  }, []);
 
   // auto extpand textarea fix it later
   if (textarea) {
@@ -106,22 +107,36 @@ const FeedCard = (props) => {
     let msPerYear = msPerDay * 365;
     let current = Date.now();
     let elapsed = current - input;
+    const plural = "s ago";
+    const notPlural = " ago";
 
     if (elapsed < msPerMinute) {
-      return Math.round(elapsed / 1000) + " secs ago";
+      const secs = Math.round(elapsed / 1000);
+      return secs + " second" + (pluralTime(secs) ? plural : notPlural);
     } else if (elapsed < msPerHour) {
-      return Math.round(elapsed / msPerMinute) + " mins ago";
+      const mins = Math.round(elapsed / msPerMinute);
+      return mins + " minute" + (pluralTime(mins) ? plural : notPlural);
     } else if (elapsed < msPerDay) {
-      return Math.round(elapsed / msPerHour) + " hours ago";
+      const hours = Math.round(elapsed / msPerHour);
+      return hours + " hour" + (pluralTime(hours) ? plural : notPlural);
     } else if (elapsed < msPerMonth) {
-      return "approximately " + Math.round(elapsed / msPerDay) + " days ago";
+      const days = Math.round(elapsed / msPerDay);
+      return "~ " + days + " day" + (pluralTime(days) ? plural : notPlural);
     } else if (elapsed < msPerYear) {
-      return (
-        "approximately " + Math.round(elapsed / msPerMonth) + " months ago"
-      );
+      const months = Math.round(elapsed / msPerMonth);
+      const returnMonths =
+        "~ " + months + " Month" + (pluralTime(months) ? plural : notPlural);
+      return returnMonths;
     } else {
-      return "approximately " + Math.round(elapsed / msPerYear) + " years ago";
+      const years = Math.round(elapsed / msPerYear);
+      return "~ " + years + " Year" + (pluralTime(years) ? plural : notPlural);
     }
+  }
+
+  function pluralTime(input) {
+    if (input > 1) {
+      return true;
+    } else return false;
   }
   function showComments() {
     setShow(!show);
@@ -134,9 +149,9 @@ const FeedCard = (props) => {
     }
   }
   function handleHeadClick() {
-    if (props.type === 'reviews') {
+    if (props.type === "reviews") {
       history.push(`/users/${props.review.userId}`);
-    } else if (props.type === 'business') {
+    } else if (props.type === "business") {
       history.push(`/coffees/${props.coffeeId}`);
     }
   }
@@ -157,7 +172,12 @@ const FeedCard = (props) => {
             />
           </div>
           <div className="nameAndTime">
-            <span className="writepost">{props.review.displayName?props.review.displayName:props.review.name}: </span>
+            <span className="writepost">
+              {props.review.displayName
+                ? props.review.displayName
+                : props.review.name}
+              :{" "}
+            </span>
             {props.review.time ? (
               <span className="ago">{`${timeDifference(
                 props.review.time.seconds
@@ -177,90 +197,101 @@ const FeedCard = (props) => {
             className="favCoffee"
             alt=""
             onClick={(_) => history.push(`/coffees/${props.review.id}`)}
-            src={props.review ? props.review.photoURL || props.review.feedURL || "": "/whiteBack.png"}
-
+            src={
+              props.review
+                ? props.review.photoURL || props.review.feedURL || ""
+                : "/whiteBack.png"
+            }
           />
           <div className="coffeeInfo">
             <p>Roast: {props.review.roast} </p>
             <p>Brand: {props.review.brandName} </p>
             <p>
-              <b> User </b>Rating: {props.type==="reviews"?props.review.rating:props.review.avgRating}
+              <b> User </b>Rating:{" "}
+              {props.type === "reviews"
+                ? props.review.rating
+                : props.review.avgRating}
               /5
             </p>
           </div>
         </div>
       </div>
-      {props.type === "reviews" ?
+      {props.type === "reviews" ? (
         <div>
-      <div className="middlePieceOfcard feeding cardUp ">
-        <div className="blank"></div>
+          <div className="middlePieceOfcard feeding cardUp ">
+            <div className="blank"></div>
 
-        <div className="likes">
-          <img className="heart" src="/Grey-heart.png" alt="Like Heart Icon" />
-          <p>Like</p>
-        </div>
-        <i onClick={showComments} className="material-icons flip">
-          chat
-        </i>
-        <div onClick={showComments} className="comments">
-          <p>{`Comments (${allComments.length})`}</p>
-        </div>
-      </div>
-      <div>
-        <form className="feedcardCss" onSubmit={handleSubmit}>
-          <div className={`headNPost ${round}`}>
-            <div className="imageBox commentImage">
+            <div className="likes">
               <img
-                className="profPic"
-                alt="User Profile AVI"
-                src={
-                  props.user
-                    ? props.user.photoURL || "/guest.jpeg"
-                    : "/guest.jpeg"
-                }
-                onClick={handleHeadClick}
+                className="heart"
+                src="/Grey-heart.png"
+                alt="Like Heart Icon"
               />
+              <p>Like</p>
             </div>
+            <i onClick={showComments} className="material-icons flip">
+              chat
+            </i>
+            <div onClick={showComments} className="comments">
+              <p>{`Comments (${allComments.length})`}</p>
+            </div>
+          </div>
+          <div>
+            <form className="feedcardCss" onSubmit={handleSubmit}>
+              <div className={`headNPost ${round}`}>
+                <div className="imageBox commentImage">
+                  <img
+                    className="profPic"
+                    alt="User Profile AVI"
+                    src={
+                      props.user
+                        ? props.user.photoURL || "/guest.jpeg"
+                        : "/guest.jpeg"
+                    }
+                    onClick={handleHeadClick}
+                  />
+                </div>
 
-            <textarea
-              className="textarea"
-              id="txt"
-              name="content"
-              maxLength="200"
-              placeholder="Write a comment..."
-            ></textarea>
-            <button className="postNow">
-              <i className="fa fa-paper-plane-o"></i>
-            </button>
+                <textarea
+                  className="textarea"
+                  id="txt"
+                  name="content"
+                  maxLength="200"
+                  placeholder="Write a comment..."
+                ></textarea>
+                <button className="postNow">
+                  <i className="fa fa-paper-plane-o"></i>
+                </button>
+              </div>
+            </form>
           </div>
-        </form>
-          </div>
-      </div>:''}
+        </div>
+      ) : (
+        ""
+      )}
       <div className={`cardUptwo ${cssShow}`}>
         {allComments.length > 0
           ? allComments.map((each, index) => (
               <div key={index} className="self feeding insideComment">
                 <div className="headNPost ">
                   <div className="singleComment">
-                    <div className="commentName">
-                {each.displayName}
-                    </div>
+                    <div className="commentName">{each.displayName}</div>
                     <div className="commentContentImage">
-                  <div id='commentImage'className="imageBox commentImage">
-                    <img
-                      className="profPic"
-                      alt=""
-                      src={each.photoURL||''}
-                      onClick={(_) => history.push(`/users/${each.userId}`)}
-                    />
-                  </div> <div className="post-input commentContent">
-                    <span className="textarea commentPadding">
-                      {each.content}
-                    </span>
+                      <div id="commentImage" className="imageBox commentImage">
+                        <img
+                          className="profPic"
+                          alt=""
+                          src={each.photoURL || ""}
+                          onClick={(_) => history.push(`/users/${each.userId}`)}
+                        />
+                      </div>{" "}
+                      <div className="post-input commentContent">
+                        <span className="textarea commentPadding">
+                          {each.content}
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                  </div>
-                  </div>
-
                 </div>
               </div>
             ))
