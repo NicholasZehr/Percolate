@@ -8,8 +8,7 @@ import { getAuth } from "firebase/auth";
 import { Link } from "react-router-dom";
 import FeedCard from "../../utils/FeedCard";
 import { fetchReviews } from "../../../store/Actions/reviewActions";
-const auth = getAuth();
-
+const auth = getAuth()
 
 class Business extends Component {
   constructor() {

@@ -15,13 +15,13 @@ import coffeeReducer from "./Reducers/coffeeReducer"
 import authReducer from "./auth";
 
 const reducer = {
-  auth: authReducer,
-  businesses: businessesReducer,
-  users: usersReducers,
-  singleCoffee: singleCoffeeReducer,
-  review: reviewReducer,
-  feed: feedReducer,
-  coffee: coffeeReducer,
+    auth: authReducer,
+    businesses: businessesReducer,
+    users: usersReducers,
+    singleCoffee: singleCoffeeReducer,
+    review: reviewReducer,
+    feed: feedReducer,
+    coffee: coffeeReducer,
 }
 const middleware = composeWithDevTools(
   applyMiddleware(
@@ -32,7 +32,7 @@ const middleware = composeWithDevTools(
 );
 
 //* Create the store
-const store = configureStore(reducer, middleware);
+const store = configureStore({ reducer }, middleware);
 
 export default store;
 export * from "./auth";
