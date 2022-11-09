@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Route, Switch } from "react-router";
+import { Route, Routes } from "react-router";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import LoginPage from "../loginSignup/Login";
 import Signup from "../loginSignup/Signup";
@@ -12,14 +12,14 @@ import SingleReview from "../reviews/SingleReview";
 import About from "../utils/About";
 import Home from "../homepage/Home";
 
-const Routes = ()=> {
+const AllRoutes = ()=> {
   const [user, setUser] = useState(getAuth().currentUser)
   const login = getAuth()
   onAuthStateChanged(login, (u) => {
     setUser(u);
   });
     return (
-      <Switch>
+      <Routes>
         {user ? (
           <>
             <Route exact path="/reviewPane" component={ReviewPane} />
@@ -46,7 +46,7 @@ const Routes = ()=> {
             <Route exact path="/signup" component={Signup} />
           </>
         )}
-      </Switch>
+      </Routes>
     );
 }
 
