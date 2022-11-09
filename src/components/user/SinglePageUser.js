@@ -1,26 +1,22 @@
-import React, { useEffect, /* useReducer, */ useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
-import { Link, useParams } from "react-router-dom";
-import { fetchUser } from "../../store/Actions/usersActions";
-import db from "../../firebase";
-import {
-  doc,
-  setDoc,
-  updateDoc,
-  arrayRemove,
-  /* arrayUnion, */
-} from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import EditProfileButton from "./EditProfileButton";
-import AddBusiness from "../businesses/addBusiness/AddBusiness";
+import {
+  arrayRemove, doc,
+  setDoc,
+  updateDoc
+} from "firebase/firestore";
+import React, { useEffect, /* useReducer, */ useState } from "react";
 import Modal from "react-modal";
-import { fetchLoginUser } from "../../store/auth";
-import FeedCard from "../utils/FeedCard";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useParams } from "react-router-dom";
+import db from "../../firebase";
 import { fetchReviews } from "../../store/Actions/reviewActions";
+import { fetchUser } from "../../store/Actions/usersActions";
+import { fetchLoginUser } from "../../store/auth";
+import AddBusiness from "../businesses/addBusiness/AddBusiness";
+import FeedCard from "../utils/FeedCard";
+import EditProfileButton from "./EditProfileButton";
 
 import { fetchUserBusinesses } from "../../store/Actions/businessActions";
-import MapSearch from "../search/MapSearch";
 
 Modal.setAppElement("#root");
 

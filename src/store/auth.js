@@ -77,7 +77,7 @@ export const logout = () => (dispatch) => {
 /**
  * REDUCER
  */
-export default function auth(state = {}, action) {
+export default function authReducer(state = {}, action) {
   switch (action.type) {
     case SET_AUTH: {
       return { ...action.auth };

@@ -1,12 +1,10 @@
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { addDoc, collection, getDocs } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSingleReview } from "../../store/Actions/reviewActions";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { fetchLoginUser } from "../../store/auth";
-import { useHistory } from "react-router";
-import { doc, collection, addDoc, getDocs } from "firebase/firestore";
+import { useHistory, useParams } from "react-router-dom";
 import db from "../../firebase";
-import { useParams } from "react-router-dom";
+import { fetchSingleReview } from "../../store/Actions/reviewActions";
 
 const SingleReview = (props) => {
   const history = useHistory();
