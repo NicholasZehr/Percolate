@@ -1,4 +1,5 @@
-import { applyMiddleware, combineReducers, createStore } from "redux";
+import { applyMiddleware, combineReducers } from "redux";
+import { configureStore } from "@reduxjs/toolkit";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { createLogger } from "redux-logger";
 import thunkMiddleware from "redux-thunk";
@@ -11,16 +12,17 @@ import singleCoffeeReducer from "./Actions/singleCoffee";
 import reviewReducer from "./Reducers/reviewReducer";
 import feedReducer from "./feed";
 import coffeeReducer from "./Reducers/coffeeReducer"
+import authReducer from "./auth";
 
-const reducer = combineReducers({
-  auth,
+const reducer = {
+  auth: authReducer,
   businesses: businessesReducer,
   users: usersReducers,
   singleCoffee: singleCoffeeReducer,
   review: reviewReducer,
   feed: feedReducer,
   coffee: coffeeReducer,
-});
+}
 const middleware = composeWithDevTools(
   applyMiddleware(
     thunkMiddleware.withExtraArgument({ getFirestore }),
@@ -30,7 +32,7 @@ const middleware = composeWithDevTools(
 );
 
 //* Create the store
-const store = createStore(reducer, middleware);
+const store = configureStore(reducer, middleware);
 
 export default store;
 export * from "./auth";

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Route, Routes } from "react-router";
+import { Route, Switch } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import LoginPage from "../loginSignup/Login";
 import Signup from "../loginSignup/Signup";
@@ -19,7 +19,7 @@ const AllRoutes = ()=> {
     setUser(u);
   });
     return (
-      <Routes>
+      <Switch>
         {user ? (
           <>
             <Route exact path="/reviewPane" component={ReviewPane} />
@@ -46,8 +46,8 @@ const AllRoutes = ()=> {
             <Route exact path="/signup" component={Signup} />
           </>
         )}
-      </Routes>
+      </Switch>
     );
 }
 
-export default Routes;
+export default AllRoutes;

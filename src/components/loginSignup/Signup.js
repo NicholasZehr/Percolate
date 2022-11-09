@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { authenticateSignup, authenticate } from "../../store";
-import { useHistory } from "react-router";
+
 
 const Signup = () => {
   const dispatch = useDispatch();
