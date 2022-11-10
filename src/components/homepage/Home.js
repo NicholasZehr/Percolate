@@ -1,26 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import Modal from "react-modal";
-import { Link, useHistory} from "react-router-dom";
-import { fetchLoginUser } from "../../store/auth";
-import FeedCard from "../utils/FeedCard";
-import { fetchReviews } from "../../store/Actions/reviewActions";
-import { fetchFeedReviews } from "../../store/feed";
 import {
-  doc,
-  collection,
-  addDoc,
-  getDocs,
-  serverTimestamp,
+  addDoc, collection, serverTimestamp
 } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import Modal from "react-modal";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
 import db from "../../firebase";
-import { addReview } from "../../store/Actions/reviewActions";
-import MapSearch from "../search/MapSearch";
-import { fetchBusinesses } from "../../store/Actions/businessActions";
+import {  _fetchUserBusinesses} from "../../redux/Actions/businessActions";
+import { _fetchAllCoffee } from "../../redux/Actions/coffeeActions";
+import { addReview } from "../../redux/Actions/reviewActions";
+import { fetchLoginUser } from "../../redux/auth";
 import Login from "../loginSignup/Login";
-import { fetchAllCoffee } from "../../store/Actions/coffeeActions";
-import AllBusinesses from "../businesses/allBusinesses/AllBusinesses";
+import MapSearch from "../search/MapSearch";
+import FeedCard from "../utils/FeedCard";
 
 Modal.setAppElement("#root");
 

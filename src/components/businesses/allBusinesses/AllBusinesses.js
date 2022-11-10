@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateList } from "../../../redux/businessSlice";
-import React from "react";
 
 const AllBusinesses = (props) => {
   const { businessList } = useSelector((state) => {

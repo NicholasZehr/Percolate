@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { logout } from "../../store/auth";
+import { logout } from "../../redux/auth";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Search } from "../search/Search";
 

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchSingleCoffee } from "../../store/Actions/singleCoffee";
+import { _fetchSingleCoffee } from "../../redux/Actions/singleCoffee";
 import AddReview from "../reviews/AddReview";
 import ReviewPane from "../reviews/ReviewPane";
-import { fetchUserBusinesses } from "../../store/Actions/businessActions";
+import { _fetchUserBusinesses } from "../../redux/Actions/businessActions";
 import {
   arrayUnion,
   doc,
