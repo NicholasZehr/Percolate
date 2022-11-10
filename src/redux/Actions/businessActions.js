@@ -61,7 +61,7 @@ export const _removeLikeBusiness = (businessId) => {
   };
 };
 
-// ------------------ Thunk creators -----------------------
+// ------------------ Thunks -----------------------
 
 export const fetchBusinesses = () => {
   return async (dispatch) => {
