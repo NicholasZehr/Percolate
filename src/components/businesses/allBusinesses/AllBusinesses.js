@@ -1,16 +1,22 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateList } from "../../../redux/businessSlice";
 
-import { fetchBusinesses } from "../../../store/Actions/businessActions";
-
-class Businesses extends Component {
-  componentDidMount() {
-    this.props.fetchBusinesses();
-  }
-
-  render() {
-    if (this.props.businesses.businesses.length) {
-      return (
+const AllBusinesses = (props) => {
+  const { businessList } = useSelector((state) => {
+    state.business;
+  });
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const fetchBusiness = async () => {
+      const returnedBusinessList = await fetch();
+      dispatch(updateList(returnedBusinesList))
+    };
+    fetchBusiness();
+  }, []);
+  return (
+    <>
+      {businessList.length ? (
         <div>
           {this.props.businesses.businesses.map((business) => (
             <div>
@@ -18,23 +24,11 @@ class Businesses extends Component {
             </div>
           ))}
         </div>
-      );
-    } else {
-      return <div>hiiii</div>;
-    }
-  }
-}
-
-const mapState = (state) => {
-  return {
-    businesses: state.businesses,
-  };
+      ) : (
+        <div>Loading your businesses...</div>
+      )}
+    </>
+  );
 };
 
-const mapDispatch = (dispatch) => {
-  return {
-    fetchBusinesses: () => dispatch(fetchBusinesses()),
-  };
-};
-
-export default connect(mapState, mapDispatch)(Businesses);
+export default AllBusinesses
