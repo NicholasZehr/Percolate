@@ -6,7 +6,7 @@ import thunkMiddleware from "redux-thunk";
 import auth from "./auth";
 import { getFirestore, reduxFirestore } from "redux-firestore";
 import db from "../firebase";
-import businessesReducer from "./Reducers/businessesReducer";
+import businessReducer from "./businessSlice"
 import usersReducers from "./Reducers/usersReducer";
 import singleCoffeeReducer from "./Actions/singleCoffee";
 import reviewReducer from "./Reducers/reviewReducer";
@@ -16,7 +16,7 @@ import authReducer from "./auth";
 
 const reducer = {
     auth: authReducer,
-    businesses: businessesReducer,
+    business: businessReducer,
     users: usersReducers,
     singleCoffee: singleCoffeeReducer,
     review: reviewReducer,

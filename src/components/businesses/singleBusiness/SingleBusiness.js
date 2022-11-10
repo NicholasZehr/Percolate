@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Modal from "react-modal";
-import { fetchBusiness } from "../../../store/Actions/businessActions";
+import { fetchBusiness } from "../../../redux/Actions/businessActions";
 import { doc, setDoc } from "firebase/firestore";
 import db from "../../../firebase";
 import { getAuth } from "firebase/auth";
 import { Link } from "react-router-dom";
 import FeedCard from "../../utils/FeedCard";
-import { fetchReviews } from "../../../store/Actions/reviewActions";
+import { fetchReviews } from "../../../redux/Actions/reviewActions";
 const auth = getAuth()
 
 class Business extends Component {
