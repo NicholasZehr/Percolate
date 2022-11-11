@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { likeClick } from "../../store/Actions/reviewActions";
+import { likeClick } from "../../redux/Actions/reviewActions";
 import { getAuth } from "firebase/auth";
 const auth = getAuth();
 //Prior to conversion to hooks and functional component

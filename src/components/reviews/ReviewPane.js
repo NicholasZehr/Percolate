@@ -5,7 +5,7 @@ import db from "../../firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-import { fetchLoginUser } from "../../store/auth";
+import { fetchLoginUser } from "../../redux/auth";
 
 const ReviewPane = (props) => {
   const dispatch = useDispatch();

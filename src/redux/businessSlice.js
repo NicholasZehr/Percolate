@@ -45,9 +45,9 @@ export const businessSlice = createSlice({
 
 export const fetchBusinesses = createAsyncThunk("business/fetchBusinessList", async (_, thunkAPI) => {
   const response = await getDocs(collection(db, "businesses"));
-  console.log("fetchbusinessthunk", response);
-  const data = await response.data();
-  return data 
+  const docs = []
+  response.forEach(doc => docs.push(doc.data()))
+  return docs
 });
 export const fetchUserBusinesses = (ownerId) => {
   return async (dispatch) => {

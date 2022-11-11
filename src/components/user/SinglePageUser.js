@@ -9,14 +9,14 @@ import Modal from "react-modal";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import db from "../../firebase";
-import { fetchReviews } from "../../store/Actions/reviewActions";
-import { fetchUser } from "../../store/Actions/usersActions";
-import { fetchLoginUser } from "../../store/auth";
-import AddBusiness from "../businesses/addBusiness/AddBusiness";
+import { fetchReviews } from "../../redux/Actions/reviewActions";
+import { fetchUser } from "../../redux/Actions/usersActions";
+import { fetchLoginUser } from "../../redux/auth";
+import AddBusiness from "../businesses/AddBusiness";
 import FeedCard from "../utils/FeedCard";
 import EditProfileButton from "./EditProfileButton";
 
-import { fetchUserBusinesses } from "../../store/Actions/businessActions";
+import { _fetchUserBusinesses } from "../../redux/Actions/businessActions";
 
 Modal.setAppElement("#root");
 

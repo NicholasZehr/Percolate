@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addBusiness} from "../../../redux/businessSlice";
+import { addBusiness} from "../../redux/businessSlice";
 
 class AddBusiness extends Component {
   constructor(props) {

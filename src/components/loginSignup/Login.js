@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Link, Redirect } from "react-router-dom";
-import { authenticate } from "../../store";
+import { authenticate } from "../../redux";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 // import 'simplebar/dist/simplebar.min.css'
 const LoginPage = () => {
