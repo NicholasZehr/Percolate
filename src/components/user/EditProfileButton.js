@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { fetchUser } from "../../store/Actions/usersActions";
+import { fetchUser } from "../../redux/Actions/usersActions";
 import db from "../../firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { updateProfile, updatePassword } from "firebase/auth";

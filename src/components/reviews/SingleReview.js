@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import db from "../../firebase";
-import { fetchSingleReview } from "../../store/Actions/reviewActions";
+import { fetchSingleReview } from "../../redux/Actions/reviewActions";
 
 const SingleReview = (props) => {
   const history = useHistory();

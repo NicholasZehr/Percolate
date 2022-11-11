@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
-import { authenticateSignup, authenticate } from "../../store";
+import { authenticateSignup, authenticate } from "../../redux";
 
 
 const Signup = () => {

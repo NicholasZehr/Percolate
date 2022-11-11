@@ -2,7 +2,7 @@
 /*eslint jsx-quotes: ["error", "prefer-single"]*/
 import React from "react";
 import { connect } from "react-redux";
-import { addReview } from "../../store/Actions/reviewActions";
+import { addReview } from "../../redux/Actions/reviewActions";
 import { getAuth } from "firebase/auth";
 import { serverTimestamp } from "firebase/firestore";
 const auth = getAuth();
