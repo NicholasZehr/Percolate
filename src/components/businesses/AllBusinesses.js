@@ -1,18 +1,14 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateList } from "../../../redux/businessSlice";
+import { fetchBusinesses, toggleLoading} from "../../redux/businessSlice";
 
-const AllBusinesses = (props) => {
+const AllBusinesses = () => {
   const { businessList } = useSelector((state) => {
     state.business;
   });
   const dispatch = useDispatch();
   useEffect(() => {
-    const fetchBusiness = async () => {
-      const returnedBusinessList = await fetch();
-      dispatch(updateList(returnedBusinesList))
-    };
-    fetchBusiness();
+      dispatch(fetchBusinesses())
   }, []);
   return (
     <>
