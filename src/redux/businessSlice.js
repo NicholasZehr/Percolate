@@ -39,8 +39,15 @@ export const businessSlice = createSlice({
       })
       .addCase(fetchAllList.pending, (state) => {
         state.loading = true;
-      });
-  },
+      })
+    .addCase(fetchUserList.fulfilled, (state, action) => {
+      state.businessList = action.payload
+      state.loading = !state.loading
+    })
+    .addCase(fetchUserList.pending, (state, action) => {
+      state.loading = true
+    })
+  }
 });
 // ------------------ Thunks -----------------------
 
@@ -60,17 +67,17 @@ export const fetchAllList = createAsyncThunk("business/fetchAllList", async (_, 
   })
   return docs
 });
-export const fetchUserBusiness = createAsyncThunk("business/fetchUserList", 
+export const fetchUserList = createAsyncThunk("business/fetchUserList", 
   async (ownerId, thunkAPI) => {
     try {
       const businessesRef = collection(db, "businesses");
       const q = query(businessesRef, where("ownerId", "==", ownerId));
       const docSnap = await getDocs(q);
-      const businesses = {};
+      const ownerList = [];
       docSnap.forEach((business) => {
-        businesses[business.id] = business.data();
+        ownerList.push(business.data())
       });
-      dispatch(_fetchUserBusinesses(businesses));
+      return ownerList
     } catch (error) {
       return `Error in fetching user businesses ${error.message}`;
     }
