@@ -29,7 +29,7 @@ const Home = (props) => {
   const reviews = useSelector((state) => state.feed);
   const [write, setWrite] = useState(false);
   const [rating, setRating] = useState(0);
-  const allBusiness = useSelector((state) => state.businesses.businesses);
+  const { businessList: allBusiness } = useSelector((state) => state.business);
   const allCoffee = useSelector((state) => state.coffee.allCoffee);
   const [localCoffee, setLocalCoffee] = useState([]);
   const [localBusiness, setLocalBusiness] = useState([]);

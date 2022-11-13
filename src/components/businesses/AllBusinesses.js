@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchBusinesses, toggleLoading} from "../../redux/businessSlice";
+import { fetchAllList } from "../../redux/businessSlice";
 
 const AllBusinesses = () => {
   const {businessList} = useSelector((state) => {
@@ -9,7 +9,7 @@ const AllBusinesses = () => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-      dispatch(fetchBusinesses())
+      dispatch(fetchAllList())
   }, []);
   return (
     <>

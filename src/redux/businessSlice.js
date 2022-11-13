@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getDocs, collection } from "firebase/firestore";
 import { useDispatch } from "react-redux";
+import thunk from "redux-thunk";
 import db from "../firebase";
 export const businessSlice = createSlice({
   name: "businessSlice",
@@ -9,8 +10,8 @@ export const businessSlice = createSlice({
     loading: false,
   },
   reducers: {
-    toggleLoading: (state, action) => {
-      state.loading = action.payload;
+    toggleLoading: (state) => {
+      state.loading = !state.loading;
     },
     addBusiness: (state, action) => {
       state.businessList = [state.businessList, action.payload];
@@ -22,7 +23,7 @@ export const businessSlice = createSlice({
     },
     editBusiness: (state, action) => {
       state.businessList = state.businessList.map((business) => {
-        if (business.id == aciton.payload.id) return action.payload;
+        if (business.id == action.payload.id) return action.payload;
         return business;
       });
     },
@@ -32,18 +33,25 @@ export const businessSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchBusinesses.fulfilled, (state, action) => {
-        state.businessList = action.payload;
-        state.loading = false;
+      .addCase(fetchAllList.fulfilled, (state, action) => {
+        state.businessList = action.payload
+        state.loading = !state.loading
       })
-      .addCase(fetchBusinesses.pending, (state) => {
+      .addCase(fetchAllList.pending, (state) => {
         state.loading = true;
-      });
-  },
+      })
+    .addCase(fetchUserList.fulfilled, (state, action) => {
+      state.businessList = action.payload
+      state.loading = !state.loading
+    })
+    .addCase(fetchUserList.pending, (state, action) => {
+      state.loading = true
+    })
+  }
 });
 // ------------------ Thunks -----------------------
 
-export const fetchBusinesses = createAsyncThunk("business/fetchBusinessList", async (_, thunkAPI) => {
+export const fetchAllList = createAsyncThunk("business/fetchAllList", async (_, thunkAPI) => {
   const response = await getDocs(collection(db, "businesses"));
   const docs = []
   response.forEach(doc => {
@@ -59,22 +67,23 @@ export const fetchBusinesses = createAsyncThunk("business/fetchBusinessList", as
   })
   return docs
 });
-export const fetchUserBusinesses = (ownerId) => {
-  return async (dispatch) => {
+export const fetchUserList = createAsyncThunk("business/fetchUserList", 
+  async (ownerId, thunkAPI) => {
     try {
       const businessesRef = collection(db, "businesses");
       const q = query(businessesRef, where("ownerId", "==", ownerId));
       const docSnap = await getDocs(q);
-      const businesses = {};
+      const ownerList = [];
       docSnap.forEach((business) => {
-        businesses[business.id] = business.data();
+        ownerList.push(business.data())
       });
-      dispatch(_fetchUserBusinesses(businesses));
+      return ownerList
     } catch (error) {
       return `Error in fetching user businesses ${error.message}`;
     }
-  };
-};
+  }
+)
+
 
 // export const addBusiness = (business) => {
 //   return async (dispatch) => {
