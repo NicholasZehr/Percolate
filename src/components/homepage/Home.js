@@ -14,6 +14,7 @@ import { fetchLoginUser } from "../../redux/auth";
 import Login from "../loginSignup/Login";
 import MapSearch from "../search/MapSearch";
 import FeedCard from "../utils/FeedCard";
+import { fetchFeedReviews } from "../../redux/feed";
 
 Modal.setAppElement("#root");
 

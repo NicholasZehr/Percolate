@@ -34,9 +34,9 @@ const AllRoutes = ()=> {
             <Route exact path="/" component={Home} />
             <Route
               path="/"
-              render={() => {
-                return user ? <Redirect to="/home" /> : <Redirect to="/login" />;
-              }}
+              component={
+                 user ? Home : LoginPage
+              }
             />
             <Route exact path="/about" component={About} />
             <Route path="/login" component={LoginPage} />
