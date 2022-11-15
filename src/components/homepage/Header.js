@@ -26,11 +26,7 @@ const Header = () => {
     dispatch(logout());
   }
   function clickLogo() {
-    if (user) {
       history.push("/home");
-    } else {
-      history.push("/login");
-    }
   }
 
   return (
