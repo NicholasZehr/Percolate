@@ -40,18 +40,12 @@ const Home = (props) => {
   useEffect(() => {
     let mounted = true;
     async function fetchData() {
-      //* Fetch the user using it's id
       dispatch(fetchLoginUser());
       dispatch(fetchAllBusinessList());
       dispatch(_fetchAllCoffee());
     }
-    if (mounted) {
-      fetchData();
-    }
-    return () => {
-      mounted = false;
-    };
-  }, [user]);
+ fetchData()
+  }, []);
 
   useEffect(() => {
     const list = [];
