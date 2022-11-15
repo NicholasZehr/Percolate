@@ -13,7 +13,10 @@ import reviewReducer from "./Reducers/reviewReducer";
 import feedReducer from "./feed";
 import coffeeReducer from "./Reducers/coffeeReducer"
 import authReducer from "./auth";
-
+const loadingMiddleware = (store) => (next) => (action) => {
+  console.log(store, next, action)
+  next(action)
+}
 const reducer = {
     auth: authReducer,
     business: businessReducer,
@@ -23,8 +26,8 @@ const reducer = {
     feed: feedReducer,
     coffee: coffeeReducer,
 }
-const middleware = composeWithDevTools(
-  applyMiddleware(
+const middleware = composeWithDevTools( 
+  applyMiddleware(loadingMiddleware,
     thunkMiddleware.withExtraArgument({ getFirestore }),
     createLogger({ collapsed: true })
   ),
@@ -33,6 +36,7 @@ const middleware = composeWithDevTools(
 
 //* Create the store
 const store = configureStore({ reducer }, middleware);
+
 
 export default store;
 export * from "./auth";

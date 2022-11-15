@@ -7,7 +7,7 @@ import Modal from "react-modal";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import db from "../../firebase";
-import {  _fetchUserBusinesses} from "../../redux/Actions/businessActions";
+import { fetchAllBusinessList, fetchUserBusinessList} from "../../redux/businessSlice";
 import { _fetchAllCoffee } from "../../redux/Actions/coffeeActions";
 import { addReview } from "../../redux/Actions/reviewActions";
 import { fetchLoginUser } from "../../redux/auth";
@@ -41,9 +41,9 @@ const Home = (props) => {
     let mounted = true;
     async function fetchData() {
       //* Fetch the user using it's id
-      await dispatch(fetchLoginUser());
-      await dispatch(fetchBusinesses());
-      await dispatch(fetchAllCoffee());
+      dispatch(fetchLoginUser());
+      dispatch(fetchAllBusinessList());
+      dispatch(_fetchAllCoffee());
     }
     if (mounted) {
       fetchData();

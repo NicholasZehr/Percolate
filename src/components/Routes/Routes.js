@@ -24,7 +24,7 @@ const AllRoutes = ()=> {
             {/* <Route exact path="/reviewPane" component={ReviewPane} /> */}
             <Route path="/businesses" component={AllBusinesses} />
             {/* <Route path="/review/:id" component={SingleReview} /> */}
-            {/* <Route path="/login" component={LoginPage} /> */}
+            <Route path="/login" component={LoginPage} />
             {/* <Route path="/about" component={About} /> */}
             {/* <Route path="/signup" component={Signup} /> */}
             {/* <Route exact path="/businesses/:id" component={Business} />

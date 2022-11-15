@@ -33,25 +33,25 @@ export const businessSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAllList.fulfilled, (state, action) => {
+      .addCase(fetchAllBusinessList.fulfilled, (state, action) => {
         state.businessList = action.payload
         state.loading = !state.loading
       })
-      .addCase(fetchAllList.pending, (state) => {
+      .addCase(fetchAllBusinessList.pending, (state) => {
         state.loading = true;
       })
-    .addCase(fetchUserList.fulfilled, (state, action) => {
+    .addCase(fetchUserBusinessList.fulfilled, (state, action) => {
       state.businessList = action.payload
       state.loading = !state.loading
     })
-    .addCase(fetchUserList.pending, (state, action) => {
+    .addCase(fetchUserBusinessList.pending, (state, action) => {
       state.loading = true
     })
   }
 });
 // ------------------ Thunks -----------------------
 
-export const fetchAllList = createAsyncThunk("business/fetchAllList", async (_, thunkAPI) => {
+export const fetchAllBusinessList = createAsyncThunk("business/fetchAllBusinessList", async (_, thunkAPI) => {
   const response = await getDocs(collection(db, "businesses"));
   const docs = []
   response.forEach(doc => {
@@ -67,7 +67,7 @@ export const fetchAllList = createAsyncThunk("business/fetchAllList", async (_, 
   })
   return docs
 });
-export const fetchUserList = createAsyncThunk("business/fetchUserList", 
+export const fetchUserBusinessList = createAsyncThunk("business/fetchUserList", 
   async (ownerId, thunkAPI) => {
     try {
       const businessesRef = collection(db, "businesses");
@@ -97,6 +97,8 @@ export const fetchUserList = createAsyncThunk("business/fetchUserList",
 //     }
 //   };
 // };
+
+// ------------------ Custom Middleware -----------------------
 
 export const { addBusiness, removeBusiness, editBusiness, updateList, toggleLoading } = businessSlice.actions;
 
