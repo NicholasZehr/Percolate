@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { authenticateSignup, authenticate } from "../../redux";
 
 
 const Signup = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.auth.accessToken);
   const [userEmails] = useState({});
   const [userInput, setUserInput] = useState({
@@ -86,7 +86,7 @@ const Signup = () => {
   return (
     <div className="login">
       {isLoggedIn ? (
-        <Redirect to="/home" />
+        navigate("/home")
       ) : (
         <div className="loginbodyBox">
           <div className="loginbody">

@@ -2,12 +2,12 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { addDoc, collection, getDocs } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import db from "../../firebase";
 import { fetchSingleReview } from "../../redux/Actions/reviewActions";
 
 const SingleReview = (props) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
   const textarea = document.getElementById("txt");
@@ -112,7 +112,7 @@ const SingleReview = (props) => {
                 className="profPic postHead"
                 alt="User Profile AVI"
                 src={review ? review.photoURL || "/guest.jpeg" : "/guest.jpeg"}
-                onClick={(_) => history.push(`/users/${user.uid}`)}
+                onClick={(_) => navigate(`/users/${user.uid}`)}
               />
             </div>
             <div className="nameAndTime">
@@ -135,7 +135,7 @@ const SingleReview = (props) => {
             <img
               className="favCoffee"
               alt="favorite coffee"
-              onClick={(_) => history.push(`/coffees/${id}`)}
+              onClick={(_) => navigate(`/coffees/${id}`)}
               src={review ? review.feedURL : "/whiteBack.png"}
             />
             <div className="coffeeInfo">
@@ -172,7 +172,7 @@ const SingleReview = (props) => {
                   className="profPic"
                   alt="User Profile AVI"
                   src={user ? user.photoURL || "/guest.jpeg" : "/guest.jpeg"}
-                  onClick={(_) => history.push(`/users/${user.uid}`)}
+                  onClick={(_) => navigate(`/users/${user.uid}`)}
                 />
               </div>
 
@@ -199,7 +199,7 @@ const SingleReview = (props) => {
                         className="profPic"
                         alt="User Profile AVI"
                         src={each.photoURL}
-                        onClick={(_) => history.push(`/users/${each.userId}`)}
+                        onClick={(_) => navigate(`/users/${each.userId}`)}
                       />
                     </div>
                     <div className="commentsLength ">

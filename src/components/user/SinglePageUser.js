@@ -7,7 +7,7 @@ import {
 import React, { useEffect, /* useReducer, */ useState } from "react";
 import Modal from "react-modal";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import db from "../../firebase";
 import { fetchReviews } from "../../redux/Actions/reviewActions";
 import { fetchUser } from "../../redux/Actions/usersActions";
@@ -22,7 +22,7 @@ Modal.setAppElement("#root");
 
 const SingleUserPage = () => {
   const { id } = useParams();
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   //componentDidMount here
   const auth = getAuth();
@@ -228,7 +228,7 @@ const SingleUserPage = () => {
                   )
                 ) : (
                   <div
-                    onClick={(_) => history.push("/login")}
+                    onClick={(_) => navigate("/login")}
                     className="editProfileButton"
                   >
                     Login to follow
@@ -275,7 +275,7 @@ const SingleUserPage = () => {
                           <div
                             key={index}
                             className="followerIcon"
-                            onClick={() => history.push(`/users/${each.uid}`)}
+                            onClick={() => navigate(`/users/${each.uid}`)}
                           >
                             <img
                               className="profPic pictureSize"
@@ -298,7 +298,7 @@ const SingleUserPage = () => {
                           <div
                             key={index}
                             className="followerIcon"
-                            onClick={() => history.push(`/users/${each.uid}`)}
+                            onClick={() => navigate(`/users/${each.uid}`)}
                           >
                             <img
                               alt="follower-icon"
@@ -338,7 +338,7 @@ const SingleUserPage = () => {
                             key={index}
                             className="followerIcon"
                             onClick={() =>
-                              history.push(`/businesses/${each[0]}`)
+                              navigate(`/businesses/${each[0]}`)
                             }
                           >
                             <img
