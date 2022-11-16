@@ -5,7 +5,7 @@ import {
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import db from "../../firebase";
 import { fetchAllBusinessList, fetchUserBusinessList} from "../../redux/businessSlice";
 import { _fetchAllCoffee } from "../../redux/Actions/coffeeActions";
@@ -19,7 +19,7 @@ import { fetchFeedReviews } from "../../redux/feed";
 Modal.setAppElement("#root");
 
 const Home = (props) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const loggedInUser = useSelector((state) => state.auth);
   const auth = getAuth();

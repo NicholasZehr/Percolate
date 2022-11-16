@@ -1,12 +1,11 @@
-import { useDispatch, useSelector } from "react-redux";
-import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import { Link, Redirect } from "react-router-dom";
-import { authenticate } from "../../redux";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { authenticate } from "../../redux";
 // import 'simplebar/dist/simplebar.min.css'
 const LoginPage = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.accessToken);
   const auth = useSelector((state) => state.auth);
@@ -25,12 +24,12 @@ const LoginPage = () => {
   return (
     <div className='login'>
       {user ? (
-        <Redirect to={`/home`} />
+        navigate('/home')
       ) : (
         <div className='loginbodyBox'>
           <div className='loginbody'>
             {auth.error ? (
-              <label className='errorLogin'>{`Oops Something went wrong! Try it again!`}</label>
+              <label className='errorLogin'>{`Oops Something went wrong! Please try again!`}</label>
             ) : (
               ""
             )}

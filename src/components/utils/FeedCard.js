@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   doc,
   collection,
@@ -12,7 +12,7 @@ import {
 import db from "../../firebase";
 
 const FeedCard = (props) => {
-  const history = useHistory();
+  const navigate= useNavigate();
   //CSS textarea expanding
   const [show, setShow] = useState(false);
   const textarea = document.getElementById("txt");
@@ -150,9 +150,9 @@ const FeedCard = (props) => {
   }
   function handleHeadClick() {
     if (props.type === "reviews") {
-      history.push(`/users/${props.review.userId}`);
+      navigate(`/users/${props.review.userId}`);
     } else if (props.type === "business") {
-      history.push(`/coffees/${props.coffeeId}`);
+      navigate(`/coffees/${props.coffeeId}`);
     }
   }
   return (
@@ -196,7 +196,7 @@ const FeedCard = (props) => {
           <img
             className="favCoffee"
             alt=""
-            onClick={(_) => history.push(`/coffees/${props.review.id}`)}
+            onClick={(_) => navigate(`/coffees/${props.review.id}`)}
             src={
               props.review
                 ? props.review.photoURL || props.review.feedURL || ""
@@ -282,7 +282,7 @@ const FeedCard = (props) => {
                           className="profPic"
                           alt=""
                           src={each.photoURL || ""}
-                          onClick={(_) => history.push(`/users/${each.userId}`)}
+                          onClick={(_) => navigate(`/users/${each.userId}`)}
                         />
                       </div>{" "}
                       <div className="post-input commentContent">

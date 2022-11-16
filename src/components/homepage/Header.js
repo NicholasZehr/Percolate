@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { logout } from "../../redux/auth";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Search } from "../search/Search";
+import { Outlet } from "react-router";
 
 const Header = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const login = getAuth();
   const dispatch = useDispatch();
   const [user, setUser] = useState(getAuth().currentUser);
@@ -16,20 +17,21 @@ const Header = () => {
 
   function gotoPage() {
     if (user) {
-      history.push(`/users/${user.uid}`);
+      navigate(`/users/${user.uid}`);
     } else {
-      history.push("/login");
+      navigate("/login");
     }
   }
   function signOut() {
-    history.push("/login");
+    navigate("/login");
     dispatch(logout());
   }
   function clickLogo() {
-      history.push("/home");
+      navigate("/home");
   }
 
   return (
+    <>
     <div className="header">
       <div className="header-navbar">
         <div className="header-left">
@@ -37,14 +39,14 @@ const Header = () => {
             <span className="brand">Percolate</span>
             <img
               className="logo"
-              onClick={() => history.push("/home")}
+              onClick={() => navigate("/home")}
               alt="Percolate Logo"
               src={"/logo.png"}
             />
           </div>
 
           <div className="blank">
-            <div className="about" onClick={(_) => history.push("/about")}>
+            <div className="about" onClick={(_) => navigate("/about")}>
               About
             </div>
             <div className="space"></div>
@@ -81,6 +83,8 @@ const Header = () => {
         </div>
       </div>
     </div>
+    <Outlet/>
+    </>
   );
 };
 
