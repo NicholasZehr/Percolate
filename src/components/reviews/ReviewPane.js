@@ -66,7 +66,7 @@ const ReviewPane = (props) => {
   return (
     <>
       {arrReviews.length > 0 ? (
-        <div>
+        <div>REVIEW PANE
           <h2>Reviews</h2>
           {arrReviews
             ? arrReviews.map((review, idx) => {
