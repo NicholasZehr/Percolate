@@ -6,6 +6,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { fetchLoginUser } from "../../redux/auth";
+import { Outlet } from "react-router";
 
 const ReviewPane = (props) => {
   const dispatch = useDispatch();
@@ -69,26 +70,27 @@ const ReviewPane = (props) => {
           <h2>Reviews</h2>
           {arrReviews
             ? arrReviews.map((review, idx) => {
-                //checkReview(review.content);
-                return (
-                  <ListedReview
-                    liked={likedObj[review[0]] ? true : false}
-                    currentUserId={userId}
-                    id={props.id}
-                    type={props.type}
-                    displayName={loggedInUser.displayName}
-                    photoURL={review.feedURL}
-                    key={review[0]}
-                    content={checkReview(review[1].content)}
-                    review={review[1]}
-                    reviewId={review[0]}
-                  />
-                );
-              })
+              //checkReview(review.content);
+              return (
+                <ListedReview
+                  liked={likedObj[review[0]] ? true : false}
+                  currentUserId={userId}
+                  id={props.id}
+                  type={props.type}
+                  displayName={loggedInUser.displayName}
+                  photoURL={review.feedURL}
+                  key={review[0]}
+                  content={checkReview(review[1].content)}
+                  review={review[1]}
+                  reviewId={review[0]}
+                />
+              );
+            })
             : null}
         </div>
       ) : (null
       )}
+    <Outlet/>
     </>
   );
 };
