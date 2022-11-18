@@ -4,28 +4,27 @@ import { Provider } from "react-redux";
 import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom";
 import store from "./redux";
 import { AllBusinesses, SingleBusiness } from "./components/businesses";
-import { About, LoginPage, Home, Signup, HeaderLayout, BusinessLayout,UserLayout, ReviewLayout, ReviewPane, SingleReview, ViewProfile } from "./components";
+import { About, LoginPage, Home, Signup, Header, BusinessLayout,UserLayout, ReviewLayout, ReviewPane, SingleReview, ViewProfile, UserProfile, SingleCoffee } from "./components";
 const container = document.getElementById("root");
 const root = createRoot(container);
 const AllRoutes = (
-  <Route path="/" element={<HeaderLayout />}>
+  <Route path="/" element={<Header />}>
+    <Route index path="about" element={<About />} />
     <Route path="business" element={<BusinessLayout/>}>
-      <Route default element={<AllBusinesses />} />
+      <Route index element={<AllBusinesses />} />
       <Route path=":id" element={<SingleBusiness/>} />
     </Route>
     <Route path="reviews" element={<ReviewLayout/>}>
-      <Route default element={<ReviewPane/>}/>
-      <Route path="/:id" element={<SingleReview/>} />
+      <Route index element={<ReviewPane/>}/>
+      <Route path=":id" element={<SingleReview/>} />
     </Route>
-    <Route path="about" element={<About />} />
-    <Route path="user" element={<UserLayout/>} > 
+    <Route path="user" element={<UserLayout/>} > å
       <Route path="login" element={<LoginPage/>} />
       <Route path="signup" element={<Signup/>} />
       <Route path=":id" element={<ViewProfile />} />
-      <Route path="me" element={<SingleUserPage />} />
+      <Route path="me" element={<UserProfile />} />
     </Route>
-    <Route path="/coffee" element={SingleCoffee} />
-    <Route path="/home" element={Home} />
+    <Route path="coffee" element={<SingleCoffee/>} />
   </Route>
 );
 const router = createBrowserRouter(createRoutesFromElements(AllRoutes));
