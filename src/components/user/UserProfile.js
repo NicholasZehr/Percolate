@@ -20,7 +20,7 @@ import { _fetchUserBusinesses } from "../../redux/Actions/businessActions";
 
 Modal.setAppElement("#root");
 
-const SingleUserPage = () => {
+const UserProfile = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -379,4 +379,4 @@ const SingleUserPage = () => {
     </>
   );
 };
-export default SingleUserPage;
+export default UserProfile;
