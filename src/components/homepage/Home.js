@@ -15,6 +15,7 @@ import Login from "../loginSignup/Login";
 import MapSearch from "../search/MapSearch";
 import FeedCard from "../utils/FeedCard";
 import { fetchFeedReviews } from "../../redux/feed";
+import useFeedPopulate from "../hooks/useFeedPopulate";
 
 Modal.setAppElement("#root");
 
@@ -46,31 +47,9 @@ const Home = (props) => {
       dispatch(_fetchAllCoffee());
     }
  fetchData()
-  }, []);
-
+  }, []); 
+  if (mounted) { useFeedPopulate(user, setFollowers, setFollowing) }
   useEffect(() => {
-    const list = [];
-    const fol = [];
-    let mounted = true;
-    //======push followers in list,and following in fol
-    if (Object.keys(loggedInUser).length > 0) {
-      if (loggedInUser.following && loggedInUser.followers) {
-        loggedInUser.followers.forEach((element) => {
-          //========== find wether the current profile page is followed
-          list.push(element);
-        });
-        loggedInUser.following.forEach((each) => {
-          // this is push to followiing
-          fol.push(each);
-        });
-      }
-    }
-    //fetching posts from firestore
-    if (user) {
-      // dispatch(fetchReviews("user", user.uid));
-      dispatch(fetchFeedReviews(user.uid));
-    }
-
     if (mounted) {
       const temp1 = [];
       Object.keys(allCoffee).forEach((id) =>

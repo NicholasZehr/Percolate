@@ -19,7 +19,7 @@ const Header = () => {
     if (user) {
       navigate(`/users/${user.uid}`);
     } else {
-      navigate("/login");
+      navigate("login");
     }
   }
   function signOut() {

@@ -9,7 +9,7 @@ const container = document.getElementById("root");
 const root = createRoot(container);
 const AllRoutes = (
   <Route path="/" element={<Header />}>
-    <Route index path="about" element={<About />} />
+    <Route path="about" element={<About />} />
     <Route path="business" element={<BusinessLayout/>}>
       <Route index element={<AllBusinesses />} />
       <Route path=":id" element={<SingleBusiness/>} />
@@ -24,7 +24,8 @@ const AllRoutes = (
       <Route path=":id" element={<ViewProfile />} />
       <Route path="me" element={<UserProfile />} />
     </Route>
-    <Route path="coffee" element={<SingleCoffee/>} />
+    <Route path="coffee" element={<SingleCoffee />} />
+    <Route index element ={<Home/>}/>
   </Route>
 );
 const router = createBrowserRouter(createRoutesFromElements(AllRoutes));
