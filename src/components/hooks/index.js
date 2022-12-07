@@ -1,0 +1,1 @@
+export { default as useFeedPopulate } from "./useFeedPopulate"

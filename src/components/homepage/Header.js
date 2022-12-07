@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { logout } from "../../redux/auth";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Search } from "../search/Search";
-import { Outlet } from "react-router";
+import { Outlet } from "react-router-dom";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ const Header = () => {
     if (user) {
       navigate(`/users/${user.uid}`);
     } else {
-      navigate("/login");
+      navigate("login");
     }
   }
   function signOut() {
