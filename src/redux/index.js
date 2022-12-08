@@ -39,5 +39,5 @@ const middleware = composeWithDevTools(
     
 export default store;
 export {authenticateSignup, fetchLoginUser, logout } from "./auth";
-export {authenticate} from "./authSlice";
+export {authenticate, authenticateUser} from "./authSlice";
     

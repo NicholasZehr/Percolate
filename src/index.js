@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom";
 import store from "./redux";
 import { AllBusinesses, SingleBusiness } from "./components/businesses";
-import { About, Login, Homepage, Signup, Header, BusinessLayout,UserLayout, ReviewLayout, ReviewPane, SingleReview, ViewProfile, UserProfile, SingleCoffee } from "./components";
+import { About, Login, Homepage, Signup, Header, BusinessLayout, UserLayout, ReviewLayout, ReviewPane, SingleReview, ViewProfile, UserProfile, SingleCoffee } from "./components";
 const container = document.getElementById("root");
 const root = createRoot(container);
 const AllRoutes = (
@@ -12,6 +12,7 @@ const AllRoutes = (
     <Route path="about" element={<About />} />
     <Route path="business" element={<BusinessLayout />}>
       <Route index element={<AllBusinesses />} />
+      <Route path="login" element={<Login/>}/>
       <Route path=":id" element={<SingleBusiness/>} />
     </Route>
     <Route path="reviews" element={<ReviewLayout/>}>

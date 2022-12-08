@@ -2,31 +2,31 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { authenticate } from "../../redux";
+import { authenticateUser } from "../../redux";
+import { toggleLoading } from "../../redux/authSlice";
 const Login = () => {
   const dispatch = useDispatch();
-  const {user, loggedIn} = useSelector((state)=>state.auth);
+  const {user, loggedIn, error} = useSelector((state)=> state.auth);
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     const username = evt.target.username.value;
     const password = evt.target.password.value;
-     dispatch(authenticate(username, password));
+    dispatch(authenticateUser({ username, password }));
+    toggleLoading()
   };
 
   return (
-    <>
-    <div>This is the login thing</div>
-{/*     
+    <>    
     <div className='login'>
       {loggedIn ? (
        <div>Already Logged In</div>
       ) : (
         <div className='loginbodyBox'>
           <div className='loginbody'>
-            {auth.error ? (
+            {error ? (
               <label className='errorLogin'>{`Oops Something went wrong! Please try again!`}</label>
-            ) : <div>There is an auth error?</div>}
+            ) : null}
             <form className='form' onSubmit={handleSubmit}>
               <div className='emailBox'>
                 <input
@@ -60,8 +60,8 @@ const Login = () => {
       <div className='bottomBar'>
         <div id='bottomText'>The home to all your coffee life.</div>
       </div>
-      </div> */}
+      </div>
     </>
   );
 };
-export default Login
+export default Login;

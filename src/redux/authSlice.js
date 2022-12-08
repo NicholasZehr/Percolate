@@ -11,14 +11,17 @@ export const authSlice = createSlice({
   initialState: {
     user: {},
     loading: false,
-    loggedIn: false
+    loggedIn: false,
+    error: false,
   },
   reducers: {
     toggleLoading: (state) => {
-      state.loading = !state.loading;
+      state.loading = true
     },
     authenticate: (state, action) => {
+      console.log(action.payload)
       state.user = action.payload
+      state.loggedIn = !state.loggedIn
     },
     updateUser: (state, action) => {
 
@@ -29,6 +32,15 @@ export const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+    .addCase(authenticateUser.pending, (state, action) => {
+      console.log(toggleLoading)
+    })
+    .addCase(authenticateUser.fulfilled, (state, action) => {
+      state.user = action.payload
+    })
+    .addCase(authenticateUser.rejected, (state, action) => {
+      console.log(action)
+    })
   }
 });
 // ------------------ Thunks -----------------------
@@ -36,16 +48,14 @@ export const authSlice = createSlice({
 export const authenticateUser = createAsyncThunk("user/authenticate", async({username, password}, thunkAPI) => {
   try {
     logout();
-    const { userCredential } = await signInWithEmailAndPassword(auth, username, password);
-    console.log(userCredential)
-    const user = auth.currentUser;
-    if (user !== null) {
-      const response = await getDoc(doc(db, "Users", user.uid));
-      const fullDetail = { ...user, ...response.data() };
-    }
-    return userCredential.user
+    const response = await signInWithEmailAndPassword(auth, username, password);
+    const jason = response.toJSON()
+    const {user} = response
+    console.log(jason)
+    return user
   } catch (authError) {
-    console.error(authError)
+    console.log(authError.message === "INVALID_PASSWORD", "this is the error")
+    return authError
   }
 })
 export const fetchLoginUser = () => async (dispatch) => {
@@ -109,6 +119,6 @@ export const fetchAllBusinessList = createAsyncThunk("business/fetchAllBusinessL
   return docs
 });
 
-export const { authenticate } = authSlice.actions;
+export const { authenticate, toggleLoading } = authSlice.actions;
 
 export default authSlice.reducer;
