@@ -5,7 +5,7 @@ import {
   updateProfile
 } from "firebase/auth";
 import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
-import db from "../firebase";
+import { db, auth } from "../firebase";
 export const businessSlice = createSlice({
   name: "authSlice",
   initialState: {
@@ -16,8 +16,8 @@ export const businessSlice = createSlice({
     toggleLoading: (state) => {
       state.loading = !state.loading;
     },
-    authenticateUser: (state, action) => {
-      
+    authenticate: (state, action) => {
+      state.user = action.payload
     },
     updateUser: (state, action) => {
 
@@ -33,18 +33,18 @@ export const businessSlice = createSlice({
 // ------------------ Thunks -----------------------
 
 export const authenticate = createAsyncThunk("user/authenticate", async({username, password}, thunkAPI) => {
-  const auth = getAuth();
   try {
     logout();
-    await signInWithEmailAndPassword(auth, username, password);
+    const { userCredential } = await signInWithEmailAndPassword(auth, username, password);
+    console.log(userCredential)
     const user = auth.currentUser;
     if (user !== null) {
       const response = await getDoc(doc(db, "Users", user.uid));
       const fullDetail = { ...user, ...response.data() };
-      dispatch(setAuth(fullDetail));
     }
+    return userCredential.uid
   } catch (authError) {
-    return dispatch(setAuth({ error: authError }));
+    console.error(authError)
   }
 })
 export const fetchLoginUser = () => async (dispatch) => {

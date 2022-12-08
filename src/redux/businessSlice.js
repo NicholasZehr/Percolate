@@ -1,8 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getDocs, collection } from "firebase/firestore";
-import { useDispatch } from "react-redux";
-import thunk from "redux-thunk";
-import db from "../firebase";
+import { db} from "../firebase";
 export const businessSlice = createSlice({
   name: "businessSlice",
   initialState: {
