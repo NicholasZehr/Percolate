@@ -2,21 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../redux/auth";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Search } from "../search/Search";
 import { Outlet } from "react-router-dom";
 
 const Header = () => {
   const navigate = useNavigate();
-  const login = getAuth();
   const dispatch = useDispatch();
-  const [user, setUser] = useState(getAuth().currentUser);
-  onAuthStateChanged(login, (u) => {
-    setUser(u);
-  });
-
+  const {user, loggedIn} = useSelector(state=>state.auth)
   function gotoPage() {
-    if (user) {
+    if (loggedIn) {
       navigate(`/users/${user.uid}`);
     } else {
       navigate("/user/login");
@@ -63,12 +57,12 @@ const Header = () => {
                 className="profPic"
                 alt="User Profile AVI"
                 src={
-                  user ? user.photoURL || "/guest.jpeg" : "/guest.jpeg"
+                  loggedIn ? user.photoURL || "/guest.jpeg" : "/guest.jpeg"
                 }
               />
             </div>
             <div className="username">
-              {user ? (
+              {loggedIn ? (
                 <div>
                   <span onClick={gotoPage}>{user.displayName}</span>
                   <div className="signoutButton" onClick={(_) => signOut()}>

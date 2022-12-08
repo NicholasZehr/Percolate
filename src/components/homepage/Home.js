@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import db from "../../firebase";
+import  {db}from "../../firebase";
 import { fetchAllBusinessList, fetchUserBusinessList} from "../../redux/businessSlice";
 import { _fetchAllCoffee } from "../../redux/Actions/coffeeActions";
 import { addReview } from "../../redux/Actions/reviewActions";

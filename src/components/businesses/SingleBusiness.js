@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Modal from "react-modal";
 import { _fetchBusiness } from "../../redux/Actions/businessActions";
 import { doc, setDoc } from "firebase/firestore";
-import db from "../../firebase";
+import { db } from "../../firebase";
 import { getAuth } from "firebase/auth";
 import { Link } from "react-router-dom";
 import FeedCard from "../utils/FeedCard";

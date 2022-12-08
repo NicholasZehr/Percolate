@@ -1,5 +1,5 @@
 import { collection, getDocs, getDoc, doc } from "firebase/firestore";
-import db from "../../firebase";
+import { db } from "../../firebase";
 import { GET_USER, GET_ALL_USERS } from "../Reducers/usersReducer";
 
 export const _fetchAllUsers = (users) => ({

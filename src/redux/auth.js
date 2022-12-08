@@ -6,7 +6,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { collection, doc, setDoc, getDoc } from "firebase/firestore";
-import db from "../firebase";
+import { db } from "../firebase";
 //https://firebase.google.com/docs/auth/web/manage-users
 //const TOKEN = "token";
 
@@ -14,21 +14,21 @@ const SET_AUTH = "SET_AUTH";
 
 const setAuth = (auth) => ({ type: SET_AUTH, auth });
 
-export const authenticate = (username, password) => async (dispatch) => {
-  const auth = getAuth();
-  try {
-    logout();
-    await signInWithEmailAndPassword(auth, username, password);
-    const user = auth.currentUser;
-    if (user !== null) {
-      const response = await getDoc(doc(db, "Users", user.uid));
-      const fullDetail = { ...user, ...response.data() };
-      dispatch(setAuth(fullDetail));
-    }
-  } catch (authError) {
-    return dispatch(setAuth({ error: authError }));
-  }
-};
+// export const authenticate = (username, password) => async (dispatch) => {
+//   const auth = getAuth();
+//   try {
+//     logout();
+//     await signInWithEmailAndPassword(auth, username, password);
+//     const user = auth.currentUser;
+//     if (user !== null) {
+//       const response = await getDoc(doc(db, "Users", user.uid));
+//       const fullDetail = { ...user, ...response.data() };
+//       dispatch(setAuth(fullDetail));
+//     }
+//   } catch (authError) {
+//     return dispatch(setAuth({ error: authError }));
+//   }
+// };
 export const fetchLoginUser = () => async (dispatch) => {
   const auth = getAuth();
   const user = auth.currentUser;

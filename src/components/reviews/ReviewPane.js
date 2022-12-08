@@ -1,7 +1,7 @@
 import React from "react";
 import ListedReview from "./ListedReview";
 import { query, where, collection, getDocs } from "firebase/firestore";
-import db from "../../firebase";
+import  {db} from "../../firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";

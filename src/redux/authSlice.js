@@ -6,11 +6,12 @@ import {
 } from "firebase/auth";
 import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 import { db, auth } from "../firebase";
-export const businessSlice = createSlice({
+export const authSlice = createSlice({
   name: "authSlice",
   initialState: {
     user: {},
     loading: false,
+    loggedIn: false
   },
   reducers: {
     toggleLoading: (state) => {
@@ -32,7 +33,7 @@ export const businessSlice = createSlice({
 });
 // ------------------ Thunks -----------------------
 
-export const authenticate = createAsyncThunk("user/authenticate", async({username, password}, thunkAPI) => {
+export const authenticateUser = createAsyncThunk("user/authenticate", async({username, password}, thunkAPI) => {
   try {
     logout();
     const { userCredential } = await signInWithEmailAndPassword(auth, username, password);
@@ -42,7 +43,7 @@ export const authenticate = createAsyncThunk("user/authenticate", async({usernam
       const response = await getDoc(doc(db, "Users", user.uid));
       const fullDetail = { ...user, ...response.data() };
     }
-    return userCredential.uid
+    return userCredential.user
   } catch (authError) {
     console.error(authError)
   }
@@ -108,6 +109,6 @@ export const fetchAllBusinessList = createAsyncThunk("business/fetchAllBusinessL
   return docs
 });
 
-export const { toggleLoading, updateUser, logoutUser } = authSlice.actions;
+export const { authenticate } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -8,7 +8,7 @@ import React, { useEffect, /* useReducer, */ useState } from "react";
 import Modal from "react-modal";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import db from "../../firebase";
+import { db } from "../../firebase";
 import { fetchReviews } from "../../redux/Actions/reviewActions";
 import { fetchUser } from "../../redux/Actions/usersActions";
 import { fetchLoginUser } from "../../redux/auth";

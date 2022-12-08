@@ -1,38 +1,32 @@
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { authenticate } from "../../redux";
-// import 'simplebar/dist/simplebar.min.css'
-const LoginPage = () => {
-  const navigate = useNavigate();
+const Login = () => {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => state.auth.accessToken);
-  const auth = useSelector((state) => state.auth);
-  const [user, setUser] = useState(getAuth().currentUser);
-  onAuthStateChanged(getAuth(), (u) => {
-    setUser(u);
-  });
+  const {user, loggedIn} = useSelector((state)=>state.auth);
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     const username = evt.target.username.value;
     const password = evt.target.password.value;
-    await dispatch(authenticate(username, password));
+     dispatch(authenticate(username, password));
   };
 
   return (
+    <>
+    <div>This is the login thing</div>
+{/*     
     <div className='login'>
-      {user ? (
-        navigate('/home')
+      {loggedIn ? (
+       <div>Already Logged In</div>
       ) : (
         <div className='loginbodyBox'>
           <div className='loginbody'>
             {auth.error ? (
               <label className='errorLogin'>{`Oops Something went wrong! Please try again!`}</label>
-            ) : (
-              ""
-            )}
+            ) : <div>There is an auth error?</div>}
             <form className='form' onSubmit={handleSubmit}>
               <div className='emailBox'>
                 <input
@@ -66,7 +60,8 @@ const LoginPage = () => {
       <div className='bottomBar'>
         <div id='bottomText'>The home to all your coffee life.</div>
       </div>
-    </div>
+      </div> */}
+    </>
   );
 };
-export default LoginPage;
+export default Login
