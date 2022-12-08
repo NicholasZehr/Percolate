@@ -1,5 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { collection, getDocs } from "firebase/firestore";
+import {
+  createUserWithEmailAndPassword, getAuth,
+  signInWithEmailAndPassword, signOut,
+  updateProfile
+} from "firebase/auth";
+import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 import db from "../firebase";
 export const businessSlice = createSlice({
   name: "authSlice",
@@ -37,18 +42,6 @@ export const businessSlice = createSlice({
   }
 });
 // ------------------ Thunks -----------------------
-import {
-  createUserWithEmailAndPassword, getAuth,
-  signInWithEmailAndPassword, signOut,
-  updateProfile
-} from "firebase/auth";
-import { doc, getDoc, setDoc } from "firebase/firestore";
-//https://firebase.google.com/docs/auth/web/manage-users
-//const TOKEN = "token";
-
-const SET_AUTH = "SET_AUTH";
-
-const setAuth = (auth) => ({ type: SET_AUTH, auth });
 
 export const authenticate = (username, password) => async (dispatch) => {
   const auth = getAuth();
