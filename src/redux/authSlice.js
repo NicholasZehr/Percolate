@@ -16,6 +16,9 @@ export const businessSlice = createSlice({
     toggleLoading: (state) => {
       state.loading = !state.loading;
     },
+    authenticateUser: (state, action) => {
+      
+    },
     updateUser: (state, action) => {
 
     },
@@ -25,25 +28,11 @@ export const businessSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAllBusinessList.fulfilled, (state, action) => {
-        state.businessList = action.payload
-        state.loading = !state.loading
-      })
-      .addCase(fetchAllBusinessList.pending, (state) => {
-        state.loading = true;
-      })
-    .addCase(fetchUserBusinessList.fulfilled, (state, action) => {
-      state.businessList = action.payload
-      state.loading = !state.loading
-    })
-    .addCase(fetchUserBusinessList.pending, (state, action) => {
-      state.loading = true
-    })
   }
 });
 // ------------------ Thunks -----------------------
 
-export const authenticate = (username, password) => async (dispatch) => {
+export const authenticate = createAsyncThunk("user/authenticate", async({username, password}, thunkAPI) => {
   const auth = getAuth();
   try {
     logout();
@@ -57,7 +46,7 @@ export const authenticate = (username, password) => async (dispatch) => {
   } catch (authError) {
     return dispatch(setAuth({ error: authError }));
   }
-};
+})
 export const fetchLoginUser = () => async (dispatch) => {
   const auth = getAuth();
   const user = auth.currentUser;
