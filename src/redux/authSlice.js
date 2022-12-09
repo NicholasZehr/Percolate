@@ -18,28 +18,20 @@ export const authSlice = createSlice({
     toggleLoading: (state) => {
       state.loading = true
     },
-    authenticate: (state, action) => {
-      console.log(action.payload)
+    setUser: (state, action) => {
+      state.loggedIn = true
       state.user = action.payload
-      state.loggedIn = !state.loggedIn
+      state.loading = false
+      state.error = false
     },
     updateUser: (state, action) => {
 
-    },
-    logoutUser: (state, action) => {
-      
     },
   },
   extraReducers: (builder) => {
     builder
     .addCase(authenticateUser.pending, (state, action) => {
-      console.log(toggleLoading)
-    })
-    .addCase(authenticateUser.fulfilled, (state, action) => {
-      state.user = action.payload
-    })
-    .addCase(authenticateUser.rejected, (state, action) => {
-      console.log(action)
+      state.loading = true
     })
   }
 });
@@ -47,12 +39,11 @@ export const authSlice = createSlice({
 
 export const authenticateUser = createAsyncThunk("user/authenticate", async({username, password}, thunkAPI) => {
   try {
-    logout();
     const response = await signInWithEmailAndPassword(auth, username, password);
-    const jason = response.toJSON()
-    const {user} = response
-    console.log(jason)
-    return user
+    if (response.user) {
+      const user = response.user.toJSON()
+      return user
+    }
   } catch (authError) {
     console.log(authError.message === "INVALID_PASSWORD", "this is the error")
     return authError
@@ -97,28 +88,16 @@ export const authenticateSignup = (user) => async (dispatch) => {
   }
 };
 
-export const logout = () => (dispatch) => {
-  const auth = getAuth();
-  signOut(auth);
-  return dispatch(setAuth({}));
-};
-export const fetchAllBusinessList = createAsyncThunk("business/fetchAllBusinessList", async (_, thunkAPI) => {
-  const response = await getDocs(collection(db, "businesses"));
-  const docs = []
-  response.forEach(doc => {
-    const docCopy = doc.data()
-    const coffeeQ = docCopy.coffees
-    const convertedCoffees = coffeeQ.map((coffee) => {
-      return ({
-        ...coffee, time: coffee.time.valueOf()
-      })
-    })
-    docCopy.coffees = convertedCoffees
-    docs.push(docCopy)
-  })
-  return docs
-});
+export const logout = createAsyncThunk("user/logoutUser", (_, thunkAPI) => {
+  try {
+    signOut(auth);
+    return 
+  } catch (error) {
+    console.error(error)
+  } 
+}
+)
 
-export const { authenticate, toggleLoading } = authSlice.actions;
+export const { setUser } = authSlice.actions;
 
 export default authSlice.reducer;

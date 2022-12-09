@@ -11,7 +11,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { db } from "../../firebase";
 import { fetchReviews } from "../../redux/Actions/reviewActions";
 import { fetchUser } from "../../redux/Actions/usersActions";
-import { fetchLoginUser } from "../../redux/auth";
 import AddBusiness from "../businesses/AddBusiness";
 import FeedCard from "../utils/FeedCard";
 import EditProfileButton from "./EditProfileButton";

@@ -1,14 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { logout } from "../../redux/auth";
+import { logout, setUser } from "../../redux/authSlice";
 import { Search } from "../search/Search";
 import { Outlet } from "react-router-dom";
-
+import { onAuthStateChanged } from "firebase/auth";
+import {auth} from"../../firebase"
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {user, loggedIn} = useSelector(state=>state.auth)
+  const { user, loggedIn } = useSelector(state => state.auth)
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        dispatch(setUser(user.toJSON()))
+      }
+      else {
+        dispatch(logout)
+      }
+    })
+    return unsubscribe
+  },[])
   function gotoPage() {
     if (loggedIn) {
       navigate(`/users/${user.uid}`);
@@ -17,11 +29,12 @@ const Header = () => {
     }
   }
   function signOut() {
-    navigate("/user/login");
-    dispatch(logout());
+    dispatch(logout()).then(() => {
+      navigate("/user/login");
+    });
   }
   function clickLogo() {
-      navigate("/home");
+      navigate("/");
   }
 
   return (

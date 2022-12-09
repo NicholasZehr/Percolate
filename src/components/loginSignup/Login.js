@@ -1,21 +1,29 @@
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { authenticateUser } from "../../redux";
 import { toggleLoading } from "../../redux/authSlice";
 const Login = () => {
   const dispatch = useDispatch();
-  const {user, loggedIn, error} = useSelector((state)=> state.auth);
-
+  const navigate = useNavigate()
+  const { user, loggedIn, error} = useSelector((state)=> state.auth);
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     const username = evt.target.username.value;
     const password = evt.target.password.value;
-    dispatch(authenticateUser({ username, password }));
-    toggleLoading()
-  };
-
+    dispatch(authenticateUser({ username, password }))
+      .then(() => {
+        if (loggedIn) {
+          navigate('/')
+        }
+      })
+  }
+  useEffect(() => {
+    if (loggedIn) {
+      navigate('/')
+    }
+  })
   return (
     <>    
     <div className='login'>
