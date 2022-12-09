@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   createUserWithEmailAndPassword, getAuth,
-  signInWithEmailAndPassword, signOut,
+  signInWithEmailAndPassword,
   updateProfile
 } from "firebase/auth";
 import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
@@ -9,23 +9,29 @@ import { db, auth } from "../firebase";
 export const authSlice = createSlice({
   name: "authSlice",
   initialState: {
-    user: {},
-    loading: false,
+    user: null,
+    loading: true,
     loggedIn: false,
     error: false,
   },
   reducers: {
-    toggleLoading: (state) => {
-      state.loading = true
+    loggedOut: (state) => {
+      if (state.loggedIn) {
+        state.user = null
+        state.loggedIn = false
+      }
+      state.loading = false
     },
     setUser: (state, action) => {
-      state.loggedIn = true
+      if (action.payload.uid) {
+      state.loggedIn = true 
+      }
+      else {
+        state.loggedIn = false
+      }
       state.user = action.payload
       state.loading = false
       state.error = false
-    },
-    updateUser: (state, action) => {
-
     },
   },
   extraReducers: (builder) => {
@@ -44,9 +50,12 @@ export const authenticateUser = createAsyncThunk("user/authenticate", async({use
       const user = response.user.toJSON()
       return user
     }
+    else if (response.error) {
+      console.log(response.error)
+    }
   } catch (authError) {
-    console.log(authError.message === "INVALID_PASSWORD", "this is the error")
-    return authError
+    console.log(authError)
+    return 
   }
 })
 export const fetchLoginUser = () => async (dispatch) => {
@@ -88,16 +97,6 @@ export const authenticateSignup = (user) => async (dispatch) => {
   }
 };
 
-export const logout = createAsyncThunk("user/logoutUser", (_, thunkAPI) => {
-  try {
-    signOut(auth);
-    return 
-  } catch (error) {
-    console.error(error)
-  } 
-}
-)
-
-export const { setUser } = authSlice.actions;
+export const { setUser, loggedOut } = authSlice.actions;
 
 export default authSlice.reducer;

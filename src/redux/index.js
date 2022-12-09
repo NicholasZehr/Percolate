@@ -25,13 +25,12 @@ const reducer = {
   feed: feedReducer,
   coffee: coffeeReducer,
 }
-const middleware = composeWithDevTools( 
+const middleware = 
   applyMiddleware(loadingMiddleware,
     thunkMiddleware.withExtraArgument({ getFirestore }),
     createLogger({ collapsed: true })
-    ),
-    reduxFirestore(db)
-    );
+    )
+  
     
     //* Create the store
     const store = configureStore({ reducer }, middleware);

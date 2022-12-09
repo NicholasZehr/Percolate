@@ -37,7 +37,8 @@ const Login = () => {
             ) : null}
             <form className='form' onSubmit={handleSubmit}>
               <div className='emailBox'>
-                <input
+                    <input
+                      autoComplete="username"
                   className='email'
                   name='username'
                   type='text'
@@ -45,7 +46,8 @@ const Login = () => {
                 />
               </div>
               <div className='emailBox'>
-                <input
+                    <input
+                  autoComplete="current-password"
                   className='email'
                   name='password'
                   placeholder='Password'

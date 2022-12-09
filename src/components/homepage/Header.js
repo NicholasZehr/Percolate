@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { logout, setUser } from "../../redux/authSlice";
+import { loggedOut, setUser } from "../../redux/authSlice";
 import { Search } from "../search/Search";
 import { Outlet } from "react-router-dom";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import {auth} from"../../firebase"
+import { Loader } from "../utils";
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { user, loggedIn } = useSelector(state => state.auth)
+  const { loading, user, loggedIn } = useSelector(state => state.auth)
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         dispatch(setUser(user.toJSON()))
       }
       else {
-        dispatch(logout)
+        dispatch(loggedOut())
+        navigate("/user/login")
       }
     })
     return unsubscribe
@@ -27,11 +29,6 @@ const Header = () => {
     } else {
       navigate("/user/login");
     }
-  }
-  function signOut() {
-    dispatch(logout()).then(() => {
-      navigate("/user/login");
-    });
   }
   function clickLogo() {
       navigate("/");
@@ -74,16 +71,15 @@ const Header = () => {
                 }
               />
             </div>
-            <div className="username">
-              {loggedIn ? (
-                <div>
-                  <span onClick={gotoPage}>{user.displayName}</span>
-                  <div className="signoutButton" onClick={(_) => signOut()}>
+              <div className="username">
+              {loading ? <Loader/>:loggedIn ? (<>
+                <span onClick={gotoPage}>{user.displayName}</span>
+                  <div className="signoutButton button" onClick={()=>{signOut(auth)}}>
                     Sign out
                   </div>
-                </div>
+                  </>
               ) : (
-                <span onClick={gotoPage}>Sign in</span>
+                <span className="signoutButton button" onClick={gotoPage}>Sign in</span>
               )}
             </div>
           </div>
