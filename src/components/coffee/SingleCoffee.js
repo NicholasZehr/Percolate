@@ -12,7 +12,7 @@ import {
   getDocs,
   updateDoc,
 } from "firebase/firestore";
-import db from "../../firebase";
+import {db} from "../../firebase";
 import { getAuth } from "firebase/auth";
 class SingleCoffee extends Component {
   constructor() {

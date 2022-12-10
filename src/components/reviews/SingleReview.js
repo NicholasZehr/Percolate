@@ -3,7 +3,7 @@ import { addDoc, collection, getDocs } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import db from "../../firebase";
+import  {db} from "../../firebase";
 import { fetchSingleReview } from "../../redux/Actions/reviewActions";
 
 const SingleReview = (props) => {

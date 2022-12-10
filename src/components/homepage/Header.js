@@ -1,33 +1,37 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { logout } from "../../redux/auth";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { loggedOut, setUser } from "../../redux/authSlice";
 import { Search } from "../search/Search";
 import { Outlet } from "react-router-dom";
-
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import {auth} from"../../firebase"
+import { Loader } from "../utils";
 const Header = () => {
   const navigate = useNavigate();
-  const login = getAuth();
   const dispatch = useDispatch();
-  const [user, setUser] = useState(getAuth().currentUser);
-  onAuthStateChanged(login, (u) => {
-    setUser(u);
-  });
-
+  const { loading, user, loggedIn } = useSelector(state => state.auth)
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        dispatch(setUser(user.toJSON()))
+      }
+      else {
+        dispatch(loggedOut())
+        navigate("/user/login")
+      }
+    })
+    return unsubscribe
+  },[])
   function gotoPage() {
-    if (user) {
+    if (loggedIn) {
       navigate(`/users/${user.uid}`);
     } else {
-      navigate("login");
+      navigate("/user/login");
     }
   }
-  function signOut() {
-    navigate("/login");
-    dispatch(logout());
-  }
   function clickLogo() {
-      navigate("/home");
+      navigate("/");
   }
 
   return (
@@ -46,8 +50,11 @@ const Header = () => {
           </div>
 
           <div className="blank">
-            <div className="about" onClick={(_) => navigate("/about")}>
+            <div className="about" onClick={() => navigate("/about")}>
               About
+            </div>
+            <div className="about" onClick={() => navigate("/business")}>
+              Shops
             </div>
             <div className="space"></div>
           </div>
@@ -63,20 +70,19 @@ const Header = () => {
                 className="profPic"
                 alt="User Profile AVI"
                 src={
-                  user ? user.photoURL || "/guest.jpeg" : "/guest.jpeg"
+                  loggedIn ? user.photoURL || "/guest.jpeg" : "/guest.jpeg"
                 }
               />
             </div>
-            <div className="username">
-              {user ? (
-                <div>
-                  <span onClick={gotoPage}>{user.displayName}</span>
-                  <div className="signoutButton" onClick={(_) => signOut()}>
+              <div className="username">
+              {loading ? <Loader/>:loggedIn ? (<>
+                <span onClick={gotoPage}>{user.displayName}</span>
+                  <div className="signoutButton button" onClick={()=>{signOut(auth)}}>
                     Sign out
                   </div>
-                </div>
+                  </>
               ) : (
-                <span onClick={gotoPage}>Sign in</span>
+                <span className="signoutButton button" onClick={gotoPage}>Sign in</span>
               )}
             </div>
           </div>

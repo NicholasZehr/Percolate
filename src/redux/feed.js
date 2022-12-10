@@ -6,7 +6,7 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import db from "../firebase";
+import { db } from "../firebase";
 //import usersReducer from "./Reducers/usersReducer";
 
 // action creators

@@ -1,23 +1,27 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllBusinessList } from "../../redux/businessSlice";
+import { useNavigate } from "react-router-dom";
+import { fetchAllBusinessList, removeBusinessAsync} from "../../redux/businessSlice";
 
 const AllBusinesses = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {businessList} = useSelector((state) => {
     return state.business;
   });
-
-  const dispatch = useDispatch();
+  const {loading: authLoading} = useSelector((state)=>{return state.auth})
   useEffect(() => {
-      dispatch(fetchAllBusinessList())
-  }, []);
+  !authLoading &&  dispatch(fetchAllBusinessList())
+  }, [authLoading]);
   return (
     <>
       {businessList.length ? (
         <div>
           {businessList.map((business, idx) => {
            return( <div key={`business-${idx}`}>
-              {business.name} {business.id}
+             {business.name} {business.id}
+             <button onClick={() => { dispatch(removeBusinessAsync(business.id)) }}>Delete Business</button>
+             <button onClick={()=> {navigate(`${business.id}`)}}> View Shop </button>
             </div>)
 })}
         </div>

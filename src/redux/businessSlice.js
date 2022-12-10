@@ -1,25 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getDocs, collection } from "firebase/firestore";
-import { useDispatch } from "react-redux";
-import thunk from "redux-thunk";
-import db from "../firebase";
+import { getDocs, collection, addDoc, deleteDoc, doc, getDoc } from "firebase/firestore";
+import {db} from "../firebase";
 export const businessSlice = createSlice({
   name: "businessSlice",
   initialState: {
     businessList: [],
+    business:{},
     loading: false,
   },
   reducers: {
-    toggleLoading: (state) => {
-      state.loading = !state.loading;
-    },
     addBusiness: (state, action) => {
-      state.businessList = [state.businessList, action.payload];
-    },
-    removeBusiness: (state, action) => {
-      state.businessList = state.businessList.filter((business) => {
-        return business.id == action.payload;
-      });
+      state.businessList = [...state.businessList, action.payload];
     },
     editBusiness: (state, action) => {
       state.businessList = state.businessList.map((business) => {
@@ -47,6 +38,18 @@ export const businessSlice = createSlice({
     .addCase(fetchUserBusinessList.pending, (state, action) => {
       state.loading = true
     })
+    .addCase(removeBusinessAsync.fulfilled, (state, action) => {
+      state.businessList = state.businessList.filter((business) => {
+        return business.id !== action.payload;
+      });
+    })
+      .addCase(fetchOneBusiness.pending, (state) => {
+      state.loading = true
+      })
+      .addCase(fetchOneBusiness.fulfilled, (state, action) => {
+        state.business = action.payload
+        state.loading = false
+    })
   }
 });
 // ------------------ Thunks -----------------------
@@ -56,13 +59,16 @@ export const fetchAllBusinessList = createAsyncThunk("business/fetchAllBusinessL
   const docs = []
   response.forEach(doc => {
     const docCopy = doc.data()
-    const coffeeQ = docCopy.coffees
-    const convertedCoffees = coffeeQ.map((coffee) => {
-      return ({
-        ...coffee, time: coffee.time.valueOf()
+    docCopy.id = doc.id
+    if (docCopy.coffees) {
+      const coffeeQ = docCopy.coffees
+      const convertedCoffees = coffeeQ.map((coffee) => {
+        return ({
+          ...coffee, time: coffee.time.valueOf()
+        })
       })
-    })
-    docCopy.coffees = convertedCoffees
+      docCopy.coffees = convertedCoffees
+    }
     docs.push(docCopy)
   })
   return docs
@@ -83,23 +89,45 @@ export const fetchUserBusinessList = createAsyncThunk("business/fetchUserList",
     }
   }
 )
+export const fetchOneBusiness = createAsyncThunk("business/fetchOne",
+ async (businessId, thunkAPI) => {
+    try {
+      console.log(businessId, "business id in fetch")
+      const business = await getDoc(doc(db, "businesses", businessId))
+      return business.data()
+    } catch (error) {
+      console.log("Could not fetch business from firebase", error)
+      return
+    }
+  }
+)
+export const addBusiness = createAsyncThunk("business/addBusinessAsync",
+  async(business, thunkAPI) => {
+  return async (dispatch) => {
+    try {
+      const response = await addDoc(collection(db, "businesses"), business);
+      console.log("add business response:", response);
+    } catch (error) {
+      console.log("Failed to add business");
+    }
+  };
+}
+)
 
-
-// export const addBusiness = (business) => {
-//   return async (dispatch) => {
-//     try {
-//       const response = await addDoc(collection(db, "businesses"), business);
-//       dispatch(_addBusiness(response));
-//       console.log("add review response:", response);
-//     } catch (error) {
-//       console.log("Failed to add review");
-//       return;
-//     }
-//   };
-// };
+export const removeBusinessAsync = createAsyncThunk("business/removeBusinessAsync", async (businessId, thunkAPI) => {
+  try {
+      const response = await deleteDoc(doc(db, "businesses", 
+      businessId));
+      return businessId
+    } catch (error) {
+      console.log("Failed to remove business", error);
+      return;
+    }
+  }
+)
 
 // ------------------ Custom Middleware -----------------------
 
-export const { addBusiness, removeBusiness, editBusiness, updateList, toggleLoading } = businessSlice.actions;
+export const {   editBusiness, updateList } = businessSlice.actions;
 
 export default businessSlice.reducer;
