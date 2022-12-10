@@ -5,6 +5,7 @@ export const businessSlice = createSlice({
   name: "businessSlice",
   initialState: {
     businessList: [],
+    business:{},
     loading: false,
   },
   reducers: {
@@ -46,7 +47,8 @@ export const businessSlice = createSlice({
       state.loading = true
       })
       .addCase(fetchOneBusiness.fulfilled, (state, action) => {
-      state.businessList = [state.businessList, action.payload]
+        state.business = action.payload
+        state.loading = false
     })
   }
 });
@@ -88,12 +90,13 @@ export const fetchUserBusinessList = createAsyncThunk("business/fetchUserList",
   }
 )
 export const fetchOneBusiness = createAsyncThunk("business/fetchOne",
-  (businessId, thunkAPI) => {
+ async (businessId, thunkAPI) => {
     try {
-      const business = getDoc(doc(db, "businesses", businessId))
+      console.log(businessId, "business id in fetch")
+      const business = await getDoc(doc(db, "businesses", businessId))
       return business.data()
     } catch (error) {
-      console.log("Could not fetch business from firebase")
+      console.log("Could not fetch business from firebase", error)
       return
     }
   }
