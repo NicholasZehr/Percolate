@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllBusinessList } from "../../redux/businessSlice";
+import { fetchAllBusinessList, removeBusinessAsync} from "../../redux/businessSlice";
 
 const AllBusinesses = () => {
   const {businessList} = useSelector((state) => {
@@ -17,7 +17,8 @@ const AllBusinesses = () => {
         <div>
           {businessList.map((business, idx) => {
            return( <div key={`business-${idx}`}>
-              {business.name} {business.id}
+             {business.name} {business.id}
+             <button onClick={() => { removeBusinessAsync(business.id)}}>Delete Business</button>
             </div>)
 })}
         </div>
