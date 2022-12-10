@@ -6,11 +6,11 @@ const AllBusinesses = () => {
   const {businessList} = useSelector((state) => {
     return state.business;
   });
-
+  const {loading: authLoading} = useSelector((state)=>{return state.auth})
   const dispatch = useDispatch();
   useEffect(() => {
-      dispatch(fetchAllBusinessList())
-  }, []);
+  !authLoading &&  dispatch(fetchAllBusinessList())
+  }, [authLoading]);
   return (
     <>
       {businessList.length ? (
@@ -18,7 +18,7 @@ const AllBusinesses = () => {
           {businessList.map((business, idx) => {
            return( <div key={`business-${idx}`}>
              {business.name} {business.id}
-             <button onClick={() => { removeBusinessAsync(business.id)}}>Delete Business</button>
+             <button onClick={() => { dispatch(removeBusinessAsync(business.id))}}>Delete Business</button>
             </div>)
 })}
         </div>

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getDocs, collection, addDoc, deleteDoc, doc } from "firebase/firestore";
-import db from "../firebase";
+import {db} from "../firebase";
 export const businessSlice = createSlice({
   name: "businessSlice",
   initialState: {
@@ -8,16 +8,8 @@ export const businessSlice = createSlice({
     loading: false,
   },
   reducers: {
-    toggleLoading: (state) => {
-      state.loading = !state.loading;
-    },
     addBusiness: (state, action) => {
       state.businessList = [...state.businessList, action.payload];
-    },
-    removeBusiness: (state, action) => {
-      state.businessList = state.businessList.filter((business) => {
-        return business.id == action.payload;
-      });
     },
     editBusiness: (state, action) => {
       state.businessList = state.businessList.map((business) => {
@@ -45,6 +37,11 @@ export const businessSlice = createSlice({
     .addCase(fetchUserBusinessList.pending, (state, action) => {
       state.loading = true
     })
+    .addCase(removeBusinessAsync.fulfilled, (state, action) => {
+      state.businessList = state.businessList.filter((business) => {
+        return business.id !== action.payload;
+      });
+    })
   }
 });
 // ------------------ Thunks -----------------------
@@ -54,13 +51,16 @@ export const fetchAllBusinessList = createAsyncThunk("business/fetchAllBusinessL
   const docs = []
   response.forEach(doc => {
     const docCopy = doc.data()
-    const coffeeQ = docCopy.coffees
-    const convertedCoffees = coffeeQ.map((coffee) => {
-      return ({
-        ...coffee, time: coffee.time.valueOf()
+    docCopy.id = doc.id
+    if (docCopy.coffees) {
+      const coffeeQ = docCopy.coffees
+      const convertedCoffees = coffeeQ.map((coffee) => {
+        return ({
+          ...coffee, time: coffee.time.valueOf()
+        })
       })
-    })
-    docCopy.coffees = convertedCoffees
+      docCopy.coffees = convertedCoffees
+    }
     docs.push(docCopy)
   })
   return docs
@@ -83,7 +83,7 @@ export const fetchUserBusinessList = createAsyncThunk("business/fetchUserList",
 )
 
 
-export const addBusinessAsync = createAsyncThunk("business/addBusinessAsync",
+export const addBusiness = createAsyncThunk("business/addBusinessAsync",
   async(business, thunkAPI) => {
   return async (dispatch) => {
     try {
@@ -97,12 +97,12 @@ export const addBusinessAsync = createAsyncThunk("business/addBusinessAsync",
 )
 
 export const removeBusinessAsync = createAsyncThunk("business/removeBusinessAsync", async (businessId, thunkAPI) => {
-    try {
+  try {
       const response = await deleteDoc(doc(db, "businesses", 
       businessId));
-      console.log("delete business response:", response);
+      return businessId
     } catch (error) {
-      console.log("Failed to remove business");
+      console.log("Failed to remove business", error);
       return;
     }
   }
@@ -110,6 +110,6 @@ export const removeBusinessAsync = createAsyncThunk("business/removeBusinessAsyn
 
 // ------------------ Custom Middleware -----------------------
 
-export const { addBusiness, removeBusiness, editBusiness, updateList, toggleLoading } = businessSlice.actions;
+export const {   editBusiness, updateList } = businessSlice.actions;
 
 export default businessSlice.reducer;
