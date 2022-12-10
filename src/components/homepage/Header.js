@@ -50,8 +50,11 @@ const Header = () => {
           </div>
 
           <div className="blank">
-            <div className="about" onClick={(_) => navigate("/about")}>
+            <div className="about" onClick={() => navigate("/about")}>
               About
+            </div>
+            <div className="about" onClick={() => navigate("/business")}>
+              Shops
             </div>
             <div className="space"></div>
           </div>

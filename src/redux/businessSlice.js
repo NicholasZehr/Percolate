@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getDocs, collection, addDoc, deleteDoc, doc } from "firebase/firestore";
+import { getDocs, collection, addDoc, deleteDoc, doc, getDoc } from "firebase/firestore";
 import {db} from "../firebase";
 export const businessSlice = createSlice({
   name: "businessSlice",
@@ -42,6 +42,12 @@ export const businessSlice = createSlice({
         return business.id !== action.payload;
       });
     })
+      .addCase(fetchOneBusiness.pending, (state) => {
+      state.loading = true
+      })
+      .addCase(fetchOneBusiness.fulfilled, (state, action) => {
+      state.businessList = [state.businessList, action.payload]
+    })
   }
 });
 // ------------------ Thunks -----------------------
@@ -81,8 +87,17 @@ export const fetchUserBusinessList = createAsyncThunk("business/fetchUserList",
     }
   }
 )
-
-
+export const fetchOneBusiness = createAsyncThunk("business/fetchOne",
+  (businessId, thunkAPI) => {
+    try {
+      const business = getDoc(doc(db, "businesses", businessId))
+      return business.data()
+    } catch (error) {
+      console.log("Could not fetch business from firebase")
+      return
+    }
+  }
+)
 export const addBusiness = createAsyncThunk("business/addBusinessAsync",
   async(business, thunkAPI) => {
   return async (dispatch) => {

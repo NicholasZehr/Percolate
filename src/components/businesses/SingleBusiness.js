@@ -1,102 +1,41 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component, useEffect, useRef } from "react";
+import { connect, useSelector } from "react-redux";
 import Modal from "react-modal";
-import { _fetchBusiness } from "../../redux/Actions/businessActions";
+import { fet } from "../../redux";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { getAuth } from "firebase/auth";
 import { Link } from "react-router-dom";
 import FeedCard from "../utils/FeedCard";
 import { fetchReviews } from "../../redux/Actions/reviewActions";
+import { useParams } from "react-router";
 const auth = getAuth()
 
-class Business extends Component {
-  constructor() {
-    super();
-    this.state = {
-      edit: false,
-    };
-    this.editPage = this.editPage.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+const Business = () => {
+  const {id} = useParams()
+  const { businessList } = useSelector(state => state.business)
+  const {user} = useSelector(state=>state.auth)
+  useEffect(() => {
+    !businessList.includes(id) && dispatch(fetchOneBusiness(id))
+  }, []);
+  function editPage(params) {
   }
-
-  componentDidMount() {
-    console.log("singlebusiness did mount");
-    this.props.fetchBusiness(this.props.match.params.id);
-    this.props.fetchReviews(this.props.match.params.id);
-    console.log("fetch business called");
+  function handleSubmit(params) {
+    
   }
-
-  editPage() {
-    this.setState({ edit: !this.state.edit });
-  }
-
-  async handleSubmit(evt) {
-    evt.preventDefault();
-    const businessInfo = {
-      email: evt.target.email.value,
-      name: evt.target.name.value,
-      photoURL: evt.target.profilePicture.value,
-      coverURL: evt.target.coverImageURL.value,
-      location: {
-        state: evt.target.state.value,
-        city: evt.target.city.value,
-        zip: evt.target.zip.value,
-        street: evt.target.zip.value,
-      },
-      phone: evt.target.phone.value,
-    };
-    await setDoc(
-      doc(db, "businesses", this.props.match.params.id),
-      businessInfo,
-      { merge: true }
-    );
-    this.props.fetchBusiness(this.props.match.params.id);
-    console.log("fetch business called");
-    this.editPage();
-  }
-
-  render() {
-    console.log("singlebusiness did render");
-    const business = this.props.business;
-    if (!business.name) {
-      return <h2>loading...</h2>;
-    }
-    const reviews = this.props.reviews;
-    console.log("These are the reviews", reviews);
-    const edit = this.state.edit;
-    const {
-      email,
-      city,
-      state,
-      street,
-      streetNum,
-      zip,
-      displayName,
-      coverURL,
-      photoURL,
-      name,
-      phone,
-      about,
-      newestCoffee,
-      newestCoffeeURL,
-      followers,
-    } = this.props.business;
-    console.log(this.props.business)
-    //const business = businessProps.data();
     return (
       <div className="singleUserPageBox">
         <Modal
           className="modal single-business"
           isOpen={edit}
-          onRequestClose={this.editPage}
+          onRequestClose={editPage}
         >
-          <div className="close" onClick={this.editPage}></div>
+          <div className="close" onClick={editPage}></div>
           <h2>Edit Business</h2>
           <form
             className="signupform"
             open={false}
-            onSubmit={this.handleSubmit}
+            onSubmit={handleSubmit}
             name="signup"
           >
             <div className="emailBox mod">
@@ -233,7 +172,7 @@ class Business extends Component {
               />
             </div>
             <div className="profileNavBar">
-              {this.props.business.ownerId === auth.currentUser.uid ? (
+              {business.ownerId === user.id ? (
                 <div onClick={this.editPage} className="editProfileButton">
                   Edit Profile
                 </div>
@@ -306,20 +245,5 @@ class Business extends Component {
       </div>
     );
   }
-}
 
-const mapState = (state) => {
-  return {
-    business: state.businesses.business,
-    reviews: state.review.reviews,
-  };
-};
-
-const mapDispatch = (dispatch) => {
-  return {
-    fetchBusiness: (businessId) => dispatch(fetchBusiness(businessId)),
-    fetchReviews: (id) => dispatch(fetchReviews("business", id)),
-  };
-};
-
-export default connect(mapState, mapDispatch)(Business);
+export default Business;
