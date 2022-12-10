@@ -1,41 +1,44 @@
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import React, { useState } from "react";
+
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { authenticate } from "../../redux";
-// import 'simplebar/dist/simplebar.min.css'
-const LoginPage = () => {
-  const navigate = useNavigate();
+import { authenticateUser } from "../../redux";
+import { toggleLoading } from "../../redux/authSlice";
+const Login = () => {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => state.auth.accessToken);
-  const auth = useSelector((state) => state.auth);
-  const [user, setUser] = useState(getAuth().currentUser);
-  onAuthStateChanged(getAuth(), (u) => {
-    setUser(u);
-  });
-
+  const navigate = useNavigate()
+  const { user, loggedIn, error} = useSelector((state)=> state.auth);
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     const username = evt.target.username.value;
     const password = evt.target.password.value;
-    await dispatch(authenticate(username, password));
-  };
-
+    dispatch(authenticateUser({ username, password }))
+      .then(() => {
+        if (loggedIn) {
+          navigate('/')
+        }
+      })
+  }
+  useEffect(() => {
+    if (loggedIn) {
+      navigate('/')
+    }
+  })
   return (
+    <>    
     <div className='login'>
-      {user ? (
-        navigate('/home')
+      {loggedIn ? (
+       <div>Already Logged In</div>
       ) : (
         <div className='loginbodyBox'>
           <div className='loginbody'>
-            {auth.error ? (
+            {error ? (
               <label className='errorLogin'>{`Oops Something went wrong! Please try again!`}</label>
-            ) : (
-              ""
-            )}
+            ) : null}
             <form className='form' onSubmit={handleSubmit}>
               <div className='emailBox'>
-                <input
+                    <input
+                      autoComplete="username"
                   className='email'
                   name='username'
                   type='text'
@@ -43,7 +46,8 @@ const LoginPage = () => {
                 />
               </div>
               <div className='emailBox'>
-                <input
+                    <input
+                  autoComplete="current-password"
                   className='email'
                   name='password'
                   placeholder='Password'
@@ -66,7 +70,8 @@ const LoginPage = () => {
       <div className='bottomBar'>
         <div id='bottomText'>The home to all your coffee life.</div>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
-export default LoginPage;
+export default Login;

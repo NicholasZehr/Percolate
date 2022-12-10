@@ -9,7 +9,7 @@ import {
   orderBy,
   query,
 } from "firebase/firestore";
-import db from "../../firebase";
+import { db } from "../../firebase";
 
 const FeedCard = (props) => {
   const navigate= useNavigate();

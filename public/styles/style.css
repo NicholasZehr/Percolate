@@ -109,13 +109,13 @@ body {
   cursor: pointer;
   display: flex;
   align-items: center;
+  align-content: center;
 }
 .profPic {
   background-color: #c9e4ca;
-  margin-top: 5px;
-  margin-right: 5px;
+  margin: auto;
   width: 35px;
-  height: 35px;
+  padding-top: auto;
   align-self: center;
   overflow: hidden;
   object-fit: cover;
@@ -124,8 +124,12 @@ body {
   transition: transform 0.3s ease;
 }
 .username {
+  display: flex;
+  justify-content: space-between;
   margin-right: 5px;
   color: #c9e4ca;
+  height: 100%;
+  width: 100%;
 }
 .signoutButton {
   cursor: pointer;
@@ -651,4 +655,24 @@ p strong {
   border-bottom: 1px solid lightgray;
 }
 
+.loader {
+  padding-top: 5%;
+  width: 25px;
+  height: 25px;
+  animation: spin 1s linear infinite;
+}
 
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.button{
+  margin: auto;
+  text-align: center;
+  padding: 10px;
+}
+.username > span {
+  margin:auto;
+  padding: 10px;
+}

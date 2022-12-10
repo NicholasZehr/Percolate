@@ -15,7 +15,7 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import db from "../../firebase";
+import { db } from "../../firebase";
 
 // ------------------ Actions creators --------------------
 

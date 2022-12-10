@@ -1,70 +1,62 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { collection, getDocs } from "firebase/firestore";
-import db from "../firebase";
-export const businessSlice = createSlice({
+import { createAsyncThunk, createSlice,rej} from "@reduxjs/toolkit";
+import {
+  createUserWithEmailAndPassword, getAuth,
+  signInWithEmailAndPassword,
+  updateProfile
+} from "firebase/auth";
+import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
+import { db, auth } from "../firebase";
+export const authSlice = createSlice({
   name: "authSlice",
   initialState: {
-    user: {},
-    loading: false,
+    user: null,
+    loading: true,
+    loggedIn: false,
+    error: false,
   },
   reducers: {
-    toggleLoading: (state) => {
-      state.loading = !state.loading;
+    loggedOut: (state) => {
+      if (state.loggedIn) {
+        state.user = null
+        state.loggedIn = false
+      }
+      state.loading = false
     },
-    updateUser: (state, action) => {
-
-    },
-    logoutUser: (state, action) => {
-      
+    setUser: (state, action) => {
+      if (action.payload.uid) {
+      state.loggedIn = true 
+      }
+      else {
+        state.loggedIn = false
+      }
+      state.user = action.payload
+      state.loading = false
+      state.error = false
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAllBusinessList.fulfilled, (state, action) => {
-        state.businessList = action.payload
-        state.loading = !state.loading
-      })
-      .addCase(fetchAllBusinessList.pending, (state) => {
-        state.loading = true;
-      })
-    .addCase(fetchUserBusinessList.fulfilled, (state, action) => {
-      state.businessList = action.payload
-      state.loading = !state.loading
-    })
-    .addCase(fetchUserBusinessList.pending, (state, action) => {
+      .addCase(authenticateUser.pending, (state, action) => {
       state.loading = true
+      })
+    .addCase(authenticateUser.rejected, (state, action) => {
+      console.log(action, "You have been rejected!")
     })
   }
 });
 // ------------------ Thunks -----------------------
-import {
-  createUserWithEmailAndPassword, getAuth,
-  signInWithEmailAndPassword, signOut,
-  updateProfile
-} from "firebase/auth";
-import { doc, getDoc, setDoc } from "firebase/firestore";
-//https://firebase.google.com/docs/auth/web/manage-users
-//const TOKEN = "token";
 
-const SET_AUTH = "SET_AUTH";
-
-const setAuth = (auth) => ({ type: SET_AUTH, auth });
-
-export const authenticate = (username, password) => async (dispatch) => {
-  const auth = getAuth();
+export const authenticateUser = createAsyncThunk("user/authenticate", async({username, password}, thunkAPI) => {
   try {
-    logout();
-    await signInWithEmailAndPassword(auth, username, password);
-    const user = auth.currentUser;
-    if (user !== null) {
-      const response = await getDoc(doc(db, "Users", user.uid));
-      const fullDetail = { ...user, ...response.data() };
-      dispatch(setAuth(fullDetail));
+    const response = await signInWithEmailAndPassword(auth, username, password);
+    if (response.user) {
+      const user = response.user.toJSON()
+      return user
     }
   } catch (authError) {
-    return dispatch(setAuth({ error: authError }));
+    return thunkAPI.rejectWithValue(authError.error)
   }
-};
+})
 export const fetchLoginUser = () => async (dispatch) => {
   const auth = getAuth();
   const user = auth.currentUser;
@@ -104,28 +96,6 @@ export const authenticateSignup = (user) => async (dispatch) => {
   }
 };
 
-export const logout = () => (dispatch) => {
-  const auth = getAuth();
-  signOut(auth);
-  return dispatch(setAuth({}));
-};
-export const fetchAllBusinessList = createAsyncThunk("business/fetchAllBusinessList", async (_, thunkAPI) => {
-  const response = await getDocs(collection(db, "businesses"));
-  const docs = []
-  response.forEach(doc => {
-    const docCopy = doc.data()
-    const coffeeQ = docCopy.coffees
-    const convertedCoffees = coffeeQ.map((coffee) => {
-      return ({
-        ...coffee, time: coffee.time.valueOf()
-      })
-    })
-    docCopy.coffees = convertedCoffees
-    docs.push(docCopy)
-  })
-  return docs
-});
-
-export const { toggleLoading, updateUser, logoutUser } = authSlice.actions;
+export const { setUser, loggedOut } = authSlice.actions;
 
 export default authSlice.reducer;

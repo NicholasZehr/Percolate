@@ -1,12 +1,13 @@
-import React from 'react'
-import { Outlet } from "react-router"
+import React from "react";
+import { Outlet } from "react-router-dom";
 
 const UserLayout = () => {
-return (<>
-    <div className='box'>{`This is your UserLayout Component`} </div>
+  return (
+    <>
+      <div className="box">{`This is your UserLayout Component`} </div>
+       <Outlet/>
+    </>
+  );
+};
 
-    <Outlet/>
-</>
-)}
-
-export default UserLayout
+export default UserLayout;

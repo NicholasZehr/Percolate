@@ -17,7 +17,7 @@ import {
   updateDoc,
   deleteDoc,
 } from "firebase/firestore";
-import db from "../../firebase";
+import { db } from "../../firebase";
 import { increment, serverTimestamp } from "firebase/firestore";
 import { _addLikeCoffee, _removeLikeCoffee } from "./singleCoffee";
 import { _addLikeBusiness, _removeLikeBusiness } from "./businessActions";
