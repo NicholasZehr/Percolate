@@ -2,7 +2,7 @@ import React from 'react'
 
 const Loader = () => {
 return (
-    <div className="loader"></div>
+    <img className="loader"src={"/Grey-heart.png"}></img>
 )}
 
 export default Loader

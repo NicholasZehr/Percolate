@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice,rej} from "@reduxjs/toolkit";
 import {
   createUserWithEmailAndPassword, getAuth,
   signInWithEmailAndPassword,
@@ -36,8 +36,11 @@ export const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-    .addCase(authenticateUser.pending, (state, action) => {
+      .addCase(authenticateUser.pending, (state, action) => {
       state.loading = true
+      })
+    .addCase(authenticateUser.rejected, (state, action) => {
+      console.log(action, "You have been rejected!")
     })
   }
 });
@@ -50,12 +53,8 @@ export const authenticateUser = createAsyncThunk("user/authenticate", async({use
       const user = response.user.toJSON()
       return user
     }
-    else if (response.error) {
-      console.log(response.error)
-    }
   } catch (authError) {
-    console.log(authError)
-    return 
+    return thunkAPI.rejectWithValue(authError.error)
   }
 })
 export const fetchLoginUser = () => async (dispatch) => {
